@@ -7,7 +7,6 @@
 
 #define MAGIC 0xea83f3
 
-
 int	main(int argc, char **argv)
 {
 	char	*file;
