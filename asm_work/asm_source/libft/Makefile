@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2016/12/11 17:18:18 by rabougue         ###   ########.fr        #
+#    Updated: 2016/12/12 15:10:29 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,8 @@ $(NAME): $(OBJS) ./includes/libft.h
 %.o : %.c $(HEAD)
 	@$(eval X=$(shell echo $$(($(X)+1))))
 	@$(eval Y=$(shell echo $$(($(Y)+1))))
-	@echo "\x1b[$(X);0H                                                                                                        "
-	@echo "\x1b[48;5;$(X)m"
+	@echo "\x1b[$(X);0H                                                                                                        \r"
+	@echo "\x1b[48;5;$(X)m\r"
 	#@echo "$(GREEN)"
 	#@echo "$(LOL)"
 	#@echo "$(LIL)"

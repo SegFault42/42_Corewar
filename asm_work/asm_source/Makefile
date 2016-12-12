@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2016/12/12 13:33:26 by rabougue         ###   ########.fr        #
+#    Updated: 2016/12/12 16:31:37 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ FLAG = -Wall -Wextra -Werror
 LFT = ./libft/libft.a
 SRC = ./source
 SRCS = $(SRC)/main.c \
+	   $(SRC)/parse_s_file.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 

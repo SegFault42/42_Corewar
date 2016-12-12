@@ -1,4 +1,4 @@
-.name "zork"
+.name "/* :Prog_name Le systeme hexadecimal est utilise notamment en electronique numerique et en informatique car il est particuliie */"
 .comment "I'M ALIIIIVE"
 
 l2:		sti r1, %:live, %1
