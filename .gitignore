@@ -1,0 +1,13 @@
+# Object files
+*.o
+# Precompiled Headers
+*.gch
+
+# Libraries
+*.a
+
+# Other files
+.DS_Store
+._DS_Store
+a.out
+*._*
