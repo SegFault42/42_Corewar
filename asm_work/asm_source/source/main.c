@@ -43,10 +43,17 @@ int	main(int argc, char **argv)
 	ft_strcat(file, ".cor");
 	create_file(&fd, &file);
 	fd = open(file, O_RDWR);
+	for (int i = 0; i < 2192; ++i)
+	{
+		ft_fprintf(fd, "\0");
+		lseek(fd, i, SEEK_SET);
+	}
+	ft_fprintf(fd, "i");
+	lseek(fd, 0, SEEK_SET);
 	ft_fprintf(fd, "%s", magic);
 	ft_fprintf(fd, "%s", header.prog_name);
-	lseek(fd, 4 + 128, SEEK_SET);
-	ft_fprintf(fd, "0");
+	/*lseek(fd, 4 + 128, SEEK_SET);*/
+	/*ft_fprintf(fd, "0");*/
 	close(fd);
 	return (0);
 }
