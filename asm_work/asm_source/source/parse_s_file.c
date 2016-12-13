@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:27:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/13 12:45:13 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/13 15:03:38 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	parse_name(int *fd, t_header *header)
 	ft_memset(str, 0, 137);
 	while (get_next_line(*fd, &line) > 0) // premiere lecture avec gnl
 	{
-		ft_fprintf(1, "%s\n\n", line);
 		if (ft_strncmp(line, COMMENT_CMD_STRING, 8) == 0)
 			break ;
 		nb_quote += ft_count_char(line, '"');
@@ -37,7 +36,8 @@ void	parse_name(int *fd, t_header *header)
 		if (nb_char > 136) // si la taille du nom du programme + le .name "" depasse 136, alors error.
 			error(LONG_COMMENT);
 		ft_strcat(str, line); //stock "line" dans "str"
-		if (nb_line == 0 && ft_strncmp(line, NAME_CMD_STRING, 5) != 0) // Verification si ".name" exist.
+		if (nb_line == 0 && ft_strncmp(line, NAME_CMD_STRING, 5) != 0
+			&& line[0] == '\n') // Verification si ".name" exist. + ignore le '\n'
 			error(PARSE_NAME);
 		++nb_line; // incremente le nombre de ligne
 	}
