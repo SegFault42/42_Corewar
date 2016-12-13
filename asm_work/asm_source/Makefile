@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2016/12/12 16:31:37 by rabougue         ###   ########.fr        #
+#    Updated: 2016/12/13 11:28:46 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,3 +56,6 @@ fclean:
 	@make -s fclean -C ./libft/
 
 re: fclean all
+
+run:
+	./asm test.s && hexdump -C test.cor

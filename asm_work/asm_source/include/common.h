@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/12 20:05:04 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/13 12:36:07 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,18 @@
 # define MAGIC "0000"
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
-# define COREWAR_EXEC_MAGIC		0xea83f3
-# define COMMENT "/* :Prog_name:"
 
-# define PARSE_S_FILE 1
-# define PARSE_NAME 2
-# define LONG_COMMENT 3
+# define COREWAR_EXEC_MAGIC		0xea83f3
+
+# define COMMENT				"/* :Prog_name:"
+# define NAME_CMD_STRING		".name"
+# define COMMENT_CMD_STRING		".comment"
+
+# define PARSE_S_FILE			1
+# define PARSE_NAME				2
+# define LONG_COMMENT			3
+# define CREATING_FILE_ERROR	4
+# define ERROR_QUOTE			5
 
 
 typedef struct		s_header
@@ -39,8 +45,13 @@ typedef struct		s_header
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
 }					t_header;
-
+/*
+** parse_s_file.c
+*/
 int8_t	parse_s_file(char *file, t_header *header);
+/*
+** main.c
+*/
 void	error(int error);
 
 
