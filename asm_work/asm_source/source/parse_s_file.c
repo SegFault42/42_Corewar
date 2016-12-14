@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:27:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/13 15:03:38 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/14 19:58:06 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	parse_name(int *fd, t_header *header)
 	}
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1); // mise a NULL "header->prog_name"
 	ft_strccat(header->prog_name, &str[7], '\"'); // copie le nom du progamme dans "header->prog_name"
-	ft_fprintf(1, GREEN"%s\n"END, header->prog_name);
-	(void)header;
+	/*ft_fprintf(1, GREEN"%s\n"END, header->prog_name);*/
 }
 
 int8_t	parse_s_file(char *file, t_header *header)

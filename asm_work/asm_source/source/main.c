@@ -35,6 +35,7 @@ int	main(int argc, char **argv)
 	int		fd;
 	char	magic[] = MAGIC;
 	t_header	header;
+	char str[2192] = {0};
 
 	if (argc != 2)
 		exit(-1);
@@ -47,17 +48,13 @@ int	main(int argc, char **argv)
 	ft_strcat(file, ".cor");
 	create_file(&fd, &file);
 	fd = open(file, O_RDWR);
-	for (int i = 0; i < 2192; ++i)
-	{
-		ft_putchar_fd('\0', fd);
-		lseek(fd, i, SEEK_SET);
-	}
-	ft_fprintf(fd, "i");
+	write(fd, str, 2192);
 	lseek(fd, 0, SEEK_SET);
 	ft_fprintf(fd, "%s", magic);
+	lseek(fd, 4, SEEK_SET);
 	ft_fprintf(fd, "%s", header.prog_name);
-	/*lseek(fd, 4 + 128, SEEK_SET);*/
-	/*ft_fprintf(fd, "0");*/
+	lseek(fd, 4 + 128, SEEK_SET);
+	//nb instruction here
 	close(fd);
 	return (0);
 }

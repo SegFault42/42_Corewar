@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2016/12/13 14:29:46 by rabougue         ###   ########.fr        #
+#    Updated: 2016/12/14 20:13:57 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,4 +58,4 @@ fclean:
 re: fclean all
 
 run:
-	./asm test.s && clear && hexdump -C test.cor
+	./asm test.s && clear && hexdump -Cv test.cor
