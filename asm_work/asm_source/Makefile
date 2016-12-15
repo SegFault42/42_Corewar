@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2016/12/14 20:13:57 by rabougue         ###   ########.fr        #
+#    Updated: 2016/12/15 18:31:39 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ LFT = ./libft/libft.a
 SRC = ./source
 SRCS = $(SRC)/main.c \
 	   $(SRC)/parse_s_file.c\
+	   $(SRC)/parse_comment.c\
+	   $(SRC)/parse_name.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 
@@ -58,4 +60,4 @@ fclean:
 re: fclean all
 
 run:
-	./asm test.s && clear && hexdump -Cv test.cor
+	./asm test.s && clear && hexdump -C test.cor

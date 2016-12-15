@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/13 12:36:07 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:46:02 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@
 
 # define PARSE_S_FILE			1
 # define PARSE_NAME				2
-# define LONG_COMMENT			3
+# define LONG_NAME				3
 # define CREATING_FILE_ERROR	4
 # define ERROR_QUOTE			5
+# define LONG_COMMENT			6
 
 
 typedef struct		s_header
@@ -48,11 +49,13 @@ typedef struct		s_header
 /*
 ** parse_s_file.c
 */
-int8_t	parse_s_file(char *file, t_header *header);
+int8_t				parse_s_file(char *file, t_header *header);
 /*
 ** main.c
 */
-void	error(int error);
+void				error(int error);
 
+void				parse_name(int *fd, t_header *header);
+void				parse_comment(int *fd, t_header *header);
 
 #endif

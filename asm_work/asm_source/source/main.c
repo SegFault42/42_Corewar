@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
+/*   Updated: 2016/12/15 18:49:09 by rabougue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "common.h"
 
 int8_t	create_file(int *fd, char **file)
@@ -18,8 +30,10 @@ int8_t	create_file(int *fd, char **file)
 
 void	error(int error)
 {
-	if (error == LONG_COMMENT)
+	if (error == LONG_NAME)
 		ft_fprintf(2, RED"Champion name too long (Max length 128)\n"END);
+	if (error == LONG_COMMENT)
+		ft_fprintf(2, RED"Champion comment too long (Max length 2048)\n"END);
 	else if (error == CREATING_FILE_ERROR)
 		ft_fprintf(2, RED"Creating file error.\n"END);
 	else if (error == ERROR_QUOTE)
@@ -49,12 +63,14 @@ int	main(int argc, char **argv)
 	create_file(&fd, &file);
 	fd = open(file, O_RDWR);
 	write(fd, str, 2192);
-	lseek(fd, 0, SEEK_SET);
+	lseek(fd, 0, SEEK_SET); // magic number here
 	ft_fprintf(fd, "%s", magic);
-	lseek(fd, 4, SEEK_SET);
+	lseek(fd, 4, SEEK_SET); // prog_name here
 	ft_fprintf(fd, "%s", header.prog_name);
-	lseek(fd, 4 + 128, SEEK_SET);
+	lseek(fd, 132, SEEK_SET); // nb instruction here
 	//nb instruction here
+	lseek(fd, 140, SEEK_SET); // comment here
+	//comment here
 	close(fd);
 	return (0);
 }
