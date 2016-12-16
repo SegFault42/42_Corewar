@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/15 18:49:09 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/16 17:00:57 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int8_t	create_file(int *fd, char **file)
 	int	i;
 
 	i = 0;
-	if (open(*file, O_RDONLY) > 0) // si un fichier .cor est deja cree on le supprime
-	{
-		ft_fprintf(1, "File exist\n");
-		/*remove(*file);*/
-	}
+	/*if (open(*file, O_RDONLY) > 0) // si un fichier .cor est deja cree on le supprime*/
+	/*{*/
+		/*ft_fprintf(1, "File exist\n");*/
+		/*[>remove(*file);<]*/
+	/*}*/
 	if((*fd = open(*file, O_RDONLY | O_CREAT, S_IRWXU)) < 0) // Creation du fichier .cor
 		error(CREATING_FILE_ERROR);
 	close(*fd);

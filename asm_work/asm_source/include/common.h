@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/15 18:46:02 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/16 17:40:48 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define COMMENT				"/* :Prog_name:"
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
+# define COMMENT_CHAR			'#'
 
 # define PARSE_S_FILE			1
 # define PARSE_NAME				2
@@ -38,13 +39,12 @@
 # define ERROR_QUOTE			5
 # define LONG_COMMENT			6
 
-
 typedef struct		s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
+	unsigned int	magic;
+	unsigned int	prog_size;
+	char			comment[COMMENT_LENGTH + 1];
+	char			prog_name[PROG_NAME_LENGTH + 1];
 }					t_header;
 /*
 ** parse_s_file.c
@@ -57,5 +57,6 @@ void				error(int error);
 
 void				parse_name(int *fd, t_header *header);
 void				parse_comment(int *fd, t_header *header);
+void				ignore_comment(int *fd);
 
 #endif

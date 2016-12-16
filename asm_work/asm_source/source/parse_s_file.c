@@ -6,11 +6,24 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:27:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/15 12:55:39 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/16 18:15:02 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+
+void	ignore_comment(int *fd)
+{
+	char	*line;
+
+	while (get_next_line(*fd, &line) > 0)
+	{
+		if (line[0] == COMMENT_CHAR)
+			continue ;
+		else
+			break ;
+	}
+}
 
 int8_t	parse_s_file(char *file, t_header *header)
 {
