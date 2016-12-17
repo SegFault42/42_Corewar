@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/15 18:44:20 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/17 19:12:28 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ void	parse_comment(int *fd, t_header *header)
 	nb_char = 0;
 	ft_memset(str, 0, 2059);
 	lseek(*fd, 0, SEEK_SET);
-	while (ft_strncmp(COMMENT_CMD_STRING, line, 8) != 0)
-		get_next_line(*fd, &line);
+	while (get_next_line(*fd, &line) > 0)
+	{
+		if (ft_strncmp(COMMENT_CMD_STRING, line, 8) == 0)
+			break ;
+	}
 	ft_strcat(str, line); //stock "line" dans "str"
 	nb_char += ft_strlen(line); // calcul de la taille du nom du programme + .name ""
 	while (get_next_line(*fd, &line) > 0)
@@ -40,6 +43,5 @@ void	parse_comment(int *fd, t_header *header)
 		ft_strcat(str, line); //stock "line" dans "str"
 		++nb_line; // incremente le nombre de ligne
 	}
-	ft_fprintf(1, "%s\n", str);
 	(void)header;
 }
