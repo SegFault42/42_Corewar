@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 18:34:24 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/11 17:19:11 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/18 17:38:01 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "../ft_fprintf/includes/ft_fprintf.h"
 # include "./colors.h"
 
-# define BUFF_SIZE 10
+# define BUFF_SIZE 11
 # define TRUE 1
 # define FALSE 0
 # define EXIT_ERROR -1
@@ -100,6 +100,7 @@ char				*ft_strrev(char *str);
 char				*ft_crypt(char *str);
 char				*ft_decrypt(char *str);
 void				ft_debug();
+int					get_next_line_lseek(int const fd, char **line, int *nb_char);
 int					get_next_line(int const fd, char **line);
 void				ft_2d_tab_free(char **tab, int size);
 int					ft_tab_len(char **tab);

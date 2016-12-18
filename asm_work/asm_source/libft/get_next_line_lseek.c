@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 14:56:50 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/18 17:36:09 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/18 17:41:11 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	read_file(char *buf, char **line, char **stat)
 	return (content ? 1 : 0);
 }
 
-int			get_next_line(int const fd, char **line)
+int			get_next_line_lseek(int const fd, char **line, int *nb_char)
 {
 	static char	*stat[256] = {NULL};
 	char		*buf;
@@ -74,6 +74,7 @@ int			get_next_line(int const fd, char **line)
 	if (split_stat(line, &stat[fd]) == 1)
 	{
 		free(buf);
+		*nb_char = ft_strlen(stat[fd]);
 		return (1);
 	}
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
