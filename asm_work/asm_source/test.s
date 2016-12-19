@@ -6,13 +6,12 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/17 15:56:18 by rabougue          #+#    #+#              #
-#    Updated: 2016/12/18 16:33:23 by rabougue         ###   ########.fr        #
+#    Updated: 2016/12/19 14:13:47 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #klkjl
-.name "le iProg_name Le systeme hexadecimal est utilise notamment en electronioq
-ie numerique et en informatique car il est particulerem"
+.name "le iProg_name Le systeme hexadecimal est utilise notamment en electronique numerique et en informatique car il est particulerem"
 #kjkjk
 .comment "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
