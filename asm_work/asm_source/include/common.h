@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/16 17:40:48 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:57:13 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define CREATING_FILE_ERROR	4
 # define ERROR_QUOTE			5
 # define LONG_COMMENT			6
+# define BAD_FORMAT				7
 
 typedef struct		s_header
 {

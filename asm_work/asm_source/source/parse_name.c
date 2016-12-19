@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/18 17:42:32 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:58:50 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	parse_name(int *fd, t_header *header)
 	ignore_comment(fd);
 	while (get_next_line(*fd, &line) > 0) // premiere lecture avec gnl
 	{
+		if (ft_strncmp(line, COMMENT_CMD_STRING, 8) != 0)
+			break ;
+		if (ft_strncmp(line, NAME_CMD_STRING, 5) != 0)
+			error(BAD_FORMAT);
 		ft_fprintf(1, PURPLE"%s\n"END, line);
 		ft_strdel(&line);
 	}

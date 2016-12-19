@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/18 15:56:53 by rabougue         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:56:50 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	error(int error)
 		ft_fprintf(2, RED"Creating file error.\n"END);
 	else if (error == ERROR_QUOTE)
 		ft_fprintf(2, RED"Too many '\"' in .name (Only 2 needed).\n"END);
+	else if (error == BAD_FORMAT)
+		ft_fprintf(2, RED"Bad format\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 	exit(EXIT_FAILURE);
