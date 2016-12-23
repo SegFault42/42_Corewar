@@ -31,6 +31,7 @@
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
 # define COMMENT_CHAR			'#'
+# define COMMENT_CHAR_CROMA		';'
 
 # define PARSE_S_FILE			1
 # define PARSE_NAME				2
@@ -39,6 +40,9 @@
 # define ERROR_QUOTE			5
 # define LONG_COMMENT			6
 # define BAD_FORMAT				7
+# define BAD_CHARACTERE			8
+
+int	g_line;
 
 typedef struct		s_header
 {

@@ -12,6 +12,7 @@
 
 #include "common.h"
 
+
 int8_t	create_file(int *fd, char **file)
 {
 	int	i;
@@ -32,7 +33,7 @@ void	error(int error)
 {
 	if (error == LONG_NAME)
 		ft_fprintf(2, RED"Champion name too long (Max length 128)\n"END);
-	if (error == LONG_COMMENT)
+	else if (error == LONG_COMMENT)
 		ft_fprintf(2, RED"Champion comment too long (Max length 2048)\n"END);
 	else if (error == CREATING_FILE_ERROR)
 		ft_fprintf(2, RED"Creating file error.\n"END);
@@ -40,6 +41,8 @@ void	error(int error)
 		ft_fprintf(2, RED"Too many '\"' in .name (Only 2 needed).\n"END);
 	else if (error == BAD_FORMAT)
 		ft_fprintf(2, RED"Bad format\n"END);
+	else if (error == BAD_CHARACTERE)
+		ft_fprintf(2, RED"Bad caractere\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 	exit(EXIT_FAILURE);

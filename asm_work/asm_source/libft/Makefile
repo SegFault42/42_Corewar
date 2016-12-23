@@ -42,7 +42,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 	  $(PRE)percent_d.c $(PRE)percent_s.c \
 	  $(PRE)tools.c \
 	  ft_print_2d_tab.c ft_check_int_overflow.c ft_count_char.c ft_strccmp.c \
-	  ft_strcdup.c ft_strclen.c ft_strccat.c get_next_line_lseek.c
+	  ft_strcdup.c ft_strclen.c ft_strccat.c get_next_line_lseek.c ft_isspace.c \
 
 OBJS = $(SRC:.c=.o)
 
@@ -60,8 +60,8 @@ $(NAME): $(OBJS) ./includes/libft.h
 	@ranlib $(NAME)
 
 %.o : %.c $(HEAD)
-	@$(eval X=$(shell echo $$(($(X)+1))))
-	@$(eval Y=$(shell echo $$(($(Y)+1))))
+	#@$(eval X=$(shell echo $$(($(X)+1))))
+	#@$(eval Y=$(shell echo $$(($(Y)+1))))
 	@echo "\x1b[$(X);0H                                                                                                        \r"
 	@echo "\x1b[48;5;$(X)m\r"
 	#@echo "$(GREEN)"

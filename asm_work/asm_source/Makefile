@@ -56,6 +56,7 @@ fclean:
 	@printf "✅  libft.a, all .o and rabougue.filler deleted\n"
 	@rm -f $(NAME) $(CHECKER) $(OBJS) $(OBJS_CHECKER)
 	@make -s fclean -C ./libft/
+	@rm -fr *.cor
 
 re: fclean all
 

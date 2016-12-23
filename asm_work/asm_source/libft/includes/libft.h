@@ -128,5 +128,6 @@ int					ft_strccmp(const char *s1, const char *s2, char c);
 size_t				ft_strclen(const char *s, char c);
 char				*ft_strcdup(const char *s1, char c);
 char				*ft_strccat(char *s1, const char *s2, char c);
+int					ft_isspace(char c);
 
 #endif

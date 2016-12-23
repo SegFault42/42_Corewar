@@ -29,13 +29,31 @@ void	parse_name(int *fd, t_header *header)
 	ignore_comment(fd);
 	while (get_next_line(*fd, &line) > 0) // premiere lecture avec gnl
 	{
-		if (ft_strncmp(line, COMMENT_CMD_STRING, 8) != 0)
+		ft_strcat(str, line);
+		nb_char += ft_strclen(&line[7], '"');
+		if (nb_char > 128)
+			error(LONG_NAME);
+		nb_quote += ft_count_char(line, '\"');
+		if (nb_quote >= 2)
 			break ;
-		if (ft_strncmp(line, NAME_CMD_STRING, 5) != 0)
-			error(BAD_FORMAT);
-		ft_fprintf(1, PURPLE"%s\n"END, line);
 		ft_strdel(&line);
 	}
+	ft_fprintf(1, PURPLE"%d\n"END, nb_char);
+	ft_fprintf(1, PURPLE"%s\n"END, line);
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1); // mise a NULL "header->prog_name"
 	ft_strccat(header->prog_name, &str[7], '\"'); // copie le nom du progamme dans "header->prog_name"
+	ft_fprintf(1, "%s\n", header->prog_name);
+	int	i = ft_strlen(header->prog_name) + 8;
+	/*while (line[i] != '\0') // check si il y a un commentaire en fin de ligne */
+	/*{*/
+		while (ft_isspace(line[i]) == true)
+		{
+			ft_fprintf(1, "line[i] = %c\n", line[i]);
+			++i;
+		}
+			ft_fprintf(1, "line[i] = %c\n", line[i]);
+		if (/*line[i] != COMMENT_CHAR || */line[i] != COMMENT_CHAR_CROMA)
+			error(BAD_CHARACTERE);
+		/*return ;*/
+	/*}*/
 }
