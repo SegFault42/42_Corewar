@@ -12,15 +12,6 @@
 
 #include "common.h"
 
-int		skip_blank(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isspace(line[i]) == true)
-		++i;
-	return (i);
-}
 
 void	ignore_comment(int *fd)
 {
@@ -30,7 +21,6 @@ void	ignore_comment(int *fd)
 
 	while (get_next_line_lseek(*fd, &line, &nb) > 0)
 	{
-		/*++g_line;*/
 		blank = skip_blank(line);
 		ft_fprintf(1, YELLOW"%s\n"END, line);
 		if (line[blank] == COMMENT_CHAR || line[blank] == '\0' || line[blank] == COMMENT_CHAR_CROMA)
@@ -42,7 +32,6 @@ void	ignore_comment(int *fd)
 		{
 			lseek(*fd, -ft_strlen(line) -nb , SEEK_CUR);
 			ft_strdel(&line);
-			ft_fprintf(1, "g_line = %d\n", g_line);
 			return ;
 		}
 	}

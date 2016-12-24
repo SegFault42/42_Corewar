@@ -63,5 +63,6 @@ void				error(int error);
 void				parse_name(int *fd, t_header *header);
 void				parse_comment(int *fd, t_header *header);
 void				ignore_comment(int *fd);
+int					skip_blank(char *line);
 
 #endif

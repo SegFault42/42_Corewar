@@ -61,12 +61,12 @@ int	main(int argc, char **argv)
 	ft_memset(&header, 0, sizeof(header));
 	if (parse_s_file(argv[1], &header) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
-	file = (char *)ft_memalloc(sizeof(char) * (ft_strlen(argv[1])) + 2);
-	//Alloc len (name of the output.s + len .cor - ".c")
+	file = (char *)ft_memalloc(sizeof(char) * (ft_strlen(argv[1])) + 2); //Alloc len (name of the output.s + len .cor - ".c")
 	ft_strccat(file, argv[1], '.');
 	ft_strcat(file, ".cor");
 	create_file(&fd, &file);
 	fd = open(file, O_RDWR);
+	free(file);
 	write(fd, str, 2192);
 	lseek(fd, 0, SEEK_SET); // magic number here
 	ft_fprintf(fd, "%s", magic);
