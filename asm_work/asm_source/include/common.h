@@ -30,6 +30,7 @@
 # define COMMENT				"/* :Prog_name:"
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
+# define COMMENT_CHARS			";#"
 # define COMMENT_CHAR			'#'
 # define COMMENT_CHAR_CROMA		';'
 
@@ -62,7 +63,10 @@ void				error(int error);
 
 void				parse_name(int *fd, t_header *header);
 void				parse_comment(int *fd, t_header *header);
-void				ignore_comment(int *fd);
+/*
+** tools.c
+*/
 int					skip_blank(char *line);
+int					is_cmt(char *line);
 
 #endif

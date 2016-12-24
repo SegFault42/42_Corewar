@@ -25,6 +25,7 @@ SRCS = $(SRC)/main.c \
 	   $(SRC)/parse_s_file.c\
 	   $(SRC)/parse_comment.c\
 	   $(SRC)/parse_name.c\
+	   $(SRC)/tools.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 

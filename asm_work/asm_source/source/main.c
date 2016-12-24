@@ -77,5 +77,6 @@ int	main(int argc, char **argv)
 	lseek(fd, 140, SEEK_SET); // comment here
 	//comment here
 	close(fd);
+	ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);
 	return (0);
 }

@@ -9,10 +9,11 @@
 #    Updated: 2016/12/19 17:52:45 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 #klkjl
  ;klkjl
-.name "le iProg_name Le systeme hexadecimal est utilise notamment en electronique numerique et en informatique car il est particulerem"      ;iiiiiiiiiiiiiiiiiiii
+.name "le iProg_name Le systeme hex
+adecimal est utilise notamment en electronique numerique et en infor
+matique car il est particulereme"      #iiiiiiiiiiiiiiiiiiii
 #kjkjk
 .comment "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
