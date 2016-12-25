@@ -26,6 +26,7 @@
 # define COMMENT_LENGTH			(2048)
 
 # define COREWAR_EXEC_MAGIC		0xea83f3
+# define BLANK_ZONE				0000
 
 # define COMMENT				"/* :Prog_name:"
 # define NAME_CMD_STRING		".name"

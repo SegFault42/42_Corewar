@@ -14,13 +14,16 @@
 
 static void	check_error_name(char *stock_name)
 {
-	int	len_name; // longueur de stock_name
+	int		len_name; // longueur de stock_name
+	char	after_quote; // stock le caractere apres .comment (sauf caractere vide (' ' '\t'))
 
 	len_name = ft_strclen(&stock_name[7], '"'); // compte le nombre de charactere entre les " de .name
-	if (len_name > 128)
+	after_quote = stock_name[11 + len_name + skip_blank(&stock_name[11 + len_name])];
+	if (len_name > PROG_NAME_LENGTH)
 		error(LONG_NAME);
 	if (stock_name[8 + len_name + skip_blank(&stock_name[8 + len_name])] != COMMENT_CHAR_CROMA &&
-		stock_name[8 + len_name + skip_blank(&stock_name[8 + len_name])] != COMMENT_CHAR) // verfie si un caractere indesirable traine (lol)
+		stock_name[8 + len_name + skip_blank(&stock_name[8 + len_name])] != COMMENT_CHAR &&
+		stock_name[8 + len_name + skip_blank(&stock_name[8 + len_name])] != '\0') // verfie si un caractere indesirable traine (lol)
 		error(BAD_FORMAT);
 }
 

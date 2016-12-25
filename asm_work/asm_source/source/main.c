@@ -72,11 +72,12 @@ int	main(int argc, char **argv)
 	ft_fprintf(fd, "%s", magic);
 	lseek(fd, 4, SEEK_SET); // prog_name here
 	ft_fprintf(fd, "%s", header.prog_name);
-	lseek(fd, 132, SEEK_SET); // nb instruction here
+	lseek(fd, 132, SEEK_SET); // nb octet instruction here
 	//nb instruction here
 	lseek(fd, 140, SEEK_SET); // comment here
-	//comment here
+	ft_fprintf(fd, "%s", header.comment);
 	close(fd);
 	ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);
+	ft_fprintf(1, GREEN".comment = %s\n"END, header.comment);
 	return (0);
 }
