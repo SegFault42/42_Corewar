@@ -48,11 +48,23 @@ void	error(int error)
 	exit(EXIT_FAILURE);
 }
 
+static void	write_magic_number(int *fd)
+{
+	lseek(*fd, 0, SEEK_SET); // magic number here
+	ft_fprintf(*fd, "%c", 0);
+	lseek(*fd, 1, SEEK_SET); // magic number here
+	ft_fprintf(*fd, "%c", 234);
+	lseek(*fd, 2, SEEK_SET); // magic number here
+	ft_fprintf(*fd, "%c", 131);
+	lseek(*fd, 3, SEEK_SET); // magic number here
+	ft_fprintf(*fd, "%c", 243);
+}
+
 int	main(int argc, char **argv)
 {
 	char	*file;
 	int		fd;
-	char	magic[] = MAGIC;
+	/*char	magic[] = MAGIC;*/
 	t_header	header;
 	char str[2192] = {0};
 
@@ -68,8 +80,7 @@ int	main(int argc, char **argv)
 	fd = open(file, O_RDWR);
 	free(file);
 	write(fd, str, 2192);
-	lseek(fd, 0, SEEK_SET); // magic number here
-	ft_fprintf(fd, "%s", magic);
+	write_magic_number(&fd); // write magic_number
 	lseek(fd, 4, SEEK_SET); // prog_name here
 	ft_fprintf(fd, "%s", header.prog_name);
 	lseek(fd, 132, SEEK_SET); // nb octet instruction here
