@@ -1,0 +1,6 @@
+Label :
+
+1) Le label n'est pas obligatoire
+2) Les ':' apres le label sont obligatoire si il y a un label
+3) l'indentation n'est pas obligatoire
+4) Le label n'est pas ecrit dans le .cor

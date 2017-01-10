@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/19 17:56:50 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/10 16:20:08 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 	char str[2192] = {0};
 
 	if (argc != 2)
-		exit(-1);
+		exit(EXIT_FAILURE);
 	ft_memset(&header, 0, sizeof(header));
 	if (parse_s_file(argv[1], &header) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
@@ -88,7 +88,7 @@ int	main(int argc, char **argv)
 	lseek(fd, 140, SEEK_SET); // comment here
 	ft_fprintf(fd, "%s", header.comment);
 	close(fd);
-	ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);
-	ft_fprintf(1, GREEN".comment = %s\n"END, header.comment);
+	/*ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);*/
+	/*ft_fprintf(1, GREEN".comment = %s\n"END, header.comment);*/
 	return (0);
 }

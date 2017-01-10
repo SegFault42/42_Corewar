@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:27:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/19 17:33:24 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/10 15:55:53 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int8_t	parse_s_file(char *file, t_header *header)
 		return (EXIT_FAILURE);
 	parse_name(&fd, header);
 	parse_comment(&fd, header);
+	check_label(&fd);
 	return (EXIT_SUCCESS);
 }

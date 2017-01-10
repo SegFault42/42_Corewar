@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/19 17:57:13 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/10 15:55:51 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define COMMENT_CHARS			";#"
 # define COMMENT_CHAR			'#'
 # define COMMENT_CHAR_CROMA		';'
+# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 # define PARSE_S_FILE			1
 # define PARSE_NAME				2
@@ -43,8 +44,6 @@
 # define LONG_COMMENT			6
 # define BAD_FORMAT				7
 # define BAD_CHARACTERE			8
-
-int	g_line;
 
 typedef struct		s_header
 {
@@ -69,5 +68,9 @@ void				parse_comment(int *fd, t_header *header);
 */
 int					skip_blank(char *line);
 int					is_cmt(char *line);
+/*
+** check_label.c
+*/
+void				check_label(int *fd);
 
 #endif
