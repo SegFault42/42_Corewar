@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/10 15:55:51 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/11 19:56:40 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "../libft/includes/libft.h"
 //#include "./op.h"
 
-# define MAGIC "0000"
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 
@@ -44,6 +43,18 @@
 # define LONG_COMMENT			6
 # define BAD_FORMAT				7
 # define BAD_CHARACTERE			8
+
+typedef struct		s_op
+{
+	char			*instruction_name;
+	uint8_t			nb_arg;
+	uint8_t			arg_value;
+	uint8_t			opcode;
+	uint16_t		n_cycle;
+	char			*descritpion_instruction;
+	bool			carry;
+	bool			dir_indir;
+}					t_op;
 
 typedef struct		s_header
 {

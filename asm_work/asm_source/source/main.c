@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/10 16:20:08 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/11 20:39:42 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,23 @@ static void	write_magic_number(int *fd)
 	ft_fprintf(*fd, "%c", 243);
 }
 
+static void	init_op_table(t_op *op_table)
+{
+	op_table[0].instruction_name = ft_strdup("live");
+}
+
 int	main(int argc, char **argv)
 {
 	char	*file;
 	int		fd;
 	/*char	magic[] = MAGIC;*/
 	t_header	header;
+	t_op		op_table[17];
 	char str[2192] = {0};
 
 	if (argc != 2)
 		exit(EXIT_FAILURE);
+	init_op_table(op_table);
 	ft_memset(&header, 0, sizeof(header));
 	if (parse_s_file(argv[1], &header) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
@@ -90,5 +97,6 @@ int	main(int argc, char **argv)
 	close(fd);
 	/*ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);*/
 	/*ft_fprintf(1, GREEN".comment = %s\n"END, header.comment);*/
+	ft_fprintf(1, "%s\n", op_table[0].instruction_name);
 	return (0);
 }
