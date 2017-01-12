@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/11 19:56:40 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/12 19:19:47 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 # define COMMENT_CHAR_CROMA		';'
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
+#define T_REG					1
+#define T_DIR					2
+#define T_IND					4
+#define T_LAB					8
+
 # define PARSE_S_FILE			1
 # define PARSE_NAME				2
 # define LONG_NAME				3
@@ -43,15 +48,16 @@
 # define LONG_COMMENT			6
 # define BAD_FORMAT				7
 # define BAD_CHARACTERE			8
+# define BAD_LABEL_FORMAT		9
 
 typedef struct		s_op
 {
 	char			*instruction_name;
 	uint8_t			nb_arg;
-	uint8_t			arg_value;
+	uint8_t			arg_value[4];
 	uint8_t			opcode;
 	uint16_t		n_cycle;
-	char			*descritpion_instruction;
+	char			*desc_instr;
 	bool			carry;
 	bool			dir_indir;
 }					t_op;

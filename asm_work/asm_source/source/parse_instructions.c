@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/11 13:18:19 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/12 19:23:21 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	check_label(int *fd)
 			continue ;
 		}
 		if (check_if_label_exist(line) == false)
-		{
-			ft_fprintf(1, RED"Error label bad formatted\n"END);
-			break ;
-		}
+			error(BAD_LABEL_FORMAT);
 		ft_fprintf(1, YELLOW"%s\n"END, line);
 		ft_strdel(&line);
 	}
