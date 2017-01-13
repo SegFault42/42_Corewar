@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/13 16:23:39 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/13 17:49:37 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,28 @@ static char	*check_if_label_exist(char *line)
 	instr = ft_strndup(&line[skip_blank(line)], count_car_instr);
 	ft_fprintf(1, PURPLE"\ninstr = %s\n"END, instr);
 	ft_fprintf(1, PURPLE"\nchar =  %c\n"END, instr[count_car_instr - 1]);
-	if (instr[count_car_instr -1] == ':')
+	if (ft_strchr(LABEL_CHARS, instr[count_car_instr -1]) == NULL)
 		return (instr);
 	return (NULL);
-	/*instr = (char *)ft_memalloc(sizeof(char) * count_car_instr);*/
-
-	/*while (line[i] != ':')*/
-	/*{*/
-		/*if (ft_strchr(LABEL_CHARS, line[i]) == NULL)*/
-			/*return (false);*/
-		/*++i;*/
-	/*}*/
 }
+
 bool	check_if_label_good_formatted(char *label)
 {
 	ft_fprintf(1, "label = %s", label);
-	/*int	i;*/
+	int	i;
+	int	len_label;
 
-	/*i = 0;*/
-	/*while (line[i] != ':')*/
-	/*{*/
-		/*if (ft_strchr(LABEL_CHARS, line[i]) == NULL)*/
-			/*return (false);*/
-		/*++i;*/
-	/*}*/
-	return (false);
+	i = 0;
+	len_label = ft_strlen(label);
+	if (label[len_label -1] != ':')
+		return (false);
+	while (i < len_label -1)
+	{
+		if (ft_strchr(LABEL_CHARS, label[i]) == NULL)
+			return (false);
+		++i;
+	}
+	return (true);
 }
 
 void	check_label(int *fd)

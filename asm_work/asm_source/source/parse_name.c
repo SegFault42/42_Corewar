@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/13 15:01:51 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/13 19:27:19 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 static void	check_error_name(char *stock_name)
 {
 	int		len_name; // longueur de stock_name
+	int		skip_blank_name;
 	char	after_quote; // stock le caractere apres .comment (sauf caractere vide (' ' '\t'))
 
 	len_name = ft_strclen(&stock_name[7], '"'); // compte le nombre de charactere entre les " de .name
+	skip_blank_name = skip_blank(&stock_name[8 + len_name]);
+	ft_fprintf(1, "%c\n", stock_name[8 + len_name + skip_blank(&stock_name[8 + len_name])]);
 	after_quote = stock_name[11 + len_name + skip_blank(&stock_name[11 + len_name])];
 	if (len_name > PROG_NAME_LENGTH)
 		error(LONG_NAME);
