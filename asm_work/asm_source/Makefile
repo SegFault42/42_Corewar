@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/12 17:29:22 by rabougue         ###   ########.fr        #
+#    Updated: 2017/01/13 12:13:20 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS = $(SRC)/main.c \
 	   $(SRC)/parse_name.c\
 	   $(SRC)/tools.c\
 	   $(SRC)/parse_instructions.c\
+	   $(SRC)/op_tab.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 

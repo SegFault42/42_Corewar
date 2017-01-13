@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 18:34:24 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/19 17:28:06 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/13 13:51:09 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,6 @@ size_t				ft_strclen(const char *s, char c);
 char				*ft_strcdup(const char *s1, char c);
 char				*ft_strccat(char *s1, const char *s2, char c);
 int					ft_isspace(char c);
+char				*ft_strndup(const char *s1, size_t nb);
 
 #endif

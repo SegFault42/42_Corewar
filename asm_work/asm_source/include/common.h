@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/12 19:19:47 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/13 12:12:59 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,10 @@ int					is_cmt(char *line);
 ** check_label.c
 */
 void				check_label(int *fd);
+/*
+** op_tab.c
+*/
+void	init_op_table(t_op *op_table);
+void	free_op_table(t_op *op_table);
 
 #endif

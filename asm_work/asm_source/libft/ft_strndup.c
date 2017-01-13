@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/13 14:54:23 by rabougue         ###   ########.fr       */
+/*   Created: 2017/01/13 13:32:18 by rabougue          #+#    #+#             */
+/*   Updated: 2017/01/13 13:59:08 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "common.h"
+#include "./includes/libft.h"
 
-int	is_cmt(char *line)
+char	*ft_strndup(const char *s1, size_t nb)
 {
-	int	blank;
+	char	*dst;
+	size_t	len;
 
-	blank = skip_blank(line);
-	if (line[blank] == COMMENT_CHAR ||
-		line[blank] == '\0' ||
-		line[blank] == COMMENT_CHAR_CROMA)
-		return (true);
-	return (false);
-}
-
-int		skip_blank(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isspace(line[i]) == true)
-		++i;
-	return (i);
+	len = ft_strlen(s1);
+	if (nb < len)
+		len = nb;
+	dst = (char *)malloc(sizeof(char) * (nb + 1));
+	if (dst == NULL)
+		return (NULL);
+	dst[nb] = '\0';
+	return ((char *)ft_memcpy(dst, s1, nb));
 }
