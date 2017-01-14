@@ -6,30 +6,41 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/18 17:42:12 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/14 22:01:08 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-static void	check_error_comment(char *stock_comment)
-{
-	int		len_comment; // longueur de stock_comment
-	char	after_quote; // stock le caractere apres .comment (sauf caractere vide (' ' '\t'))
+#define LEN_COMMENT 8 // taille de .comment
 
-	len_comment = ft_strclen(&stock_comment[10], '"'); // compte le nombre de charactere entre les " de .name
-	after_quote = stock_comment[11 + len_comment + skip_blank(&stock_comment[11 + len_comment])];
-	if (len_comment > COMMENT_LENGTH)
+static int	check_error_comment(char *stock_comment)
+{
+	int		space_before_comment;
+	int		space_after_comment;
+	char	after_quote; // stock le caractere apres .comment (sauf caractere vide (' ' '\t'))
+	int		len_comment; // longueur de stock_comment
+	int		comment_start;
+
+	space_before_comment = skip_blank(stock_comment); // compte le nombre d'espace avant .comment
+	if (ft_strncmp(&stock_comment[space_before_comment], ".comment", LEN_COMMENT) != 0)
+		error(COMMENT_NOT_FOUND);
+	space_after_comment = skip_blank(&stock_comment[space_before_comment] + LEN_COMMENT); // compte le nombre d'espace apres .comment
+	comment_start = space_before_comment + LEN_COMMENT + space_after_comment + 1; // se place sur le premier caractere du .comment
+	len_comment = ft_strclen(&stock_comment[comment_start], '"'); // compte le nombre de charactere entre les " de .comment
+	if (len_comment > COMMENT_LENGTH) // si la taille du .comment est superieur a 128, erreur
 		error(LONG_COMMENT);
-	if (after_quote != COMMENT_CHAR_CROMA && after_quote != COMMENT_CHAR &&
-		after_quote != '\0') // verfie si un caractere indesirable traine (lol)
+	after_quote = stock_comment[(comment_start + len_comment + 1) + skip_blank(&stock_comment[(comment_start + len_comment + 1)])]; // +1 pour skip le dernier '"'
+	if (after_quote != COMMENT_CHAR_CROMA && after_quote != COMMENT_CHAR && after_quote != '\0') // verfie si apres la derniere '"' il y a un autre caractere qu'un commentaire.
 		error(BAD_FORMAT);
+	return (space_before_comment + LEN_COMMENT + space_after_comment);
 }
 
 void	parse_comment(int *fd, t_header *header)
 {
 	char	*line; // stock ce que lis gnl
 	char	*stock_comment; // stock la ligne de .comment
+	int		start_comment;
 
 	line = NULL;
 	stock_comment = NULL;
@@ -48,8 +59,10 @@ void	parse_comment(int *fd, t_header *header)
 		}
 		ft_strdel(&line);
 	}
-	check_error_comment(stock_comment);
+	start_comment = check_error_comment(stock_comment);
+
+	ft_fprintf(1, "%s\n", &stock_comment[start_comment]);
 	ft_memset(header->comment, 0, COMMENT_LENGTH + 1); // mise a NULL "header->comment"
-	ft_strccat(header->comment, &stock_comment[10], '\"'); // copie le nom du progamme dans "header->comment"
+	ft_strccat(header->comment, &stock_comment[start_comment+ 1], '\"'); // copie le nom du progamme dans "header->comment"
 	ft_strdel(&stock_comment);
 }

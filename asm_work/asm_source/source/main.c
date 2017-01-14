@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/13 12:18:08 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/14 22:03:59 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ void	error(int error)
 		ft_fprintf(2, RED"Bad caractere\n"END);
 	else if (error == BAD_LABEL_FORMAT)
 		ft_fprintf(1, RED"Error label bad formatted.\nAllowed caractere : digit (0-9) alpha, (a-z) and underscore ('_').\n"END);
+	else if (error == NAME_NOT_FOUND)
+		ft_fprintf(1, RED".name missing\n"END);
+	else if (error == COMMENT_NOT_FOUND)
+		ft_fprintf(1, RED".comment missing\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 	exit(EXIT_FAILURE);
