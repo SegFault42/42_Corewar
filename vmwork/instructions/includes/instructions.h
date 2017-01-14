@@ -6,12 +6,18 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/14 16:06:21 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/14 20:23:01 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INSTRUCTIONS_H
 # define INSTRUCTIONS_H
+
+/*
+************************************
+**            INCLUDES            **
+************************************
+*/
 
 # include "libft.h"
 # include "op.h"
@@ -20,12 +26,30 @@
 # include <stdint.h>
 # include <stdbool.h>
 
+/*
+************************************
+**             DEFINES            **
+************************************
+*/
+
 # define OPS_NUMBER 16
 
-typedef struct s_instruction t_instruction;
-typedef struct s_op t_op;
+/*
+************************************
+**             TYPEDEF           **
+************************************
+*/
 
-struct s_instruction
+typedef struct s_instruction	t_instruction;
+typedef struct s_op	t_op;
+
+/*
+************************************
+**           STRUCTURES           **
+************************************
+*/
+
+struct	s_instruction
 {
 	uint8_t		opcode;
 	uint8_t		ocp;
@@ -38,9 +62,7 @@ struct s_instruction
 	int			n_cycle;
 };
 
-char	g_mem[MEM_SIZE];
-
-struct s_op
+struct	s_op
 {
 	char		*name;
 	uint8_t		nb_arg;
@@ -50,7 +72,22 @@ struct s_op
 	char		*description;
 	bool		carry;
 	bool		direct;
+	bool		ocp;
 };
+
+/*
+************************************
+**            VARIABLES           **
+************************************
+*/
+
+char	g_mem[MEM_SIZE];
+
+/*
+************************************
+**            FUNCTIONS           **
+************************************
+*/
 
 void	dump_memory(void);
 t_op	get_op(int i);
