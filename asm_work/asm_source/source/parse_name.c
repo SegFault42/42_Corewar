@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/14 21:52:28 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/15 15:25:51 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 static int	check_error_name(char *stock_name)
 {
-	int		space_before_name;
-	int		space_after_name;
+	int		space_before_name; // compte le nombre de caractere espace avant ".name"
+	int		space_after_name; // compte le nombre de caractere espace apres ".name"
 	char	after_quote; // stock le caractere apres .name (sauf caractere vide (' ' '\t'))
 	int		len_name; // longueur de stock_name
-	int		name_start;
+	int		name_start; // curseur qui se place sur le premier caractere du nom
 
 	space_before_name = skip_blank(stock_name); // compte le nombre d'espace avant .name
-	if (ft_strncmp(&stock_name[space_before_name], ".name", LEN_NAME) != 0)
+	if (ft_strncmp(&stock_name[space_before_name], ".name", LEN_NAME) != 0) // si il n'y a pas de .name, error
 		error(NAME_NOT_FOUND);
 	space_after_name = skip_blank(&stock_name[space_before_name] + LEN_NAME); // compte le nombre d'espace apres .name
 	name_start = space_before_name + LEN_NAME + space_after_name + 1; // se place sur le premier caractere du .name
@@ -43,7 +43,7 @@ void	parse_name(int *fd, t_header *header)
 {
 	char	*line; // stock ce que lis gnl
 	char	*stock_name; // stock la ligne de .name
-	int		start_name;
+	int		start_name; // curseur qui se place sur le premier caractere du nom
 
 	line = NULL;
 	stock_name = NULL;
@@ -62,7 +62,7 @@ void	parse_name(int *fd, t_header *header)
 		}
 		ft_strdel(&line);
 	}
-	start_name = check_error_name(stock_name);
+	start_name = check_error_name(stock_name); // verifie si il y a des erreurs dans la libe .name
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1); // mise a NULL "header->prog_name"
 	ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"'); // copie le nom du progamme dans "header->prog_name"
 	ft_strdel(&stock_name);
