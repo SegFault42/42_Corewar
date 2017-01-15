@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/14 22:01:08 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/15 15:25:50 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	parse_comment(int *fd, t_header *header)
 		ft_strdel(&line);
 	}
 	start_comment = check_error_comment(stock_comment);
-
-	ft_fprintf(1, "%s\n", &stock_comment[start_comment]);
 	ft_memset(header->comment, 0, COMMENT_LENGTH + 1); // mise a NULL "header->comment"
 	ft_strccat(header->comment, &stock_comment[start_comment+ 1], '\"'); // copie le nom du progamme dans "header->comment"
 	ft_strdel(&stock_comment);
