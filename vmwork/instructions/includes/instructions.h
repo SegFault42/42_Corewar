@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/15 18:17:02 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/15 21:37:47 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,14 @@ void		init_instruction(t_instruction *inst);
 void		init_process(t_process *process);
 
 int			check_ocp(t_process *proc, uint8_t ocp);
+t_op		get_op(int i);
 
 uint8_t		get_mem_uint8(t_process *process, uint16_t index);
 uint16_t	get_mem_uint16(t_process *process, uint16_t index);
+uint32_t	get_mem_uint32(t_process *process, uint16_t index);
 void		set_mem_uint8(t_process *process, uint16_t index, uint8_t val);
 void		set_mem_uint16(t_process *process, uint16_t index, uint16_t val);
+void		set_mem_uint32(t_process *process, uint16_t index, uint32_t val);
 void		dump_memory(t_process *proc);
-
-t_op		get_op(int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:46:17 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/15 17:52:36 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/15 21:45:07 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ static void	get_params(t_instruction *inst, uint8_t ocp)
 	set_param_type(&(inst->param3), 4, 8);
 }
 
+int			check_params(t_instruction *inst)
+{
+	//check
+	return (0);
+}
+
 int			check_ocp(t_process *proc, uint8_t ocp)
 {
 	t_instruction	*inst;
@@ -41,10 +47,11 @@ int			check_ocp(t_process *proc, uint8_t ocp)
 	inst = &(proc->inst);
 	if (!inst->i)
 		return (1);
-	get_params(inst, g_mem[1]);
-	if (g_mem[1])
+	get_params(inst, ocp);
+	inst->ocp = ocp;
+	if (check_params(inst))
 	{
-		inst->ocp = ocp;
+		//Get val1, val2, val3
 		return (1);
 	}
 	return (0);

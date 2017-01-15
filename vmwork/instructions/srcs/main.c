@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/15 18:21:02 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/15 20:30:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		main(int ac, char **av)
 	if (!check_ocp(&proc, get_mem_uint8(&proc, proc.inst.i)))
 		printf("Bad ocp\n");
 	printf("Instruction:\nopcode = %02X\nocp = %02X\nparam1 = %d\nparam2 = %d\nparam3 = %d\n", proc.inst.opcode, proc.inst.ocp, proc.inst.param1, proc.inst.param2, proc.inst.param3);
-	// set_mem_uint16(&proc, 4095, 0xff10);
+	// set_mem_uint16(&proc, 0x40, 0xff10);
+	// set_mem_uint32(&proc, 0x80, 0xddaaff10);
 	dump_memory(&proc);
 }
