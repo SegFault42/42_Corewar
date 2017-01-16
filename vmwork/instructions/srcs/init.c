@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/15 17:45:10 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/16 19:20:37 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	init_instruction(t_instruction *inst)
 {
 	inst->opcode = 0;
 	inst->ocp = 0;
-	inst->param1 = 0;
-	inst->param2 = 0;
-	inst->param3 = 0;
-	inst->val1 = 0;
-	inst->val2 = 0;
-	inst->val3 = 0;
+	inst->param[0] = 0;
+	inst->param[1] = 0;
+	inst->param[2] = 0;
+	inst->val[0] = 0;
+	inst->val[1] = 0;
+	inst->val[2] = 0;
 	inst->n_cycle = 0;
 	inst->i = 0;
 }

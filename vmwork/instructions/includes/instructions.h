@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/15 21:37:47 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/16 19:21:50 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,8 @@ struct	s_instruction
 {
 	uint8_t		opcode;
 	uint8_t		ocp;
-	uint8_t		param1;// Type du parametre 1
-	uint8_t		param2;// Type du parametre 2
-	uint8_t		param3;// Type du parametre 3
-	int			val1;// Valeur du parametre 1
-	int			val2;// Valeur du parametre 2
-	int			val3;// Valeur du parametre 3
+	uint8_t		param[3];// Type des parametres
+	uint32_t	val[3];// Valeur des parametres
 	int			n_cycle;// Nombre de cycles avant exécution
 	int			i;
 };
@@ -68,13 +64,12 @@ struct	s_op
 {
 	char		*name;
 	uint8_t		nb_arg;
-	uint8_t		arg_value[3];
+	uint8_t		arg[3];
 	uint8_t		opcode;
 	uint16_t	n_cycle;
 	char		*description;
 	bool		carry;
 	bool		direct;// taille d'un T_DIR (true -> 2, false -> 4)
-	bool		ocp;// OCP présent ou non
 };
 
 struct	s_process
