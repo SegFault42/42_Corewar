@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/15 20:16:29 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/16 19:16:31 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define COMMENT_CHARS			";#"
 # define COMMENT_CHAR			'#'
 # define COMMENT_CHAR_CROMA		';'
+# define LABEL_END				':'
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 #define T_REG					1

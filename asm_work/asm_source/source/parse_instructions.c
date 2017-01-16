@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/15 21:48:05 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/16 22:21:46 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,53 @@ bool	check_if_label_good_formatted(char *label)
 	return (true);
 }
 
-void	get_instruction(char *line)
+void	check_if_instruction_exist(char *instr)
 {
-	
+	int	i;
+	t_op	op;
+
+	i = 0;
+	init_op_table(&op);
+	ft_fprintf(1, YELLOW"op->instruction_name = %s\n"END, &op.instruction_name[0]);
+	ft_fprintf(1, YELLOW"instr = %s\n"END, instr);
+	/*while (i < 16)*/
+	/*{*/
+		/*printf(YELLOW"op->instruction_name = %s\n"END, &op.instruction_name[i]);*/
+		/*ft_strncmp(instr, &op.instruction_name[i], ft_strclen(instr, ' '));*/
+		/*++i;*/
+	/*}*/
+	ft_debug();
+	(void)instr;
+}
+
+void	get_instruction(char *line, bool label_exist)
+{
+	int	i;
+
+	i = skip_blank(line); // ignore les espaces
+	ft_fprintf(1, ORANGE"line = %s\n"END, line);
+	if (label_exist == true) // si il y a un label j'avance jusqua l'instruction
+	{
+		while (line[i] != LABEL_END) // avance jusqu'au ':'
+			++i;
+		ft_fprintf(1, RED"line = %s\n"END, &line[i]);
+			++i; // avance de 1 le curseur (actuellement sur ':')
+		if (line[i] == '\0')
+			return ;
+		i += skip_blank(&line[i]); // ignore les caracteres espaces
+		ft_fprintf(1, "line = %s\n", &line[i]);
+		check_if_instruction_exist(&line[i]); // erreur argument.
+	}
+
 }
 
 void	parse_instructions(int *fd)
 {
 	char	*line;
 	char	*label;
+	bool	label_exist;
 
+	label_exist = false;
 	while (get_next_line(*fd, &line) > 0)
 	{
 		if (is_cmt(line) == true) // Verifie si la ligne est un commentaire
@@ -74,12 +111,14 @@ void	parse_instructions(int *fd)
 		}
 		if ((label = check_if_label_exist(line)) != NULL)
 		{
+			label_exist = true;
 			if (check_if_label_good_formatted(label) == false)
 				error(BAD_LABEL_FORMAT);
 		}
 		// verifier si il y a une instruction apres le label et la parser.
-		get_instruction(line);
+		get_instruction(line, label_exist);
 		ft_fprintf(1, YELLOW"line = %s\n"END, line);
+		ft_fprintf(1, YELLOW"=================================================\n"END, line);
 		ft_strdel(&line);
 	}
 }
