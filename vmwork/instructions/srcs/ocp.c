@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:46:17 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/15 21:45:07 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/16 19:35:17 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,60 @@
 static void	set_param_type(uint8_t *param, int inf, int sup)
 {
 	if (*param == inf)
-		*param = REG_CODE;
+		*param = T_REG;
 	else if (*param == sup)
-		*param = DIR_CODE;
+		*param = T_DIR;
 	else if (*param == inf + sup)
-		*param = IND_CODE;
+		*param = T_IND;
 	else
 		*param = 0;
 }
 
 static void	get_params(t_instruction *inst, uint8_t ocp)
 {
-	inst->param1 = (ocp & 64) + (ocp & 128);
-	set_param_type(&(inst->param1), 64, 128);
-	inst->param2 = (ocp & 16) + (ocp & 32);
-	set_param_type(&(inst->param2), 16, 32);
-	inst->param3 = (ocp & 4) + (ocp & 8);
-	set_param_type(&(inst->param3), 4, 8);
+	inst->param[0] = (ocp & 64) + (ocp & 128);
+	set_param_type(&(inst->param[0]), 64, 128);
+	inst->param[1] = (ocp & 16) + (ocp & 32);
+	set_param_type(&(inst->param[1]), 16, 32);
+	inst->param[2] = (ocp & 4) + (ocp & 8);
+	set_param_type(&(inst->param[2]), 4, 8);
 }
 
 int			check_params(t_instruction *inst)
 {
-	//check
-	return (0);
+	t_op	op;
+	int		i;
+
+	op = get_op(inst->opcode);
+	i = -1;
+	while (++i < op.nb_arg)
+		if (!(inst->param[i] & op.arg[i]))
+			return (0);
+	return (1);
+}
+
+void		get_values(t_process *proc, t_instruction *inst)
+{
+	t_op	op;
+	int		i;
+
+	op = get_op(inst->opcode);
+	i = -1;
+	while (++i < op.nb_arg)
+	{
+		if ((inst->param[i] == T_DIR && op.direct) || inst->param[i] == T_IND)
+		{
+			inst->val[i] = get_mem_uint16(proc, ++(inst->i));
+			inst->i += 1;
+		}
+		else if (inst->param[i] == T_DIR && !op.direct)
+		{
+			inst->val[i] = get_mem_uint32(proc, ++(inst->i));
+			inst->i += 3;
+		}
+		else// (inst->param[i] == T_REG)
+			inst->val[i] = get_mem_uint8(proc, ++(inst->i));
+	}
 }
 
 int			check_ocp(t_process *proc, uint8_t ocp)
@@ -51,7 +82,7 @@ int			check_ocp(t_process *proc, uint8_t ocp)
 	inst->ocp = ocp;
 	if (check_params(inst))
 	{
-		//Get val1, val2, val3
+		get_values(proc, inst);
 		return (1);
 	}
 	return (0);
