@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/17 18:52:46 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/01/17 21:10:06 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,36 +90,10 @@ void	get_instruction(char *line, bool label_exist)
 			return ;
 		i += skip_blank(&line[i]); // ignore les caracteres espaces
 		ft_fprintf(1, "line = %s$\n", &line[i]);
-		check_if_instruction_exist(&line[i]); // erreur argument.
+		check_if_instruction_exist(&line[i]);
+
 	}
 }
-
-/*static char	**clean_line(char *line)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-	char	**tab;
-
-	i = 0;
-	tmp = line;
-	while (tmp && *tmp)
-	{
-		if (*tmp && ft_strchr(" \t", (int)*tmp))
-		{
-			while (*tmp && ft_strchr(" \t", (int)*tmp))
-				tmp++;
-		}
-		if (*tmp && !ft_strchr(" \t", (int)*tmp))
-		{
-			i++;
-			while (*tmp && !ft_strchr(" \t", (int)*tmp))
-				tmp++;
-		}
-		tmp++;
-	}
-	return (tab);
-}*/
 
 void	parse_instructions(int *fd)
 {
