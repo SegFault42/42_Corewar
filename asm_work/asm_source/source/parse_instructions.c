@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/16 22:21:46 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/17 18:52:46 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*check_if_label_exist(char *line)
 	label = ft_strndup(&line[skip_blank(line)], count_car_label); // stock le label
 	ft_fprintf(1, RED"\nlabel = %s\n"END, label);
 	ft_fprintf(1, PURPLE"\nchar =  %c\n"END, label[count_car_label - 1]);
-	/*if (ft_strchr(LABEL_CHARS, label[count_car_label -1]) == NULL) */
+	//if (ft_strchr(LABEL_CHARS, label[count_car_label -1]) == NULL)
 	if (label[count_car_label -1] == ':') 
 		return (label);
 	return (NULL);
@@ -58,20 +58,20 @@ bool	check_if_label_good_formatted(char *label)
 void	check_if_instruction_exist(char *instr)
 {
 	int	i;
-	t_op	op;
+	t_op	op[17];
 
 	i = 0;
-	init_op_table(&op);
-	ft_fprintf(1, YELLOW"op->instruction_name = %s\n"END, &op.instruction_name[0]);
+	init_op_table(op);
+	ft_fprintf(1, YELLOW"op->instruction_name = %s\n"END, op[0].instruction_name);
 	ft_fprintf(1, YELLOW"instr = %s\n"END, instr);
-	/*while (i < 16)*/
-	/*{*/
-		/*printf(YELLOW"op->instruction_name = %s\n"END, &op.instruction_name[i]);*/
-		/*ft_strncmp(instr, &op.instruction_name[i], ft_strclen(instr, ' '));*/
-		/*++i;*/
-	/*}*/
-	ft_debug();
-	(void)instr;
+	while (i < 16)
+	{
+		printf(YELLOW"op->instruction_name = %s\n"END, op[i].instruction_name);
+		ft_strncmp(instr, op[i].instruction_name, ft_strclen(instr, ' '));
+		++i;
+	}
+	//ft_debug();
+	//(void)instr;
 }
 
 void	get_instruction(char *line, bool label_exist)
@@ -89,11 +89,37 @@ void	get_instruction(char *line, bool label_exist)
 		if (line[i] == '\0')
 			return ;
 		i += skip_blank(&line[i]); // ignore les caracteres espaces
-		ft_fprintf(1, "line = %s\n", &line[i]);
+		ft_fprintf(1, "line = %s$\n", &line[i]);
 		check_if_instruction_exist(&line[i]); // erreur argument.
 	}
-
 }
+
+/*static char	**clean_line(char *line)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	char	**tab;
+
+	i = 0;
+	tmp = line;
+	while (tmp && *tmp)
+	{
+		if (*tmp && ft_strchr(" \t", (int)*tmp))
+		{
+			while (*tmp && ft_strchr(" \t", (int)*tmp))
+				tmp++;
+		}
+		if (*tmp && !ft_strchr(" \t", (int)*tmp))
+		{
+			i++;
+			while (*tmp && !ft_strchr(" \t", (int)*tmp))
+				tmp++;
+		}
+		tmp++;
+	}
+	return (tab);
+}*/
 
 void	parse_instructions(int *fd)
 {
@@ -118,7 +144,7 @@ void	parse_instructions(int *fd)
 		// verifier si il y a une instruction apres le label et la parser.
 		get_instruction(line, label_exist);
 		ft_fprintf(1, YELLOW"line = %s\n"END, line);
-		ft_fprintf(1, YELLOW"=================================================\n"END, line);
+		ft_fprintf(1, YELLOW"=================================================\n"END);
 		ft_strdel(&line);
 	}
 }
