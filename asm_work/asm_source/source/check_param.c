@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 10:45:26 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/17 16:37:54 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/17 17:31:01 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ int		is_direct(char *str)
 	if (str[i] == '%')
 	{
 		i++;
-		while (ft_isdigit(str[i]))
+		if (str[i] == ':')
+			i++;
+		while (ft_strchr(LABEL_CHARS, str[i]))
 			i++;
 		if (!str[i])
 			return (TRUE);

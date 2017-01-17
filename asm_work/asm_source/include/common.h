@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/16 19:16:31 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/17 17:28:29 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void				parse_comment(int *fd, t_header *header);
 */
 int					skip_blank(char *line);
 int					is_cmt(char *line);
+int					is_direct(char *str);
+int					is_ind(char *str);
+int					is_reg(char *str);
 /*
 ** check_label.c
 */
