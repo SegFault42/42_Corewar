@@ -6,12 +6,19 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 10:45:26 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/17 12:31:13 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/17 12:37:51 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 #include "libft.h"
+
+/*
+** la fonction is_reg sert à checker si str est un registre, renvoi 1 si oui
+** 0 dans le cas contraire. il faut lui passer une chaine contenant uniquement
+** le parametre de l'instruction ex: "		r1",  "r1".
+** si il y a des caracteres à la fin elle renverra false.
+*/
 
 int		is_reg(char *str)
 {
@@ -31,6 +38,13 @@ int		is_reg(char *str)
 	return (FALSE);
 }
 
+/*
+** la fonction is_direct sert à checker si str est une direct, renvoi 1 si oui
+** 0 dans le cas contraire. il faut lui passer une chaine contenant uniquement
+** le parametre de l'instruction ex: "		%123",  "%1231".
+** si il y a des caracteres à la fin elle renverra false.
+*/
+
 int		is_direct(char *str)
 {
 	int	i;
@@ -48,6 +62,13 @@ int		is_direct(char *str)
 	}
 	return (FALSE);
 }
+
+/*
+** la fonction is_reg sert à checker si str est un registre, renvoi 1 si oui
+** 0 dans le cas contraire. il faut lui passer une chaine contenant uniquement
+** le parametre de l'instruction ex: "		%:label",  "%:label".
+** si il y a des caracteres à la fin elle renverra false.
+*/
 
 int		is_ind(char *str)
 {
