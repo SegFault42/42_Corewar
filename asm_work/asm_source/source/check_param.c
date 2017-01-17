@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 10:45:26 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/17 12:37:51 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/17 13:18:00 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,21 @@ int		is_ind(char *str)
 	if (str[i] == '%' && str[i + 1] == ':')
 	{
 		i += 2;
-		while (ft_isalnum(str[i]))
+		while (ft_strchr(LABEL_CHARS, str[i]) && str[i])
 			i++;
 		if (!str[i])
 			return (TRUE);
 	}
 	return (FALSE);
+}
+
+int main(int argc, char **argv) {
+	if (argc > 1)
+	{
+		if (is_ind(argv[1]))
+			ft_putendl("youhou");
+		else
+		ft_putendl("bebek el hataille");
+	}
+	return 0;
 }
