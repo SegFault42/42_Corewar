@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/17 18:47:08 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/01/17 20:55:31 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void	error(int error)
 		ft_fprintf(1, RED".name missing\n"END);
 	else if (error == COMMENT_NOT_FOUND)
 		ft_fprintf(1, RED".comment missing\n"END);
+	else if (error == INSTR_INEXIST)
+		ft_fprintf(1, RED"Instruction not valid\n"END);
+	else if (error == BAD_NUMBER_PARAM)
+		ft_fprintf(1, RED"Wrong number argument in instruction\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 	exit(EXIT_FAILURE);
