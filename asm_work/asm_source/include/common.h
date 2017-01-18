@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/18 12:35:14 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/18 15:29:33 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct		s_header
 	char			comment[COMMENT_LENGTH + 1];
 	char			prog_name[PROG_NAME_LENGTH + 1];
 }					t_header;
+
+unsigned char		ocp_calc(char **tab);
 /*
 ** parse_s_file.c
 */
