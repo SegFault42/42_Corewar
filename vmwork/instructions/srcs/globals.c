@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/18 00:04:04 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/18 17:35:26 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_func	g_exec_op[OPS_NUMBER] =
 	exec_live,
 	exec_ld,
 	exec_st,
-	exec_live,
-	exec_live,
-	exec_live,
+	exec_add,
+	exec_sub,
+	exec_and,
 	exec_live,
 	exec_live,
 	exec_live,

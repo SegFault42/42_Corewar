@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/18 00:04:24 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/18 19:43:25 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef void(*t_func)(t_process*);
 ************************************
 */
 
-struct	s_instruction
+struct		s_instruction
 {
 	uint8_t		opcode;
 	uint8_t		ocp;
@@ -61,7 +61,7 @@ struct	s_instruction
 	int			i;
 };
 
-struct	s_op
+struct		s_op
 {
 	char		*name;
 	uint8_t		nb_arg;
@@ -73,7 +73,7 @@ struct	s_op
 	bool		direct;// taille d'un T_DIR (true -> 2, false -> 4)
 };
 
-struct	s_process
+struct		s_process
 {
 	t_instruction	inst;// Instruction en cours d'execution
 	bool			carry;
@@ -114,8 +114,15 @@ void		dump_memory(t_process *proc);
 void		exec_live(t_process *proc);
 void		exec_ld(t_process *proc);
 void		exec_st(t_process *proc);
+void		exec_add(t_process *proc);
+void		exec_sub(t_process *proc);
+void		exec_and(t_process *proc);
 
 void		exec_sti(t_process *proc);
 void		exec_instruction(t_process *proc);
+
+bool		valid_reg(uint8_t reg);
+bool		valid_params(t_process *proc);
+uint32_t	store_param(t_process *proc, bool idx, uint8_t i, bool v_reg);
 
 #endif
