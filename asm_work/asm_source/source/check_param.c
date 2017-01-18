@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 10:45:26 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/17 18:02:59 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/18 12:39:34 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,21 @@ int		is_ind(char *str)
 {
 	int	i;
 
+	ft_putendl(str);
 	i = 0;
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
-	if (ft_strchr(LABEL_CHARS, str[i]))
+	if (str[i] == '%' && str[i + 1] == ':')
 	{
 		i += 2;
-		while (ft_strchr(LABEL_CHARS, str[i]) && str[i])
+		if (ft_strchr(LABEL_CHARS, str[i]))
+		{
+			i += 2;
+			while (ft_strchr(LABEL_CHARS, str[i]) && str[i])
 			i++;
-		if (!str[i])
+			if (!str[i])
 			return (TRUE);
+		}
 	}
 	return (FALSE);
 }
