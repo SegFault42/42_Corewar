@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/18 17:34:58 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/18 20:09:40 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*check_if_label_exist(char *line)
 	/*if (ft_strchr(LABEL_CHARS, label[count_car_label -1]) == NULL) */
 	if (label[count_car_label -1] == ':') 
 		return (label);
+	free(label);
 	return (0);
 }
 
@@ -62,14 +63,19 @@ bool	check_if_instruction_exist(char *instruction)
 	uint8_t	len_instruction;
 
 	i = 0;
-	len_instruction = ft_strclen(instruction, ' ');
+	len_instruction = skip_blank(&instruction[i]);
+	i = 0;
 	init_op_table(op);
 	while (i < 16)
 	{
 		if (ft_strncmp(instruction, op[i].instruction_name, len_instruction) == 0)
+		{
+			free_op_table(op);
 			return (true);
+		}
 		++i;
 	}
+	free_op_table(op);
 	return (false);
 }
 
@@ -80,9 +86,6 @@ void	get_instruction(char *line, bool label_exist)
 	ft_fprintf(1, "label_exist = %d\n", label_exist);
 	i = skip_blank(line); // ignore les espaces
 	ft_fprintf(1, ORANGE"line = %s\n"END, line);
-	//=========================================================================
-									/*Segfault ici :*/
-	//=========================================================================
 	if (label_exist == true) // si il y a un label j'avance jusqua l'instruction
 	{
 		ft_debug();
@@ -97,9 +100,9 @@ void	get_instruction(char *line, bool label_exist)
 		/*if (check_if_instruction_exist(&line[i]) == false) // erreur argument.*/
 			/*error(INSTR_INEXIST);*/
 	}
-		ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);
-		if (check_if_instruction_exist(&line[i]) == false) // erreur argument.
-			error(INSTR_INEXIST);
+	ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);
+	if (check_if_instruction_exist(&line[i]) == false) // erreur argument.
+		error(INSTR_INEXIST);
 	(void)label_exist;
 }
 
@@ -123,6 +126,7 @@ void	parse_instructions(int *fd)
 			label_exist = true;
 			if (check_if_label_good_formatted(label) == false)
 				error(BAD_LABEL_FORMAT);
+			free(label);
 		}
 		// verifier si il y a une instruction apres le label et la parser.
 		get_instruction(line, label_exist);
