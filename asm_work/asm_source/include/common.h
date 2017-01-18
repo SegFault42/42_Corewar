@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/16 19:16:31 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/18 15:04:10 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@
 # define BAD_LABEL_FORMAT		9
 # define NAME_NOT_FOUND			10
 # define COMMENT_NOT_FOUND		11
+# define INSTR_INEXIST			12
+# define BAD_NUMBER_PARAM		13
 
 typedef struct		s_op
 {

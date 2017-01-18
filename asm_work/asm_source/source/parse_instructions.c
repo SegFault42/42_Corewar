@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/17 21:16:48 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/18 17:34:58 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*check_if_label_exist(char *line)
 	/*if (ft_strchr(LABEL_CHARS, label[count_car_label -1]) == NULL) */
 	if (label[count_car_label -1] == ':') 
 		return (label);
-	return (NULL);
+	return (0);
 }
 
 bool	check_if_label_good_formatted(char *label)
@@ -77,13 +77,15 @@ void	get_instruction(char *line, bool label_exist)
 {
 	int	i;
 
+	ft_fprintf(1, "label_exist = %d\n", label_exist);
 	i = skip_blank(line); // ignore les espaces
 	ft_fprintf(1, ORANGE"line = %s\n"END, line);
 	//=========================================================================
-									Segfault ici :
+									/*Segfault ici :*/
 	//=========================================================================
 	if (label_exist == true) // si il y a un label j'avance jusqua l'instruction
 	{
+		ft_debug();
 		while (line[i] != LABEL_END) // avance jusqu'au ':'
 			++i;
 		ft_fprintf(1, RED"line = %s\n"END, &line[i]);
@@ -91,11 +93,14 @@ void	get_instruction(char *line, bool label_exist)
 		if (line[i] == '\0')
 			return ;
 		i += skip_blank(&line[i]); // ignore les caracteres espaces
+		/*ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);*/
+		/*if (check_if_instruction_exist(&line[i]) == false) // erreur argument.*/
+			/*error(INSTR_INEXIST);*/
+	}
 		ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);
 		if (check_if_instruction_exist(&line[i]) == false) // erreur argument.
 			error(INSTR_INEXIST);
-	}
-
+	(void)label_exist;
 }
 
 void	parse_instructions(int *fd)
@@ -104,9 +109,10 @@ void	parse_instructions(int *fd)
 	char	*label;
 	bool	label_exist;
 
-	label_exist = false;
+	label = NULL;
 	while (get_next_line(*fd, &line) > 0)
 	{
+		label_exist = false;
 		if (is_cmt(line) == true) // Verifie si la ligne est un commentaire
 		{
 			ft_strdel(&line);
