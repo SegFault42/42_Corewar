@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/16 18:27:10 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/18 00:04:04 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,32 @@ t_op	g_op_tab[OPS_NUMBER] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0}
 };
 
+t_func	g_exec_op[OPS_NUMBER] =
+{
+	exec_live,
+	exec_ld,
+	exec_st,
+	exec_live,
+	exec_live,
+	exec_live,
+	exec_live,
+	exec_live,
+	exec_live,
+	exec_live,
+	exec_sti,
+	exec_live,
+	exec_live,
+	exec_live,
+	exec_live,
+	exec_live
+};
+
 t_op	get_op(int i)
 {
 	return (g_op_tab[i - 1]);
+}
+
+void	exec_instruction(t_process *proc)
+{
+	g_exec_op[proc->inst.opcode - 1](proc);
 }

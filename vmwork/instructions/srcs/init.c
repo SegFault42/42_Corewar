@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/16 19:20:37 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/17 23:35:41 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_memory(void)
 
 	i = -1;
 	while (++i < MEM_SIZE)
-		g_mem[i] = 0;
+		g_mem[i] = 0x20;
 }
 
 void	init_instruction(t_instruction *inst)
