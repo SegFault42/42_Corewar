@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/16 19:21:50 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/18 00:04:24 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 typedef struct s_instruction	t_instruction;
 typedef struct s_op	t_op;
 typedef struct s_process	t_process;
+typedef void(*t_func)(t_process*);
 
 /*
 ************************************
@@ -109,5 +110,12 @@ void		set_mem_uint8(t_process *process, uint16_t index, uint8_t val);
 void		set_mem_uint16(t_process *process, uint16_t index, uint16_t val);
 void		set_mem_uint32(t_process *process, uint16_t index, uint32_t val);
 void		dump_memory(t_process *proc);
+
+void		exec_live(t_process *proc);
+void		exec_ld(t_process *proc);
+void		exec_st(t_process *proc);
+
+void		exec_sti(t_process *proc);
+void		exec_instruction(t_process *proc);
 
 #endif
