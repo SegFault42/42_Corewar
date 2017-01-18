@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/18 20:49:44 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/18 22:20:09 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ bool		valid_params(t_process *proc)
 }
 
 /*
-********************************************
-**               store_param              **
-** idx: 1 -> IDX_MOD | 0 -> no IDX_MOD    **
-** i: index for inst->param[]             **
-** v_reg: 1 -> reg value | 0 -> reg index **
-********************************************
+********************************************************************************
+**                                 src_param()                                **
+** idx: use IDX_MOD ? true | false                                            **
+** i: index for inst->param[] (0 to 2)                                        **
+** v_reg: true -> get reg value | false -> get reg index                      **
+********************************************************************************
 */
 
-uint32_t	store_param(t_process *proc, bool idx, uint8_t i, bool v_reg)
+uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg)
 {
 	t_instruction	*inst;
 	uint32_t		val;
@@ -67,4 +67,21 @@ uint32_t	store_param(t_process *proc, bool idx, uint8_t i, bool v_reg)
 	else// if (inst->param[i] == T_DIR)
 		val = inst->val[i];
 	return (val);
+}
+
+void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val)
+{
+	t_instruction	*inst;
+
+	inst = &(proc->inst);
+	if (inst->param[i] == T_IND)
+	{
+		set_mem_uint32(proc, dest, val);
+		printf("Exec ok\n");
+	}
+	else if (inst->param[i] == T_REG)
+	{
+		proc->reg[dest] = val;
+		printf("Exec ok: proc->reg[%d] = %08X\n", dest, val);
+	}
 }

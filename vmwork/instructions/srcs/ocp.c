@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:46:17 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/17 21:49:54 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/18 23:57:58 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,13 @@ int			check_ocp(t_process *proc, uint8_t ocp)
 	t_instruction	*inst;
 
 	inst = &(proc->inst);
-	if (!inst->i)
-		return (1);
-	get_params(inst, ocp);
-	inst->ocp = ocp;
+	if (inst->opcode == 0x09)
+		inst->param[0] = T_DIR;
+	else
+	{
+		get_params(inst, ocp);
+		inst->ocp = ocp;
+	}
 	if (check_params(inst))
 	{
 		get_values(proc, inst);
