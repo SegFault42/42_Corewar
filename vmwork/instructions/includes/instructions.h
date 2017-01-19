@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/18 23:37:23 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/19 18:57:20 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void		set_mem_uint16(t_process *process, uint16_t index, uint16_t val);
 void		set_mem_uint32(t_process *process, uint16_t index, uint32_t val);
 void		dump_memory(t_process *proc);
 
+void		exec_instruction(t_process *proc);
 void		exec_live(t_process *proc);
 void		exec_ld(t_process *proc);
 void		exec_st(t_process *proc);
@@ -120,9 +121,13 @@ void		exec_and(t_process *proc);
 void		exec_or(t_process *proc);
 void		exec_xor(t_process *proc);
 void		exec_zjmp(t_process *proc);
-
+void		exec_ldi(t_process *proc);
 void		exec_sti(t_process *proc);
-void		exec_instruction(t_process *proc);
+void		exec_fork(t_process *proc);
+void		exec_lld(t_process *proc);
+void		exec_lldi(t_process *proc);
+void		exec_lfork(t_process *proc);
+void		exec_aff(t_process *proc);
 
 bool		valid_reg(uint8_t reg);
 bool		valid_params(t_process *proc);

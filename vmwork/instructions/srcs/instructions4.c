@@ -1,75 +1,78 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions.c                                     :+:      :+:    :+:   */
+/*   instructions4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/19 18:56:28 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/19 18:57:06 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
 
-void	exec_live(t_process *proc)
-{
-	uint32_t	val;
-
-	val = src_param(proc, 0, 0, 0);
-	//A FAIRE
-	printf("Exec live for %08X\n", proc->reg[0]);
-}
-
-void	exec_ld(t_process *proc)
+void	exec_lld(t_process *proc)
 {
 	uint8_t			reg;
 	uint32_t		val;
 	t_instruction	*inst;
 
-	printf("Exec ld\n");
+	printf("Exec lld\n");
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
-		val = src_param(proc, 1, 0, 0);
+		val = src_param(proc, 0, 0, 0);
 		reg = src_param(proc, 0, 1, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
-		printf("Exec ld ok: proc->reg[%d] = %08X\n", reg, proc->reg[reg]);
+		printf("Exec lld ok: proc->reg[%d] = %08X\n", reg, proc->reg[reg]);
 	}
 }
 
-void	exec_st(t_process *proc)
+void	exec_lldi(t_process *proc)
 {
+	uint8_t			reg;
+	uint16_t		address;
 	uint32_t		val;
-	uint16_t		dest;
 	t_instruction	*inst;
 
-	printf("Exec st\n");
+	printf("Exec lldi\n");
 	inst = &(proc->inst);
+	if (valid_params(proc))
+	{
+		address = src_param(proc, 0, 0, 1) + src_param(proc, 0, 1, 1);
+		val = get_mem_uint32(proc, address);
+		reg = src_param(proc, 0, 2, 0);
+		proc->carry = (!val ? 1 : 0);
+		proc->reg[reg] = val;
+		printf("Exec lldi ok: proc->reg[%d] = %08X\n", reg, proc->reg[reg]);
+	}
+}
+
+void	exec_lfork(t_process *proc)
+{
+	uint16_t	address;
+
+	printf("Exec lfork\n");
+	if (valid_params(proc))
+	{
+		address = src_param(proc, 0, 0, 0);
+		//A faire (IF CARRY)
+		printf("Exec lfork ok\n");
+	}
+}
+
+void	exec_aff(t_process *proc)
+{
+	uint32_t	val;
+
+	printf("Exec aff\n");
 	if (valid_params(proc))
 	{
 		val = src_param(proc, 0, 0, 1);
-		dest = src_param(proc, 1, 1, 0);
 		proc->carry = (!val ? 1 : 0);
-		dst_param(proc, 1, dest, val);
-	}
-}
-
-void	exec_add(t_process *proc)
-{
-	uint8_t			reg;
-	uint32_t		val;
-	t_instruction	*inst;
-
-	printf("Exec add\n");
-	inst = &(proc->inst);
-	if (valid_params(proc))
-	{
-		reg = src_param(proc, 0, 2, 0);
-		val = src_param(proc, 0, 0, 1) + src_param(proc, 0, 1, 1);
-		proc->carry = (!val ? 1 : 0);
-		proc->reg[reg] = val;
-		printf("Exec add ok: proc->reg[%d] = %08X\n", reg, proc->reg[reg]);
+		//A faire
+		printf("Exec aff ok\n");
 	}
 }

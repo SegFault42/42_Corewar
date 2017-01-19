@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/15 17:28:05 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/19 15:55:32 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	dump_memory(t_process *proc)
 	while (++i < MEM_SIZE)
 	{
 		if (i == proc->start + proc->pc + proc->inst.i)
-			ft_putstr("\033[47m");
+			ft_putstr("\033[44m");
 		ft_putnbr_hex(g_mem[i], 2);
 		if (i == proc->start + proc->pc + proc->inst.i)
 			ft_putstr("\033[0m");

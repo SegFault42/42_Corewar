@@ -6,14 +6,15 @@
 #    By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/17 15:39:34 by lfabbro           #+#    #+#              #
-#    Updated: 2017/01/18 18:44:37 by qhonore          ###   ########.fr        #
+#    Updated: 2017/01/19 18:57:46 by qhonore          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 SRC_NAME = main.c dump_memory.c globals.c init.c ocp.c\
-		   get_memory.c set_memory.c instructions.c utils.c
+		   get_memory.c set_memory.c utils.c instructions.c\
+		   instructions2.c instructions3.c instructions4.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/18 23:37:41 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/19 18:52:20 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ t_func	g_exec_op[OPS_NUMBER] =
 	exec_or,
 	exec_xor,
 	exec_zjmp,
-	exec_live,
+	exec_ldi,
 	exec_sti,
-	exec_live,
-	exec_live,
-	exec_live,
-	exec_live,
-	exec_live
+	exec_fork,
+	exec_lld,
+	exec_lldi,
+	exec_lfork,
+	exec_aff
 };
 
 t_op	get_op(int i)
