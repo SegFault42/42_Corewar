@@ -6,12 +6,13 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 17:07:44 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/18 12:53:56 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/19 14:34:14 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 #include "libft.h"
+#include "functions.h"
 
 /*
 ** Fonction de calcule de l'opc, bien verifier que les parametres soient
