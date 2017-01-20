@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/19 18:57:20 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/20 20:51:43 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 typedef struct s_instruction	t_instruction;
 typedef struct s_op	t_op;
 typedef struct s_process	t_process;
+typedef struct s_player	t_player;
+typedef struct s_env	t_env;
 typedef void(*t_func)(t_process*);
 
 /*
@@ -82,6 +84,22 @@ struct		s_process
 	int				reg[REG_NUMBER];
 };
 
+struct		s_player
+{
+	uint16_t	live;
+	uint8_t		*op;
+};
+
+struct		s_env
+{
+	bool		run;
+	uint32_t	nb_player;
+	uint32_t	nb_process;
+	uint32_t	cycle;
+	t_player	*player;
+	t_process	*process;
+};
+
 /*
 ********************************************************************************
 **                                  VARIABLES                                 **
@@ -89,6 +107,7 @@ struct		s_process
 */
 
 uint8_t	g_mem[MEM_SIZE];
+uint8_t	g_color[MEM_SIZE];
 
 /*
 ********************************************************************************
@@ -98,7 +117,8 @@ uint8_t	g_mem[MEM_SIZE];
 
 void		init_memory(void);
 void		init_instruction(t_instruction *inst);
-void		init_process(t_process *process);
+void		init_processes(t_env *e);
+void		init_env(t_env *e);
 
 int			check_ocp(t_process *proc, uint8_t ocp);
 t_op		get_op(int i);
@@ -109,7 +129,7 @@ uint32_t	get_mem_uint32(t_process *process, uint16_t index);
 void		set_mem_uint8(t_process *process, uint16_t index, uint8_t val);
 void		set_mem_uint16(t_process *process, uint16_t index, uint16_t val);
 void		set_mem_uint32(t_process *process, uint16_t index, uint32_t val);
-void		dump_memory(t_process *proc);
+void		dump_memory(t_env *e);
 
 void		exec_instruction(t_process *proc);
 void		exec_live(t_process *proc);

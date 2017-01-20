@@ -6,13 +6,13 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/19 15:55:32 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 00:54:22 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
 
-static void		ft_putnbr_hex(int octet, int rem)
+static void	ft_putnbr_hex(int octet, int rem)
 {
 		char const *base = "0123456789abcdef";
 
@@ -21,18 +21,32 @@ static void		ft_putnbr_hex(int octet, int rem)
 		write(1, base + (octet % 16), 1);
 }
 
-void	dump_memory(t_process *proc)
+static void	player_color(t_env *e, int i)
+{
+	if (g_color[i] == 1)
+		ft_putstr("\033[34m");
+	else if (g_color[i] == 2)
+		ft_putstr("\033[33m");
+	else if (g_color[i] == 3)
+		ft_putstr("\033[32m");
+	else if (g_color[i] == 4)
+		ft_putstr("\033[31m");
+	// if ()JENETELA
+	(void)e;
+	ft_putnbr_hex(g_mem[i], 2);
+	ft_putstr("\033[0m");
+}
+
+void		dump_memory(t_env *e)
 {
 	int		i;
 
 	i = -1;
+	// ft_putstr("\033[1;1H\033[2J");
+	(void)e;
 	while (++i < MEM_SIZE)
 	{
-		if (i == proc->start + proc->pc + proc->inst.i)
-			ft_putstr("\033[44m");
-		ft_putnbr_hex(g_mem[i], 2);
-		if (i == proc->start + proc->pc + proc->inst.i)
-			ft_putstr("\033[0m");
+		player_color(e, i);
 		ft_putchar((i + 1) % 64 ? ' ' : '\n');
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/17 23:35:41 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/20 21:45:34 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	init_memory(void)
 
 	i = -1;
 	while (++i < MEM_SIZE)
-		g_mem[i] = 0x20;
+		g_mem[i] = 0;
+	i = -1;
+	while (++i < MEM_SIZE)
+		g_color[i] = 0;
 }
 
 void	init_instruction(t_instruction *inst)
@@ -35,15 +38,39 @@ void	init_instruction(t_instruction *inst)
 	inst->i = 0;
 }
 
-void	init_process(t_process *process)
+static void	init_process(t_process *process, uint32_t id, uint16_t start)
 {
 	int		i;
 
-	i = -1;
+	i = 0;
 	init_instruction(&(process->inst));
 	process->carry = 0;
-	process->start = 0;
+	process->start = start;
 	process->pc = 0;
+	process->reg[0] = id;
 	while (++i < REG_NUMBER)
 		process->reg[i] = 0;
+}
+
+void	init_processes(t_env *e)
+{
+	t_process	*p;
+	uint32_t	i;
+
+	i = -1;
+	while (++i < e->nb_process)
+	{
+		p = &(e->process[i]);
+		init_process(p, i + 1, i * MEM_SIZE / e->nb_process);
+	}
+}
+
+void	init_env(t_env *e)
+{
+	e->run = 0;
+	e->nb_player = 0;
+	e->nb_process = 0;
+	e->cycle = 0;
+	e->player = 0;
+	e->process = 0;
 }

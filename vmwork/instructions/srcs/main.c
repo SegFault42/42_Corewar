@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/19 00:03:03 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 00:54:06 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,78 @@ int		check_opcode(t_process *proc, uint8_t opcode)
 	return (0);
 }
 
-int		main(int ac, char **av)
+static void	run(t_env *e)
 {
-	t_process		proc;
-
-	if (ac < 3)
-	{
-		printf("Usage: ./corewar [opcode] [ocp] (param1) ...\n");
-		return (-1);
-	}
-	init_memory();
-	init_process(&proc);
-	proc.reg[0] = 0xffffffff;
-	proc.reg[1] = 0x000000aa;
-	while (ac--)
-		g_mem[ac - 1] = strtol(av[ac], NULL, 16);
+	e->run = 1;
+	// init_process(&proc);
+	// while (ac--)
+	// 	g_mem[ac - 1] = strtol(av[ac], NULL, 16);
+	t_process proc = e->process[2];
 	if (!check_opcode(&proc, get_mem_uint8(&proc, proc.inst.i)))
 		printf("Bad opcode\n");
 	if (!check_ocp(&proc, get_mem_uint8(&proc, proc.inst.i)))
 		printf("Bad ocp\n");
 	exec_instruction(&proc);
-	printf("Instruction:\nopcode = %02X\nocp = %02X\nparam[0] = %d, %02X\nparam[1] = %d, %02X\nparam[2] = %d, %02X\n", proc.inst.opcode, proc.inst.ocp, proc.inst.param[0], proc.inst.val[0], proc.inst.param[1], proc.inst.val[1], proc.inst.param[2], proc.inst.val[2]);
-	dump_memory(&proc);
+	// dump_memory(&proc);
+	// while (e->run)
+	// {
+
+	// }
+	dump_memory(e);
+}
+
+void	init_players(t_env *e)
+{
+	uint32_t	i;
+	uint32_t	j;
+
+	i = -1;
+	while (++i < e->nb_player)
+	{
+		e->player[i].live = 0;
+		j = -1;
+		while (++j < 23)//Remplacer 23 -> Nombre de uint8_t
+		{
+			g_mem[e->process[i].start + j] = e->player[i].op[j];
+			g_color[e->process[i].start + j] = i + 1;
+		}
+	}
+}
+
+static void	init_vm(t_env *e)
+{
+	//TEMPORAIRE////////////////////////////////////////////////////////////////
+	uint32_t	i = -1;
+	uint8_t		ops[23] = {0x0b, 0x68, 0x01, 0x00, 0x0f, 0x00, 0x01, 0x06, 0x64, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x00, 0x01, 0x09, 0xff, 0xfb};
+	e->nb_player = 3;
+	e->nb_process = e->nb_player;
+	if ((e->player = (t_player*)malloc(sizeof(t_player) * e->nb_player)))
+	{
+		while (++i < e->nb_player)
+		{
+			if ((e->player[i].op = malloc(sizeof(uint8_t) * 23)))
+			{
+				int j = -1;
+				while (++j < 23)
+					e->player[i].op[j] = ops[j];
+			}
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////
+	if ((e->process = (t_process*)malloc(sizeof(t_process) * e->nb_process)))
+		init_processes(e);
+	init_players(e);
+}
+
+int		main(void)
+{
+	t_env		e;
+
+	init_env(&e);
+	init_memory();
+	//Lecteur
+	init_vm(&e);
+	run(&e);
 }
 
 // 0b 68 01 00 0f 00 01 06 64 01 00 00 00 00 01 01 00 00 00 01 09 ff fb
