@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/21 00:54:06 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 16:21:32 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,39 @@ int		check_opcode(t_process *proc, uint8_t opcode)
 	return (0);
 }
 
+void		check_players_inst(t_env *e)
+{
+	int			i;
+	t_process	*p;
+
+	i = e->nb_process;
+	while (--i >= 0)
+	{
+		p = &(e->process[i]);
+		if (p->inst.n_cycle == -1)
+		{
+			if (!check_opcode(p, get_mem_uint8(p, p->inst.i))
+			|| !check_ocp(p, get_mem_uint8(p, p->inst.i)))
+				p->pc++;
+			dump_memory(e);
+		}
+		else
+		{
+			if (!(p->inst.n_cycle))
+				exec_instruction(e, p);
+			else
+				(p->inst.n_cycle)--;
+		}
+	}
+}
+
 static void	run(t_env *e)
 {
 	e->run = 1;
-	// init_process(&proc);
-	// while (ac--)
-	// 	g_mem[ac - 1] = strtol(av[ac], NULL, 16);
-	t_process proc = e->process[2];
-	if (!check_opcode(&proc, get_mem_uint8(&proc, proc.inst.i)))
-		printf("Bad opcode\n");
-	if (!check_ocp(&proc, get_mem_uint8(&proc, proc.inst.i)))
-		printf("Bad ocp\n");
-	exec_instruction(&proc);
-	// dump_memory(&proc);
-	// while (e->run)
-	// {
-
-	// }
-	dump_memory(e);
+	while (e->run)
+	{
+		check_players_inst(e);
+	}
 }
 
 void	init_players(t_env *e)

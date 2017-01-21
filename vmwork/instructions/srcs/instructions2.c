@@ -6,19 +6,20 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/19 18:54:51 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 14:56:44 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
 
-void	exec_sub(t_process *proc)
+void	exec_sub(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
 	uint32_t		val;
 	t_instruction	*inst;
 
 	printf("Exec sub\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -30,13 +31,14 @@ void	exec_sub(t_process *proc)
 	}
 }
 
-void	exec_and(t_process *proc)
+void	exec_and(t_env *e, t_process *proc)
 {
 	uint32_t		val;
 	uint8_t			reg;
 	t_instruction	*inst;
 
 	printf("Exec and\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -48,13 +50,14 @@ void	exec_and(t_process *proc)
 	}
 }
 
-void	exec_or(t_process *proc)
+void	exec_or(t_env *e, t_process *proc)
 {
 	uint32_t		val;
 	uint8_t			reg;
 	t_instruction	*inst;
 
 	printf("Exec or\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -66,13 +69,14 @@ void	exec_or(t_process *proc)
 	}
 }
 
-void	exec_xor(t_process *proc)
+void	exec_xor(t_env *e, t_process *proc)
 {
 	uint32_t		val;
 	uint8_t			reg;
 	t_instruction	*inst;
 
 	printf("Exec xor\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{

@@ -6,28 +6,33 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/19 18:56:28 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 20:36:31 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
 
-void	exec_live(t_process *proc)
+void	exec_live(t_env *e, t_process *proc)
 {
 	uint32_t	val;
 
 	val = src_param(proc, 0, 0, 0);
-	//A FAIRE
-	printf("Exec live for %08X\n", proc->reg[0]);
+	printf("LIVE VAL = %d\n", val);
+	if (val >= 1 && val <= e->nb_player)
+	{
+		e->player[val - 1].live += 1;
+		printf("Exec live for %08X\n", val);
+	}
 }
 
-void	exec_ld(t_process *proc)
+void	exec_ld(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
 	uint32_t		val;
 	t_instruction	*inst;
 
 	printf("Exec ld\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -39,13 +44,14 @@ void	exec_ld(t_process *proc)
 	}
 }
 
-void	exec_st(t_process *proc)
+void	exec_st(t_env *e, t_process *proc)
 {
 	uint32_t		val;
 	uint16_t		dest;
 	t_instruction	*inst;
 
 	printf("Exec st\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -56,13 +62,14 @@ void	exec_st(t_process *proc)
 	}
 }
 
-void	exec_add(t_process *proc)
+void	exec_add(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
 	uint32_t		val;
 	t_instruction	*inst;
 
 	printf("Exec add\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{

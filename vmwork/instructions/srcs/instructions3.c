@@ -6,27 +6,27 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/19 18:55:38 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 20:43:10 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
 
-void	exec_zjmp(t_process *proc)
+void	exec_zjmp(t_env *e, t_process *proc)
 {
 	t_instruction	*inst;
 
 	printf("Exec zjmp\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
-		proc->pc = inst->val[0] % MEM_SIZE;
+		proc->pc = (proc->pc + inst->val[0]) % MEM_SIZE;
 		printf("Exec zjmp ok: proc->pc = %04X\n", proc->pc);
-		inst->i = 0;//REVOIR
 	}
 }
 
-void	exec_ldi(t_process *proc)
+void	exec_ldi(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
 	uint16_t		address;
@@ -34,6 +34,7 @@ void	exec_ldi(t_process *proc)
 	t_instruction	*inst;
 
 	printf("Exec ldi\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -46,12 +47,13 @@ void	exec_ldi(t_process *proc)
 	}
 }
 
-void	exec_sti(t_process *proc)
+void	exec_sti(t_env *e, t_process *proc)
 {
 	uint32_t	reg;
 	uint16_t	address;
 
 	printf("Exec sti\n");
+	(void)e;
 	if (valid_params(proc))
 	{
 		reg = src_param(proc, 0, 0, 1);
@@ -62,11 +64,12 @@ void	exec_sti(t_process *proc)
 	}
 }
 
-void	exec_fork(t_process *proc)
+void	exec_fork(t_env *e, t_process *proc)
 {
 	uint16_t	address;
 
 	printf("Exec fork\n");
+	(void)e;
 	if (valid_params(proc))
 	{
 		address = src_param(proc, 1, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/20 20:51:43 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 15:06:50 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_op	t_op;
 typedef struct s_process	t_process;
 typedef struct s_player	t_player;
 typedef struct s_env	t_env;
-typedef void(*t_func)(t_process*);
+typedef void(*t_func)(t_env*, t_process*);
 
 /*
 ********************************************************************************
@@ -131,23 +131,23 @@ void		set_mem_uint16(t_process *process, uint16_t index, uint16_t val);
 void		set_mem_uint32(t_process *process, uint16_t index, uint32_t val);
 void		dump_memory(t_env *e);
 
-void		exec_instruction(t_process *proc);
-void		exec_live(t_process *proc);
-void		exec_ld(t_process *proc);
-void		exec_st(t_process *proc);
-void		exec_add(t_process *proc);
-void		exec_sub(t_process *proc);
-void		exec_and(t_process *proc);
-void		exec_or(t_process *proc);
-void		exec_xor(t_process *proc);
-void		exec_zjmp(t_process *proc);
-void		exec_ldi(t_process *proc);
-void		exec_sti(t_process *proc);
-void		exec_fork(t_process *proc);
-void		exec_lld(t_process *proc);
-void		exec_lldi(t_process *proc);
-void		exec_lfork(t_process *proc);
-void		exec_aff(t_process *proc);
+void		exec_instruction(t_env *e, t_process *proc);
+void		exec_live(t_env *e, t_process *proc);
+void		exec_ld(t_env *e, t_process *proc);
+void		exec_st(t_env *e, t_process *proc);
+void		exec_add(t_env *e, t_process *proc);
+void		exec_sub(t_env *e, t_process *proc);
+void		exec_and(t_env *e, t_process *proc);
+void		exec_or(t_env *e, t_process *proc);
+void		exec_xor(t_env *e, t_process *proc);
+void		exec_zjmp(t_env *e, t_process *proc);
+void		exec_ldi(t_env *e, t_process *proc);
+void		exec_sti(t_env *e, t_process *proc);
+void		exec_fork(t_env *e, t_process *proc);
+void		exec_lld(t_env *e, t_process *proc);
+void		exec_lldi(t_env *e, t_process *proc);
+void		exec_lfork(t_env *e, t_process *proc);
+void		exec_aff(t_env *e, t_process *proc);
 
 bool		valid_reg(uint8_t reg);
 bool		valid_params(t_process *proc);

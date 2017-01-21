@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/20 20:51:50 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 20:43:02 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,19 @@ t_op	get_op(int i)
 	return (g_op_tab[i - 1]);
 }
 
-void	exec_instruction(t_process *proc)
+void	next_instruction(t_process *proc)
 {
-	g_exec_op[proc->inst.opcode - 1](proc);
+	t_instruction	*inst;
+
+	inst = &(proc->inst);
+	if (inst->opcode != 0x09)
+		proc->pc += inst->i + 1;
+	init_instruction(inst);
+}
+
+void	exec_instruction(t_env *e, t_process *proc)
+{
+	g_exec_op[proc->inst.opcode - 1](e, proc);
+	next_instruction(proc);
+	dump_memory(e);
 }

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/20 21:45:34 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 15:43:06 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_instruction(t_instruction *inst)
 	inst->val[0] = 0;
 	inst->val[1] = 0;
 	inst->val[2] = 0;
-	inst->n_cycle = 0;
+	inst->n_cycle = -1;
 	inst->i = 0;
 }
 

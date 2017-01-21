@@ -6,19 +6,20 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/19 18:57:06 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 14:56:14 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
 
-void	exec_lld(t_process *proc)
+void	exec_lld(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
 	uint32_t		val;
 	t_instruction	*inst;
 
 	printf("Exec lld\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -30,7 +31,7 @@ void	exec_lld(t_process *proc)
 	}
 }
 
-void	exec_lldi(t_process *proc)
+void	exec_lldi(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
 	uint16_t		address;
@@ -38,6 +39,7 @@ void	exec_lldi(t_process *proc)
 	t_instruction	*inst;
 
 	printf("Exec lldi\n");
+	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -50,11 +52,12 @@ void	exec_lldi(t_process *proc)
 	}
 }
 
-void	exec_lfork(t_process *proc)
+void	exec_lfork(t_env *e, t_process *proc)
 {
 	uint16_t	address;
 
 	printf("Exec lfork\n");
+	(void)e;
 	if (valid_params(proc))
 	{
 		address = src_param(proc, 0, 0, 0);
@@ -63,11 +66,12 @@ void	exec_lfork(t_process *proc)
 	}
 }
 
-void	exec_aff(t_process *proc)
+void	exec_aff(t_env *e, t_process *proc)
 {
 	uint32_t	val;
 
 	printf("Exec aff\n");
+	(void)e;
 	if (valid_params(proc))
 	{
 		val = src_param(proc, 0, 0, 1);

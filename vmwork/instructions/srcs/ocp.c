@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:46:17 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/18 23:57:58 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/21 20:26:11 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		get_values(t_process *proc, t_instruction *inst)
 			inst->val[i] = get_mem_uint32(proc, ++(inst->i));
 			inst->i += 3;
 		}
-		else// (inst->param[i] == T_REG)
+		else
 			inst->val[i] = get_mem_uint8(proc, ++(inst->i));
 	}
 }
@@ -76,7 +76,7 @@ int			check_ocp(t_process *proc, uint8_t ocp)
 	t_instruction	*inst;
 
 	inst = &(proc->inst);
-	if (inst->opcode == 0x09)
+	if (!(get_op(inst->opcode).carry))
 		inst->param[0] = T_DIR;
 	else
 	{
@@ -86,6 +86,7 @@ int			check_ocp(t_process *proc, uint8_t ocp)
 	if (check_params(inst))
 	{
 		get_values(proc, inst);
+		inst->n_cycle = get_op(inst->opcode).n_cycle;
 		return (1);
 	}
 	return (0);
