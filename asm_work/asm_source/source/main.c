@@ -100,7 +100,7 @@ int	main(int argc, char **argv)
 	//=========================================================================
 	/*ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);*/
 	/*ft_fprintf(1, GREEN".comment = %s\n"END, header.comment);*/
-	for (int i = 0; i < 17; ++i)
+	/*for (int i = 0; i < 17; ++i)
 	{
 		printf("%s, %d, %d, %d, %d, %s, %d, %d\n",
 				op_table[i].instruction_name,
@@ -111,7 +111,7 @@ int	main(int argc, char **argv)
 				op_table[i].desc_instr,
 				op_table[i].carry,
 				op_table[i].dir_indir);
-	}
+	}*/
 	free_op_table(op_table);
 	return (0);
 }

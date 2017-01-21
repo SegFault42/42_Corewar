@@ -21,15 +21,15 @@ static char	*check_if_label_exist(char *line)
 	i = skip_blank(line); // skip les espaces
 	count_car_label = 0;
 	label = NULL;
-	ft_fprintf(1, CYAN"\nline = %s\n"END, line);
+	//ft_fprintf(1, CYAN"\nline = %s\n"END, line);
 	while (line[i] != '\0' && ft_isspace(line[i]) == false) // boucle jusqua la fin du label
 	{
 		++count_car_label;
 		++i;
 	}
 	label = ft_strndup(&line[skip_blank(line)], count_car_label); // stock le label
-	ft_fprintf(1, RED"\nlabel = %s\n"END, label);
-	ft_fprintf(1, PURPLE"\nchar =  %c\n"END, label[count_car_label - 1]);
+	//ft_fprintf(1, RED"\nlabel = %s\n"END, label);
+	//ft_fprintf(1, PURPLE"\nchar =  %c\n"END, label[count_car_label - 1]);
 	//if (ft_strchr(LABEL_CHARS, label[count_car_label -1]) == NULL)
 	if (label[count_car_label -1] == ':') 
 		return (label);
@@ -38,7 +38,7 @@ static char	*check_if_label_exist(char *line)
 
 bool	check_if_label_good_formatted(char *label)
 {
-	ft_fprintf(1, "label = %s\n", label);
+	//ft_fprintf(1, "label = %s\n", label);
 	int	i;
 	int	len_label; // longeur du label
 
@@ -62,14 +62,20 @@ void	check_if_instruction_exist(char *instr)
 
 	i = 0;
 	init_op_table(op);
-	ft_fprintf(1, YELLOW"op->instruction_name = %s\n"END, op[0].instruction_name);
-	ft_fprintf(1, YELLOW"instr = %s\n"END, instr);
+	//ft_fprintf(1, YELLOW"op->instruction_name = %s\n"END, op[0].instruction_name);
+	//ft_fprintf(1, YELLOW"instr = %s\n"END, instr);
 	while (i < 16)
 	{
-		printf(YELLOW"op->instruction_name = %s\n"END, op[i].instruction_name);
-		ft_strncmp(instr, op[i].instruction_name, ft_strclen(instr, ' '));
+		if (!ft_strncmp(instr, op[i].instruction_name, ft_strclen(instr, ' ')))
+		{
+			printf(YELLOW"op->instruction_name = %s\n"END, op[i].instruction_name);
+			break;
+		}
+		else if (i == 15)
+			error(BAD_INST);
 		++i;
 	}
+	free_op_table(op);
 	//ft_debug();
 	//(void)instr;
 }
@@ -78,21 +84,23 @@ void	get_instruction(char *line, bool label_exist)
 {
 	int	i;
 
+	i = 0;
 	i = skip_blank(line); // ignore les espaces
-	ft_fprintf(1, ORANGE"line = %s\n"END, line);
+	//ft_fprintf(1, ORANGE"line = %s\n"END, line);
 	if (label_exist == true) // si il y a un label j'avance jusqua l'instruction
 	{
 		while (line[i] != LABEL_END) // avance jusqu'au ':'
 			++i;
-		ft_fprintf(1, RED"line = %s\n"END, &line[i]);
+		//ft_fprintf(1, RED"line = %s\n"END, &line[i]);
 			++i; // avance de 1 le curseur (actuellement sur ':')
 		if (line[i] == '\0')
 			return ;
 		i += skip_blank(&line[i]); // ignore les caracteres espaces
-		ft_fprintf(1, "line = %s$\n", &line[i]);
+		//ft_fprintf(1, "line = %s$\n", &line[i]);
 		check_if_instruction_exist(&line[i]);
-
 	}
+	else
+		check_if_instruction_exist(&line[i]);
 }
 
 void	parse_instructions(int *fd)
@@ -101,9 +109,9 @@ void	parse_instructions(int *fd)
 	char	*label;
 	bool	label_exist;
 
-	label_exist = false;
 	while (get_next_line(*fd, &line) > 0)
 	{
+		label_exist = false;
 		if (is_cmt(line) == true) // Verifie si la ligne est un commentaire
 		{
 			ft_strdel(&line);
@@ -117,8 +125,8 @@ void	parse_instructions(int *fd)
 		}
 		// verifier si il y a une instruction apres le label et la parser.
 		get_instruction(line, label_exist);
-		ft_fprintf(1, YELLOW"line = %s\n"END, line);
-		ft_fprintf(1, YELLOW"=================================================\n"END);
+		//ft_fprintf(1, YELLOW"line = %s\n"END, line);
+		//ft_fprintf(1, YELLOW"=================================================\n"END);
 		ft_strdel(&line);
 	}
 }

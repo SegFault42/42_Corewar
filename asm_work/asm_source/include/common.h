@@ -52,6 +52,7 @@
 # define BAD_LABEL_FORMAT		9
 # define NAME_NOT_FOUND			10
 # define COMMENT_NOT_FOUND		11
+# define BAD_INST			12
 
 typedef struct		s_op
 {
