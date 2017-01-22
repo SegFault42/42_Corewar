@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/20 23:16:32 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/21 19:30:58 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ void	create_window(t_win *win)
 
 void	sdl_clear(t_win *win)
 {
-	SDL_SetRenderDrawColor(win->render, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(win->render, 55, 55, 55, 255);
 	SDL_RenderClear(win->render);
 }
 
-void	close_window(t_win *win)
+void	close_window(t_win *win, int8_t error)
 {
 	SDL_DestroyRenderer(win->render);
 	SDL_DestroyWindow(win->win);
 	SDL_Quit();
+	if (error == ERROR)
+		exit(EXIT_FAILURE);
 }
 
 void	sdl_draw_rectangle(t_win *win, int origin_x, int origin_y, int size_x, int size_y)
@@ -68,16 +70,14 @@ void	sdl_draw_rectangle(t_win *win, int origin_x, int origin_y, int size_x, int 
 void	gui()
 {
 	t_win		win;
+	t_font		font;
 	SDL_Event	event;
-	uint8_t		red = 55;
-	uint8_t		green = 55;
-	uint8_t		blue = 55;
 
 	ft_memset(&win, 0, sizeof(&win));
+	ft_memset(&font, 0, sizeof(&font));
 	create_window(&win);
 	sdl_clear(&win);
-	SDL_SetRenderDrawColor(win.render, red, green, blue, 255);
-	sdl_draw_rectangle(&win, 0, 0, WIDTH, HEIGHT);
+	init_ttf(&win, &font);
 	while (42)
 	{
 		if (SDL_PollEvent(&event))
@@ -86,11 +86,11 @@ void	gui()
 				break ;
 			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) // ferme la fenetre quand on appuie sur echape
 			{
-				close_window(&win);
 				break ;
 			}
 		}
 		SDL_RenderPresent(win.render);
 	}
-	close_window(&win);
+	TTF_Quit();
+	close_window(&win, EXIT_SUCCESS);
 }

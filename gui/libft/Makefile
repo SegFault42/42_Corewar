@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/13 13:50:08 by rabougue         ###   ########.fr        #
+#    Updated: 2017/01/21 17:55:31 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,15 +60,10 @@ $(NAME): $(OBJS) ./includes/libft.h
 	@ranlib $(NAME)
 
 %.o : %.c $(HEAD)
+	@clear
 	#@$(eval X=$(shell echo $$(($(X)+1))))
-	#@$(eval Y=$(shell echo $$(($(Y)+1))))
-	@echo "\x1b[$(X);0H                                                                                                        \r"
+	@echo "\x1b[1;0H    \r"
 	@echo "\x1b[48;5;$(X)m\r"
-	#@echo "$(GREEN)"
-	#@echo "$(LOL)"
-	#@echo "$(LIL)"
-	#@echo "\x1b[0;0H["
-	#@echo "\x1b[0;88H]"
 	@$(CC) -c $(FLAG) $< -o $@
 
 mc: fclean all clean
