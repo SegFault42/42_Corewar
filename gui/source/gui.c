@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/21 19:30:58 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/22 22:46:51 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	create_window(t_win *win)
 	win->render = SDL_CreateRenderer(win->win, -1, SDL_RENDERER_SOFTWARE);
 }
 
-void	sdl_clear(t_win *win)
+void	sdl_clear(t_win *win, uint8_t r, uint8_t g, uint8_t b)
 {
-	SDL_SetRenderDrawColor(win->render, 55, 55, 55, 255);
+	SDL_SetRenderDrawColor(win->render, r, g, b, 255);
 	SDL_RenderClear(win->render);
 }
 
@@ -67,19 +67,37 @@ void	sdl_draw_rectangle(t_win *win, int origin_x, int origin_y, int size_x, int 
 	}
 }
 
+void	text_color(t_font *font, uint8_t r, uint8_t g, uint8_t b)
+{
+	font->text_color.r = r;
+	font->text_color.r = g;
+	font->text_color.r = b;
+	font->text_color.a = 255;
+}
+
 void	gui()
 {
 	t_win		win;
 	t_font		font;
 	SDL_Event	event;
+	char		*itoa_x;
 
 	ft_memset(&win, 0, sizeof(&win));
 	ft_memset(&font, 0, sizeof(&font));
+	font.font_size = 100;
 	create_window(&win);
-	sdl_clear(&win);
+	sdl_clear(&win, 55, 55, 55);
 	init_ttf(&win, &font);
+	text_color(&font, 255, 0, 0);
+	int x = 0;
 	while (42)
 	{
+		itoa_x = ft_itoa(x);
+		sdl_clear(&win, 55, 55, 55);
+		draw_text(&font, &win, itoa_x);
+		free(itoa_x);
+		SDL_DestroyTexture(font.texture);
+		++x;
 		if (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
@@ -88,6 +106,15 @@ void	gui()
 			{
 				break ;
 			}
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_r)
+				sdl_clear(&win, 255, 0, 0);
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_g)
+				sdl_clear(&win, 0, 255, 0);
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_b)
+				sdl_clear(&win, 0, 0, 255);
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
+				sdl_clear(&win, 55, 55, 55);
+			ft_fprintf(1, "X ");
 		}
 		SDL_RenderPresent(win.render);
 	}
