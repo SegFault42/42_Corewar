@@ -51,7 +51,7 @@ bool	check_if_label_good_formatted(char *label)
 	return (true);
 }
 
-void	check_if_instruction_exist(char *instr)
+void	check_if_instruction_exist(char *instr, t_list *lst)
 {
 	int	i;
 	t_op	op[17];
@@ -62,6 +62,8 @@ void	check_if_instruction_exist(char *instr)
 	{
 		if (!ft_strncmp(instr, op[i].instruction_name, ft_strclen(instr, ' ')))
 		{
+			if (!(lst->inst = ft_strdup(op[i].instruction_name)))
+				error(-1);
 			//printf(YELLOW"op->instruction_name = %s\n"END, op[i].instruction_name);
 			break;
 		}
@@ -90,10 +92,9 @@ static int	get_param(int pos, char *line)
 	return (i);
 }
 
-int	get_instruction(char *line, bool label_exist)
+int	get_instruction(char *line, bool label_exist, t_list *lst)
 {
 	int	i;
-
 	i = 0;
 	i = skip_blank(line); // ignore les espaces
 	if (label_exist == true) // si il y a un label j'avance jusqua l'instruction
@@ -104,24 +105,43 @@ int	get_instruction(char *line, bool label_exist)
 		if (line[i] == '\0')
 			return (0);
 		i += skip_blank(&line[i]); // ignore les caracteres espaces
-		check_if_instruction_exist(&line[i]);
+		check_if_instruction_exist(&line[i], lst);
 	}
 	else
-		check_if_instruction_exist(&line[i]);
+		check_if_instruction_exist(&line[i], lst);
 	while (line[i] && !ft_strchr(" \t", line[i]))
 		i++;
 	return (i);
 }
 
-void	parse_instructions(int *fd)
+void	add_back(t_list *lst, t_list *new)
+{
+	while (lst && lst->next)
+		lst = lst->next;
+	lst->next = new;
+}
+
+t_list	*parse_instructions(int *fd)
 {
 	char	*line;
 	char	*label;
 	bool	label_exist;
 	int	i;
+	t_list	*new;
+	t_inst	content;
+	t_list	*lst;
 
+	lst = NULL;
 	while (get_next_line(*fd, &line) > 0)
 	{
+		content.instr = NULL;
+		content.param = NULL;
+		if ((new = ft_lstnew(&content, sizeof(content))))
+			error(-1);
+		if (!lst)
+			ft_lstadd(&lst, new);
+		else
+			add_back(lst, new);
 		i = 0;
 		label_exist = false;
 		if (is_cmt(line) == true) // Verifie si la ligne est un commentaire
@@ -136,8 +156,8 @@ void	parse_instructions(int *fd)
 				error(BAD_LABEL_FORMAT);
 		}
 		// verifier si il y a une instruction apres le label et la parser.
-		i = get_instruction(line, label_exist);
-		get_param(i, line);
+		i = get_instruction(line, label_exist, lst);
+		get_param(i, line, lst);
 		//ft_fprintf(1, YELLOW"line = %s\n"END, line);
 		//ft_fprintf(1, YELLOW"=================================================\n"END);
 		ft_strdel(&line);

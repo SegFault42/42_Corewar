@@ -66,6 +66,12 @@ typedef struct		s_op
 	bool			dir_indir;
 }					t_op;
 
+typedef struct		s_inst
+{
+	char		*inst;
+	t_list		*param;
+}			t_inst;
+
 typedef struct		s_header
 {
 	unsigned int	magic;
