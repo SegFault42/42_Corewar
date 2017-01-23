@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/21 20:43:02 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/23 22:48:24 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,27 @@ t_func	g_exec_op[OPS_NUMBER] =
 	exec_aff
 };
 
-t_op	get_op(int i)
+t_op		get_op(int i)
 {
 	return (g_op_tab[i - 1]);
 }
 
-void	next_instruction(t_process *proc)
+static void	next_instruction(t_process *proc)
 {
 	t_instruction	*inst;
 
 	inst = &(proc->inst);
-	if (inst->opcode != 0x09)
+	if (inst->opcode != ZJMP && inst->opcode != FORK
+	&& inst->opcode != LFORK)
 		proc->pc += inst->i + 1;
-	init_instruction(inst);
+	if (inst->opcode != FORK && inst->opcode != LFORK)
+		init_instruction(inst);
 }
 
-void	exec_instruction(t_env *e, t_process *proc)
+void		exec_instruction(t_env *e, t_process *proc)
 {
 	g_exec_op[proc->inst.opcode - 1](e, proc);
 	next_instruction(proc);
 	dump_memory(e);
+	char* str; while (get_next_line(0, &str) != 1){free(str);}
 }

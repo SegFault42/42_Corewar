@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/21 20:43:10 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/23 22:49:20 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec_zjmp(t_env *e, t_process *proc)
 	printf("Exec zjmp\n");
 	(void)e;
 	inst = &(proc->inst);
-	if (valid_params(proc))
+	if (valid_params(proc) && proc->carry)
 	{
 		proc->pc = (proc->pc + inst->val[0]) % MEM_SIZE;
 		printf("Exec zjmp ok: proc->pc = %04X\n", proc->pc);
@@ -66,14 +66,15 @@ void	exec_sti(t_env *e, t_process *proc)
 
 void	exec_fork(t_env *e, t_process *proc)
 {
-	uint16_t	address;
+	uint16_t	pc;
 
 	printf("Exec fork\n");
-	(void)e;
 	if (valid_params(proc))
 	{
-		address = src_param(proc, 1, 0, 0);
-		//A faire
+		pc = proc->pc + src_param(proc, 1, 0, 0);
+		proc->pc = (proc->pc + 3) % MEM_SIZE;
+		init_instruction(&(proc->inst));
+		fork_process(e, proc, pc);
 		printf("Exec fork ok\n");
 	}
 }

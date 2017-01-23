@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/21 14:56:14 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/23 22:48:48 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ void	exec_lldi(t_env *e, t_process *proc)
 
 void	exec_lfork(t_env *e, t_process *proc)
 {
-	uint16_t	address;
+	uint16_t	pc;
 
 	printf("Exec lfork\n");
-	(void)e;
 	if (valid_params(proc))
 	{
-		address = src_param(proc, 0, 0, 0);
-		//A faire (IF CARRY)
+		pc = proc->pc + src_param(proc, 0, 0, 0);
+		proc->pc = (proc->pc + 3) % MEM_SIZE;
+		init_instruction(&(proc->inst));
+		fork_process(e, proc, pc);
 		printf("Exec lfork ok\n");
 	}
 }

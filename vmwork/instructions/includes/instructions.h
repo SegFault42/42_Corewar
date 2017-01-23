@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/21 15:06:50 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/23 22:48:33 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@
 */
 
 # define OPS_NUMBER 16
+# define LIVE 1
+# define LD 2
+# define ST 3
+# define ADD 4
+# define SUB 5
+# define AND 6
+# define OR 7
+# define XOR 8
+# define ZJMP 9
+# define LDI 10
+# define STI 11
+# define FORK 12
+# define LLD 13
+# define LLDI 14
+# define LFORK 15
+# define AFF 16
 
 /*
 ********************************************************************************
@@ -153,5 +169,6 @@ bool		valid_reg(uint8_t reg);
 bool		valid_params(t_process *proc);
 uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg);
 void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val);
+void		fork_process(t_env *e, t_process *proc, uint16_t pc);
 
 #endif

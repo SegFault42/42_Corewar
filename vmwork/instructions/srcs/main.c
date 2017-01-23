@@ -6,11 +6,13 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/21 16:21:32 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/23 22:49:42 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
+
+#define OP_SIZE 31
 
 int		check_opcode(t_process *proc, uint8_t opcode)
 {
@@ -46,7 +48,10 @@ void		check_players_inst(t_env *e)
 		else
 		{
 			if (!(p->inst.n_cycle))
+			{
+				printf("EXEC_INSTRUCTION FOR PROC%d\n", i + 1);
 				exec_instruction(e, p);
+			}
 			else
 				(p->inst.n_cycle)--;
 		}
@@ -72,7 +77,7 @@ void	init_players(t_env *e)
 	{
 		e->player[i].live = 0;
 		j = -1;
-		while (++j < 23)//Remplacer 23 -> Nombre de uint8_t
+		while (++j < OP_SIZE)//Remplacer OP_SIZE -> Nombre de uint8_t
 		{
 			g_mem[e->process[i].start + j] = e->player[i].op[j];
 			g_color[e->process[i].start + j] = i + 1;
@@ -84,17 +89,18 @@ static void	init_vm(t_env *e)
 {
 	//TEMPORAIRE////////////////////////////////////////////////////////////////
 	uint32_t	i = -1;
-	uint8_t		ops[23] = {0x0b, 0x68, 0x01, 0x00, 0x0f, 0x00, 0x01, 0x06, 0x64, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x00, 0x01, 0x09, 0xff, 0xfb};
+	// 0B 68 01 00 12 00 01 06 64 01 00 00 00 00 02 0C 00 08 01 00 00 00 02 01 00 00 00 08 09 FF F6
+	uint8_t		ops[OP_SIZE] = {0x0b, 0x68, 0x01, 0x00, 0x12, 0x00, 0x01, 0x06, 0x64, 0x01, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0c, 0x00, 0x08, 0x01, 0x00, 0x00, 0x00, 0x02, 0x01, 0x00, 0x00, 0x00, 0x08, 0x09, 0xff, 0xf6};
 	e->nb_player = 3;
 	e->nb_process = e->nb_player;
 	if ((e->player = (t_player*)malloc(sizeof(t_player) * e->nb_player)))
 	{
 		while (++i < e->nb_player)
 		{
-			if ((e->player[i].op = malloc(sizeof(uint8_t) * 23)))
+			if ((e->player[i].op = malloc(sizeof(uint8_t) * OP_SIZE)))
 			{
 				int j = -1;
-				while (++j < 23)
+				while (++j < OP_SIZE)
 					e->player[i].op[j] = ops[j];
 			}
 		}

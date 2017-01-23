@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/21 20:45:36 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/23 22:21:04 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		dump_memory(t_env *e)
 	int		i;
 
 	i = -1;
-	ft_putstr("\033[1;1H\033[2J");
+	// ft_putstr("\033[1;1H\033[2J");
 	(void)e;
 	while (++i < MEM_SIZE)
 	{
@@ -75,5 +75,5 @@ void		dump_memory(t_env *e)
 		ft_putchar((i + 1) % 64 ? ' ' : '\n');
 	}
 	player_info(e);
-	usleep(500000);
+	// usleep(250000);
 }
