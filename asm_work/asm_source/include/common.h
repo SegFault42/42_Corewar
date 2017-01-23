@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/18 15:04:10 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/23 16:59:49 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define COMMENT_NOT_FOUND		11
 # define INSTR_INEXIST			12
 # define BAD_NUMBER_PARAM		13
+# define BAD_ARGUMENT			14
 
 typedef struct		s_op
 {
@@ -74,10 +75,25 @@ typedef struct		s_header
 	char			comment[COMMENT_LENGTH + 1];
 	char			prog_name[PROG_NAME_LENGTH + 1];
 }					t_header;
+
+typedef struct		s_info
+{
+	char			**param;
+	char			opcode;
+	unsigned char	ocp;
+	uint8_t			arg_value[4];
+	struct s_info	*next;
+}					t_info;
+
+typedef struct		s_glob
+{
+	t_op 			op_table[17];
+	t_info			*list;
+}					t_glob;
 /*
 ** parse_s_file.c
 */
-int8_t				parse_s_file(char *file, t_header *header);
+int8_t				parse_s_file(char *file, t_header *header, t_glob *glob);
 /*
 ** main.c
 */
@@ -85,6 +101,7 @@ void				error(int error);
 
 void				parse_name(int *fd, t_header *header);
 void				parse_comment(int *fd, t_header *header);
+void 				parse_info(t_glob *glob, char *line, int fd);
 /*
 ** tools.c
 */
@@ -93,7 +110,7 @@ int					is_cmt(char *line);
 /*
 ** check_label.c
 */
-void				parse_instructions(int *fd);
+void				parse_instructions(int *fd, t_glob *glob);
 /*
 ** op_tab.c
 */

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/13 12:13:20 by rabougue         ###   ########.fr        #
+#    Updated: 2017/01/23 16:48:50 by hboudra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS = $(SRC)/main.c \
 	   $(SRC)/tools.c\
 	   $(SRC)/parse_instructions.c\
 	   $(SRC)/op_tab.c\
+	   $(SRC)/parse_info.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 
