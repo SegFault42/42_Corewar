@@ -87,8 +87,6 @@ static int	get_param(int pos, char *line)
 		if (!(str = ft_strsub(line, pos + i, len - pos - i)))
 			return (-1);
 	ft_fprintf(1, "%s\n", str);
-	//while (str)
-	//	ft_printf("%s", *str++);
 	return (i);
 }
 
@@ -110,7 +108,8 @@ int	get_instruction(char *line, bool label_exist)
 	}
 	else
 		check_if_instruction_exist(&line[i]);
-	get_param(i, line);
+	while (line[i] && !ft_strchr(" \t", line[i]))
+		i++;
 	return (i);
 }
 
@@ -138,6 +137,7 @@ void	parse_instructions(int *fd)
 		}
 		// verifier si il y a une instruction apres le label et la parser.
 		i = get_instruction(line, label_exist);
+		get_param(i, line);
 		//ft_fprintf(1, YELLOW"line = %s\n"END, line);
 		//ft_fprintf(1, YELLOW"=================================================\n"END);
 		ft_strdel(&line);
