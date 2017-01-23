@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/22 22:46:51 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/23 17:54:21 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,29 +75,66 @@ void	text_color(t_font *font, uint8_t r, uint8_t g, uint8_t b)
 	font->text_color.a = 255;
 }
 
+void	draw_memory(t_win *win, t_font *font)
+{
+	/*int8_t	x;*/
+	/*int8_t	y;*/
+	/*[>int	w, h = {0};<]*/
+	char frag_memory[MEM_SIZE / MEM_SIZE];
+
+	/*y = -1;*/
+	/*while (y++ < 64)*/
+	/*{*/
+		/*x = -1;*/
+		/*while (x++ < 64)*/
+		/*{*/
+			draw_text(font, win, g_memory[MEM_SIZE - 10]);
+			/*[>if (!(TTF_SizeText(font->font, "0xFF", &w, &h)))<]*/
+				/*[>ft_fprintf(1, "w = %d, h = %d\n", w, h);<]*/
+			/*font->text_rect.x += 25;*/
+		/*}*/
+		/*font->text_rect.y += 25;*/
+	/*font->text_rect.x = 0; // coord x ou le texte sera place*/
+	/*}*/
+	/*font->text_rect.y = 0; // coord y ou le texte sera place*/
+}
+
+/*void	fill_memory(t_font *font)*/
+/*{*/
+	/*for (int i = 0; i < MEM_SIZE; ++i)*/
+	/*{*/
+		/*font->memory[i] = 'A' + random() % 26;*/
+		/*[>font->memory[i] = *ft_itoa_base(font->memory[i], 16);<]*/
+	/*}*/
+/*}*/
+
 void	gui()
 {
 	t_win		win;
 	t_font		font;
 	SDL_Event	event;
-	char		*itoa_x;
+	/*char		*itoa_x;*/
 
 	ft_memset(&win, 0, sizeof(&win));
 	ft_memset(&font, 0, sizeof(&font));
-	font.font_size = 100;
+	/*font.memory = (char *)ft_memalloc(sizeof(char) * MEM_SIZE);*/
+	font.font_size = 10;
 	create_window(&win);
 	sdl_clear(&win, 55, 55, 55);
 	init_ttf(&win, &font);
 	text_color(&font, 255, 0, 0);
-	int x = 0;
+	font.text_rect.x = 0; // coord x ou le texte sera place
+	font.text_rect.y = 0; // coord y ou le texte sera place
+	/*int x = 0;*/
 	while (42)
 	{
-		itoa_x = ft_itoa(x);
+		/*fill_memory(&font);*/
+		/*itoa_x = ft_itoa(x);*/
 		sdl_clear(&win, 55, 55, 55);
-		draw_text(&font, &win, itoa_x);
-		free(itoa_x);
-		SDL_DestroyTexture(font.texture);
-		++x;
+		/*draw_text(&font, &win, itoa_x);*/
+		/*free(itoa_x);*/
+		/*SDL_DestroyTexture(font.texture);*/
+		/*++x;*/
 		if (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
@@ -116,6 +153,8 @@ void	gui()
 				sdl_clear(&win, 55, 55, 55);
 			ft_fprintf(1, "X ");
 		}
+		draw_memory(&win, &font);
+		SDL_DestroyTexture(font.texture);
 		SDL_RenderPresent(win.render);
 	}
 	TTF_Quit();
