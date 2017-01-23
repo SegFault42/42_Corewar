@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/23 17:01:22 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/23 17:16:58 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	error(int error)
 		ft_fprintf(2, RED"Wrong number argument in instruction\n"END);
 	else if (error == BAD_ARGUMENT)
 		ft_fprintf(2, RED"Wrong parametres\n"END);
+	else if (error == MALLOC)
+		ft_fprintf(2, RED"malloc error\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 	exit(EXIT_FAILURE);

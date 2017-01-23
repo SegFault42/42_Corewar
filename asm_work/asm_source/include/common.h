@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/23 16:59:49 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/23 17:16:06 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define INSTR_INEXIST			12
 # define BAD_NUMBER_PARAM		13
 # define BAD_ARGUMENT			14
+# define MALLOC					15
 
 typedef struct		s_op
 {
@@ -101,7 +102,7 @@ void				error(int error);
 
 void				parse_name(int *fd, t_header *header);
 void				parse_comment(int *fd, t_header *header);
-void 				parse_info(t_glob *glob, char *line, int fd);
+int 				parse_info(t_glob *glob, char *line, int fd);
 /*
 ** tools.c
 */
@@ -114,7 +115,9 @@ void				parse_instructions(int *fd, t_glob *glob);
 /*
 ** op_tab.c
 */
-void	init_op_table(t_op *op_table);
-void	free_op_table(t_op *op_table);
+void				init_op_table(t_op *op_table);
+void				free_op_table(t_op *op_table);
+t_info				*new_info(void);
+
 
 #endif

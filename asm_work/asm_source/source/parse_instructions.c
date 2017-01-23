@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/23 16:51:49 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/23 17:28:27 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	check_if_instruction_exist(char *instruction)
 	return (false);
 }
 
-void	get_instruction(char *line, bool label_exist)
+char	*get_instruction(char *line, bool label_exist)
 {
 	int	i;
 
@@ -94,7 +94,7 @@ void	get_instruction(char *line, bool label_exist)
 		ft_fprintf(1, RED"line = %s\n"END, &line[i]);
 			++i; // avance de 1 le curseur (actuellement sur ':')
 		if (line[i] == '\0')
-			return ;
+			return NULL;
 		i += skip_blank(&line[i]); // ignore les caracteres espaces
 		/*ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);*/
 		/*if (check_if_instruction_exist(&line[i]) == false) // erreur argument.*/
@@ -103,7 +103,7 @@ void	get_instruction(char *line, bool label_exist)
 	ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);
 	if (check_if_instruction_exist(&line[i]) == false) // erreur argument.
 		error(INSTR_INEXIST);
-	(void)label_exist;
+	return (&line[i]);
 }
 
 void	parse_instructions(int *fd, t_glob *glob)
@@ -111,6 +111,7 @@ void	parse_instructions(int *fd, t_glob *glob)
 	char	*line;
 	char	*label;
 	bool	label_exist;
+	int		parse;
 
 	(void)glob;
 	label = NULL;
@@ -129,9 +130,11 @@ void	parse_instructions(int *fd, t_glob *glob)
 				error(BAD_LABEL_FORMAT);
 			free(label);
 		}
-		parse_info(glob, line, *fd);
 		// verifier si il y a une instruction apres le label et la parser.
-		get_instruction(line, label_exist);
+		line = get_instruction(line, label_exist);
+		if (line)
+			if ((parse = parse_info(glob, line, *fd)) != TRUE)
+				error(parse);
 		ft_putstr("------------------------------------------------->");
 		ft_putendl(line);
 		// ft_fprintf(1, YELLOW"line = %s\n"END, line);
