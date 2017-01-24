@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/23 22:49:42 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/24 11:51:24 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ int		check_opcode(t_process *proc, uint8_t opcode)
 
 void		check_players_inst(t_env *e)
 {
-	int			i;
 	t_process	*p;
 
-	i = e->nb_process;
-	while (--i >= 0)
+	e->cur_process = e->nb_process;
+	while (--(e->cur_process) >= 0)
 	{
-		p = &(e->process[i]);
+		p = &(e->process[e->cur_process]);
 		if (p->inst.n_cycle == -1)
 		{
 			if (!check_opcode(p, get_mem_uint8(p, p->inst.i))
@@ -49,7 +48,7 @@ void		check_players_inst(t_env *e)
 		{
 			if (!(p->inst.n_cycle))
 			{
-				printf("EXEC_INSTRUCTION FOR PROC%d\n", i + 1);
+				printf("EXEC_INSTRUCTION FOR PROC%d\n", e->cur_process + 1);
 				exec_instruction(e, p);
 			}
 			else

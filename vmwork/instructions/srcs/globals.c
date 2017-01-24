@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/23 22:48:24 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/24 13:36:21 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,19 @@ static void	next_instruction(t_process *proc)
 	t_instruction	*inst;
 
 	inst = &(proc->inst);
-	if (inst->opcode != ZJMP && inst->opcode != FORK
-	&& inst->opcode != LFORK)
+	if (inst->opcode != ZJMP)
 		proc->pc += inst->i + 1;
-	if (inst->opcode != FORK && inst->opcode != LFORK)
-		init_instruction(inst);
+	init_instruction(inst);
 }
 
 void		exec_instruction(t_env *e, t_process *proc)
 {
+	int		opcode;
+
+	opcode = proc->inst.opcode;
 	g_exec_op[proc->inst.opcode - 1](e, proc);
-	next_instruction(proc);
+	if (opcode != FORK && opcode != LFORK)
+		next_instruction(proc);
 	dump_memory(e);
 	char* str; while (get_next_line(0, &str) != 1){free(str);}
 }

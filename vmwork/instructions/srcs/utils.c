@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/23 22:48:59 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/24 13:36:12 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,50 @@ void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val)
 	}
 }
 
-void		fork_process(t_env *e, t_process *proc, uint16_t pc)
+void		copy_processes(t_env *e, t_process *cpy)
 {
+	uint32_t	i;
+	int			j;
 	t_process	*p;
 
-	if (!(e->process = realloc(e->process, sizeof(t_process) * (e->nb_process + 1))))
-		printf("realloc failure\n");
-	p = &(e->process[e->nb_process]);
-	ft_memcpy(p, proc, sizeof(t_process));
-	p->pc = pc % MEM_SIZE;
-	init_instruction(&(p->inst));
+	i = -1;
+	while (++i < e->nb_process)
+	{
+		j = -1;
+		p = &(cpy[i]);
+		// init_instruction(&(p->inst));
+		p->inst = e->process[i].inst;
+		p->carry = e->process[i].carry;
+		p->start = e->process[i].start;
+		p->pc = e->process[i].pc;
+		while (++j < REG_NUMBER)
+			p->reg[j] = e->process[i].reg[j];
+	}
+	free(e->process);
+	e->process = cpy;
+}
+
+void		fork_process(t_env *e, t_process *proc, uint16_t pc)
+{
+	t_process	*new;
+	t_process	*cpy;
+	int			i;
+
+	if (!(cpy = (t_process*)malloc(sizeof(t_process) * (e->nb_process + 1))))
+		printf("fork: malloc failure\n");
+	copy_processes(e, cpy);
+	new = &(e->process[e->nb_process]);
+	proc = &(e->process[e->cur_process]);
 	e->nb_process += 1;
+	init_instruction(&(new->inst));
+	new->carry = proc->carry;
+	new->start = proc->start;
+	new->pc = pc % MEM_SIZE;
+	i = -1;
+	while (++i < REG_NUMBER)
+		new->reg[i] = proc->reg[i];
 	printf("FORK, process%d\n", e->nb_process);
-	printf("carry: %d, start: %04X, pc = %04X\n", p->carry, p->start, p->pc);
-	printf("reg(1:%08X, 2:%08X, 3:%08X, 4:%08X, 5:%08X, 6:%08X, 7:%08X, 8:%08X", p->reg[0], p->reg[1], p->reg[2], p->reg[3], p->reg[4], p->reg[5], p->reg[6], p->reg[7]);
-	printf(", 9:%08X, 10:%08X, 11:%08X, 12:%08X, 13:%08X, 14:%08X, 15:%08X, 16:%08X)\n", p->reg[8], p->reg[9], p->reg[10], p->reg[11], p->reg[12], p->reg[13], p->reg[14], p->reg[15]);
-	p->reg[0] = 18;
-	// sleep(5);
+	printf("carry: %d, start: %04X, pc = %04X\n", new->carry, new->start, new->pc);
+	printf("reg(1:%08X, 2:%08X, 3:%08X, 4:%08X, 5:%08X, 6:%08X, 7:%08X, 8:%08X", new->reg[0], new->reg[1], new->reg[2], new->reg[3], new->reg[4], new->reg[5], new->reg[6], new->reg[7]);
+	printf(", 9:%08X, 10:%08X, 11:%08X, 12:%08X, 13:%08X, 14:%08X, 15:%08X, 16:%08X)\n", new->reg[8], new->reg[9], new->reg[10], new->reg[11], new->reg[12], new->reg[13], new->reg[14], new->reg[15]);
 }

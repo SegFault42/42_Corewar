@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/23 22:49:33 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/24 11:26:13 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	init_env(t_env *e)
 	e->run = 0;
 	e->nb_player = 0;
 	e->nb_process = 0;
+	e->cur_process = 0;
 	e->cycle = 0;
 	e->player = 0;
 	e->process = 0;

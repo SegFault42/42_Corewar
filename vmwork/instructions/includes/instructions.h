@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/23 22:48:33 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/24 11:51:47 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ struct		s_env
 	bool		run;
 	uint32_t	nb_player;
 	uint32_t	nb_process;
+	int			cur_process;
 	uint32_t	cycle;
 	t_player	*player;
 	t_process	*process;
