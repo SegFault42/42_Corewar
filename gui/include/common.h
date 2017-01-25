@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/24 17:22:57 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/25 22:20:17 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <SDL2/SDL_ttf.h>
 # include "../libft/includes/libft.h"
+# include "../include/SDL2/SDL_image.h"
 
 #define ERROR (-1)
 #define INIT_VIDEO_ERROR (1)
@@ -52,6 +53,12 @@ typedef struct		s_font
 	SDL_Rect		text_rect;
 }					t_font;
 
+typedef struct		s_wallpaper
+{
+	SDL_Surface		*wallpaper;
+	SDL_Texture		*texture;
+}					t_wallpaper;
+
 void	gui();
 void	error(uint8_t error);
 void	create_window(t_win *win);
@@ -64,5 +71,8 @@ void	init_ttf(t_win *win, t_font *font);
 void	draw_text(t_font *font, t_win *win, char *str, int i);
 
 void	draw_memory(t_win *win, t_font *font);
+
+void	screenshot(t_win *win);
+void	print_wallpaper(t_wallpaper *wallpaper, t_win *win);
 
 #endif

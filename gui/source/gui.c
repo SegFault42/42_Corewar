@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/24 17:28:43 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/25 22:21:10 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	create_window(t_win *win)
 	if (SDL_Init(SDL_INIT_VIDEO) == ERROR)
 		error(INIT_VIDEO_ERROR);
 
+	IMG_Init(IMG_INIT_PNG);
 	win->win = SDL_CreateWindow("Corewar", SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE);
 	if (win->win == NULL)
@@ -126,7 +127,10 @@ void	fill_memory()
 	i = 0;
 	while (i < 50)
 	{
-		g_memory_color[i] = 1;
+		g_memory_color[i + random() % MEM_SIZE] = 1;
+		g_memory_color[i + random() % MEM_SIZE] = 2;
+		g_memory_color[i + random() % MEM_SIZE] = 3;
+		g_memory_color[i +random() % MEM_SIZE] = 4;
 		++i;
 	}
 }
@@ -135,12 +139,15 @@ void	gui()
 {
 	t_win		win;
 	t_font		font;
+	t_wallpaper	wallpaper;
 	SDL_Event	event;
-	int8_t		r = 55, g = 55, b = 55;
+	/*int8_t		r = 55, g = 55, b = 55;*/
 	/*char		*itoa_x;*/
+	/*SDL_Renderer	*wallpaper = SDL_CreateRenderer(win.win, -1, 0);*/
 
 	ft_memset(&win, 0, sizeof(&win));
 	ft_memset(&font, 0, sizeof(&font));
+	ft_memset(&font, 0, sizeof(&wallpaper));
 	ft_memset(g_memory, 0, MEM_SIZE);
 	/*font.memory = (char *)ft_memalloc(sizeof(char) * MEM_SIZE);*/
 	font.font_size = 15;
@@ -150,12 +157,17 @@ void	gui()
 	change_text_color(font.text_color, 255, 0, 0);
 	font.text_rect.x = 0; // coord x ou le texte sera place
 	font.text_rect.y = 0; // coord y ou le texte sera place
+	/*SDL_Rect dstrect = { 0, 0, 1920, 1080 };*/
 	/*int x = 0;*/
+	print_wallpaper(&wallpaper, &win);
 	while (42)
 	{
+		/*win.g_screen_surface = SDL_GetWindowSurface(win.win);*/
+		/*print_wallpaper(&win);*/
 		fill_memory();
+		SDL_RenderCopy(win.render, wallpaper.texture, NULL, NULL);
 		/*itoa_x = ft_itoa(x);*/
-		sdl_clear(&win, r, g, b);
+			/*sdl_clear(&win, r, g, b);*/
 		/*draw_text(&font, &win, itoa_x);*/
 		/*free(itoa_x);*/
 		/*SDL_DestroyTexture(font.texture);*/
@@ -165,11 +177,11 @@ void	gui()
 			if (event.type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
 				break ;
 			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) // ferme la fenetre quand on appuie sur echape
-			{
 				break ;
-			}
 			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
 				SDL_Delay(4000);
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)
+				screenshot(&win);
 			ft_fprintf(1, "X ");
 		}
 		draw_memory(&win, &font);

@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 19:08:05 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/24 17:36:11 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/24 21:48:29 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void		init_ttf(t_win *win, t_font *font)
 		ft_fprintf(2, "%s\n", TTF_GetError());
 		close_window(win, ERROR);
 	}
-	font->font = TTF_OpenFont("./font/monaco.ttf", font->font_size);
+	/*font->font = TTF_OpenFont("./font/monaco.ttf", font->font_size);*/
+	font->font = TTF_OpenFont("/Library/Fonts/Arial Bold.ttf", font->font_size);
 	if (font->font == NULL)
 	{
 		ft_fprintf(2, "%s\n", TTF_GetError());
@@ -44,9 +45,9 @@ void		draw_text(t_font *font, t_win *win, char *str, int i)
 	else if (g_memory_color[i] == 2)
 		font->text_color = (SDL_Color){255, 0, 215, 255};
 	else if (g_memory_color[i] == 3)
-		font->text_color = (SDL_Color){0, 0, 181, 232};
+		font->text_color = (SDL_Color){0, 181, 232, 0};
 	else if (g_memory_color[i] == 4)
-		font->text_color = (SDL_Color){0, 255, 255, 255};
+		font->text_color = (SDL_Color){215, 181, 0, 255};
 	else
 		font->text_color = (SDL_Color){255, 255, 255, 255};
 	font->text = TTF_RenderText_Solid(font->font, str, font->text_color);

@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/18 20:09:40 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/25 15:17:00 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ bool	check_if_instruction_exist(char *instruction)
 	uint8_t	len_instruction;
 
 	i = 0;
+	ft_fprintf(1, ORANGE"inssghjkhgjgh = %s\n"END, instruction);
 	len_instruction = skip_blank(&instruction[i]);
 	i = 0;
 	init_op_table(op);
