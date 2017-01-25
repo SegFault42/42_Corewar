@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/24 13:36:12 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/25 16:30:07 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,6 @@ uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg)
 	return (val);
 }
 
-void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val)
-{
-	t_instruction	*inst;
-
-	inst = &(proc->inst);
-	if (inst->param[i] == T_IND)
-	{
-		set_mem_uint32(proc, dest, val);
-		printf("Exec ok\n");
-	}
-	else if (inst->param[i] == T_REG)
-	{
-		proc->reg[dest] = val;
-		printf("Exec ok: proc->reg[%d] = %08X\n", dest, val);
-	}
-}
-
 void		copy_processes(t_env *e, t_process *cpy)
 {
 	uint32_t	i;
@@ -97,7 +80,6 @@ void		copy_processes(t_env *e, t_process *cpy)
 	{
 		j = -1;
 		p = &(cpy[i]);
-		// init_instruction(&(p->inst));
 		p->inst = e->process[i].inst;
 		p->carry = e->process[i].carry;
 		p->start = e->process[i].start;

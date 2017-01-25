@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/24 11:51:47 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/25 15:43:35 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <fcntl.h>
 
 /*
 ********************************************************************************
@@ -103,6 +104,7 @@ struct		s_process
 struct		s_player
 {
 	uint16_t	live;
+	header_t	header;
 	uint8_t		*op;
 };
 
@@ -171,5 +173,8 @@ bool		valid_params(t_process *proc);
 uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg);
 void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val);
 void		fork_process(t_env *e, t_process *proc, uint16_t pc);
+
+int			ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
+int			ft_parse(int argc, char **argv, uint8_t fd[MAX_PLAYERS]);
 
 #endif

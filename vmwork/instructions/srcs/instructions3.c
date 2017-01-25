@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/24 11:49:06 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/25 16:50:43 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	exec_zjmp(t_env *e, t_process *proc)
 	if (valid_params(proc) && proc->carry)
 	{
 		proc->pc = (proc->pc + inst->val[0]) % MEM_SIZE;
-		printf("Exec zjmp ok: proc->pc = %04X\n", proc->pc);
+		printf("Exec zjmp ok: proc->pc = %d\n", proc->pc);
 	}
+	else
+		proc->pc += 3;
 }
 
 void	exec_ldi(t_env *e, t_process *proc)
@@ -43,7 +45,7 @@ void	exec_ldi(t_env *e, t_process *proc)
 		reg = src_param(proc, 0, 2, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
-		printf("Exec ldi ok: proc->reg[%d] = %08X\n", reg, proc->reg[reg]);
+		printf("Exec ldi ok: proc->reg[%d] = %d\n", reg + 1, proc->reg[reg]);
 	}
 }
 
@@ -56,11 +58,12 @@ void	exec_sti(t_env *e, t_process *proc)
 	(void)e;
 	if (valid_params(proc))
 	{
+
 		reg = src_param(proc, 0, 0, 1);
 		proc->carry = (!reg ? 1 : 0);
 		address = src_param(proc, 0, 1, 1) + src_param(proc, 0, 2, 1);
 		set_mem_uint32(proc, address % IDX_MOD, reg);
-		printf("Exec sti ok\n");
+		printf("Exec sti ok %d (pc: %d)\n", address % IDX_MOD, address % IDX_MOD + proc->pc);
 	}
 }
 

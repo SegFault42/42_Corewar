@@ -6,13 +6,11 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/24 11:51:24 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/25 15:38:45 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
-
-#define OP_SIZE 31
 
 int		check_opcode(t_process *proc, uint8_t opcode)
 {
@@ -42,7 +40,6 @@ void		check_players_inst(t_env *e)
 			if (!check_opcode(p, get_mem_uint8(p, p->inst.i))
 			|| !check_ocp(p, get_mem_uint8(p, p->inst.i)))
 				p->pc++;
-			dump_memory(e);
 		}
 		else
 		{
@@ -76,7 +73,7 @@ void	init_players(t_env *e)
 	{
 		e->player[i].live = 0;
 		j = -1;
-		while (++j < OP_SIZE)//Remplacer OP_SIZE -> Nombre de uint8_t
+		while (++j < e->player[i].header.prog_size)
 		{
 			g_mem[e->process[i].start + j] = e->player[i].op[j];
 			g_color[e->process[i].start + j] = i + 1;
@@ -84,41 +81,34 @@ void	init_players(t_env *e)
 	}
 }
 
-static void	init_vm(t_env *e)
+static int	init_vm(t_env *e, int argc, char **argv)
 {
-	//TEMPORAIRE////////////////////////////////////////////////////////////////
-	uint32_t	i = -1;
-	// 0B 68 01 00 12 00 01 06 64 01 00 00 00 00 02 0C 00 08 01 00 00 00 02 01 00 00 00 08 09 FF F6
-	uint8_t		ops[OP_SIZE] = {0x0b, 0x68, 0x01, 0x00, 0x12, 0x00, 0x01, 0x06, 0x64, 0x01, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0c, 0x00, 0x08, 0x01, 0x00, 0x00, 0x00, 0x02, 0x01, 0x00, 0x00, 0x00, 0x08, 0x09, 0xff, 0xf6};
-	e->nb_player = 3;
+	uint8_t	fd[MAX_PLAYERS];
+
+	if ((e->nb_player = ft_parse(argc, argv, fd)) < 1)
+		return (0);
 	e->nb_process = e->nb_player;
-	if ((e->player = (t_player*)malloc(sizeof(t_player) * e->nb_player)))
-	{
-		while (++i < e->nb_player)
-		{
-			if ((e->player[i].op = malloc(sizeof(uint8_t) * OP_SIZE)))
-			{
-				int j = -1;
-				while (++j < OP_SIZE)
-					e->player[i].op[j] = ops[j];
-			}
-		}
-	}
-	////////////////////////////////////////////////////////////////////////////
-	if ((e->process = (t_process*)malloc(sizeof(t_process) * e->nb_process)))
+	if (ft_load(fd, e))
+		return (0);
+	if (!(e->process = (t_process*)malloc(sizeof(t_process) * e->nb_process)))
+		return (0);
 		init_processes(e);
 	init_players(e);
+	return (1);
 }
 
-int		main(void)
+int			main(int argc, char **argv)
 {
-	t_env		e;
+	t_env	e;
 
+	if (argc < 2)
+		return (-1);
 	init_env(&e);
 	init_memory();
-	//Lecteur
-	init_vm(&e);
+	if (!(init_vm(&e, argc, argv)))
+		return (-1);//free
 	run(&e);
+	dump_memory(&e);
 }
 
 // 0b 68 01 00 0f 00 01 06 64 01 00 00 00 00 01 01 00 00 00 01 09 ff fb

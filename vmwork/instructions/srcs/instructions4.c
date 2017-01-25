@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/24 11:49:17 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/25 16:45:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exec_lld(t_env *e, t_process *proc)
 		reg = src_param(proc, 0, 1, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
-		printf("Exec lld ok: proc->reg[%d] = %08X\n", reg, proc->reg[reg]);
+		printf("Exec lld ok: proc->reg[%d] = %d\n", reg + 1, proc->reg[reg]);
 	}
 }
 
@@ -48,7 +48,7 @@ void	exec_lldi(t_env *e, t_process *proc)
 		reg = src_param(proc, 0, 2, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
-		printf("Exec lldi ok: proc->reg[%d] = %08X\n", reg, proc->reg[reg]);
+		printf("Exec lldi ok: proc->reg[%d] = %d\n", reg + 1, proc->reg[reg]);
 	}
 }
 

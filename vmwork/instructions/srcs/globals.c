@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/24 13:36:21 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/25 17:01:19 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ void		exec_instruction(t_env *e, t_process *proc)
 	if (opcode != FORK && opcode != LFORK)
 		next_instruction(proc);
 	dump_memory(e);
-	char* str; while (get_next_line(0, &str) != 1){free(str);}
+	usleep(250000);
+	// char* str; while (get_next_line(0, &str) != 1){free(str);}
 }
