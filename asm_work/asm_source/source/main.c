@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/25 11:41:20 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/25 17:38:43 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,12 @@ int	main(int argc, char **argv)
 	// 			op_table[i].carry,
 	// 			op_table[i].dir_indir);
 	// }
+	while (glob.list)
+	{
+		ft_putnbr(glob.list->opcode);
+		ft_putendl("");
+		glob.list = glob.list->next;
+	}
 	free_op_table(glob.op_table);
 	return (0);
 }

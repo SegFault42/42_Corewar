@@ -6,7 +6,7 @@
 #    By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/23 17:14:31 by hboudra          ###   ########.fr        #
+#    Updated: 2017/01/25 17:34:27 by hboudra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRCS = $(SRC)/main.c \
 	   $(SRC)/parse_instructions.c\
 	   $(SRC)/op_tab.c\
 	   $(SRC)/parse_info.c\
-	    $(SRC)/t_info.c\
+	   $(SRC)/t_info.c\
+	   $(SRC)/ocp.c\
+	   $(SRC)/check_param.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 

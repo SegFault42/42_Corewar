@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/25 11:46:04 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/25 17:32:25 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct		s_glob
 /*
 ** parse_s_file.c
 */
+unsigned char		ocp_calc(char **tab, t_info *info);
 int8_t				parse_s_file(char *file, t_header *header, t_glob *glob);
 /*
 ** main.c
