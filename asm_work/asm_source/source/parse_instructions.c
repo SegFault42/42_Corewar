@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/23 17:28:27 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/25 15:31:21 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ bool	check_if_label_good_formatted(char *label)
 bool	check_if_instruction_exist(char *instruction)
 {
 	int		i;
+	int		j;
 	t_op	op[17];
-	uint8_t	len_instruction;
 
 	i = 0;
-	len_instruction = skip_blank(&instruction[i]);
-	i = 0;
+	j = skip_blank(&instruction[i]);
 	init_op_table(op);
 	while (i < 16)
 	{
-		if (ft_strncmp(instruction, op[i].instruction_name, len_instruction) == 0)
+		if (ft_strncmp(&instruction[j], op[i].instruction_name,
+				ft_strlen(op[i].instruction_name)) == 0)
 		{
 			free_op_table(op);
 			return (true);
@@ -88,7 +88,6 @@ char	*get_instruction(char *line, bool label_exist)
 	ft_fprintf(1, ORANGE"line = %s\n"END, line);
 	if (label_exist == true) // si il y a un label j'avance jusqua l'instruction
 	{
-		ft_debug();
 		while (line[i] != LABEL_END) // avance jusqu'au ':'
 			++i;
 		ft_fprintf(1, RED"line = %s\n"END, &line[i]);
@@ -113,7 +112,6 @@ void	parse_instructions(int *fd, t_glob *glob)
 	bool	label_exist;
 	int		parse;
 
-	(void)glob;
 	label = NULL;
 	while (get_next_line(*fd, &line) > 0)
 	{
@@ -131,14 +129,17 @@ void	parse_instructions(int *fd, t_glob *glob)
 			free(label);
 		}
 		// verifier si il y a une instruction apres le label et la parser.
+		// free(line);
 		line = get_instruction(line, label_exist);
 		if (line)
-			if ((parse = parse_info(glob, line, *fd)) != TRUE)
+			if ((parse = parse_info(glob, line)) != TRUE)
+			{
+				ft_strdel(&line);
 				error(parse);
-		ft_putstr("------------------------------------------------->");
-		ft_putendl(line);
-		// ft_fprintf(1, YELLOW"line = %s\n"END, line);
+			}
+		// ft_putendl(line);
+		ft_fprintf(1, YELLOW"line = %s\n"END, line);
 		// ft_fprintf(1, YELLOW"=================================================\n"END, line);
-		ft_strdel(&line);
+		// ft_debug();
 	}
 }

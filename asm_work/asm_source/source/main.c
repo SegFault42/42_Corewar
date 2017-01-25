@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/23 17:16:58 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/25 11:41:20 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	ft_memset(&header, 0, sizeof(header));
 	init_op_table(glob.op_table);
+	glob.list = new_info();
 	if (parse_s_file(argv[1], &header, &glob) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
-	glob.list = NULL;
 	//==========================Creation du .cor===============================
 	file = (char *)ft_memalloc(sizeof(char) * (ft_strlen(argv[1])) + 2); //Alloc len (name of the output.s + len .cor - ".c")
 	ft_strccat(file, argv[1], '.');

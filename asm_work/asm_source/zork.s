@@ -8,7 +8,7 @@ The river goes on under a good many small communities located up on the flanks o
 
 Nearly the whole course of the river is paralleled by the Strada statale della Val Trebbia, highway SS45, running between Piacenza and Genoa. It encounters the river at Rivergaro and winds with it through the mountains, breaking away just below the source to bend southwest over the ridges to Genoa. Each of these contains numerous hamlets, some on the river, most on the slopes. Gorreto is on the Ligurian side of the border with Piacenza province.The spring is The spring is not on the peak but The spring is not on the peak but is at roughly 800 m (2,600 ft).[3] Across a small ridge f*/"
 
-		sti r1, %:live, %1
+l2:		sti r1, %:live, %1
 		and r1, %0, r1
 
 live:	live %1
