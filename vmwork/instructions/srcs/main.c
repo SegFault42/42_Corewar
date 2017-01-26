@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/25 15:38:45 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/26 17:18:03 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,50 @@ void		check_players_inst(t_env *e)
 	while (--(e->cur_process) >= 0)
 	{
 		p = &(e->process[e->cur_process]);
-		if (p->inst.n_cycle == -1)
+		if (e->player[p->player_id].alive)
 		{
-			if (!check_opcode(p, get_mem_uint8(p, p->inst.i))
-			|| !check_ocp(p, get_mem_uint8(p, p->inst.i)))
-				p->pc++;
-		}
-		else
-		{
-			if (!(p->inst.n_cycle))
+			if (p->inst.n_cycle == -1)
 			{
-				printf("EXEC_INSTRUCTION FOR PROC%d\n", e->cur_process + 1);
-				exec_instruction(e, p);
+				if (!check_opcode(p, get_mem_uint8(p, p->inst.i))
+				|| !check_ocp(p, get_mem_uint8(p, p->inst.i)))
+					p->pc++;
 			}
 			else
-				(p->inst.n_cycle)--;
+			{
+				if (!(p->inst.n_cycle))
+					exec_instruction(e, p);
+				else
+					(p->inst.n_cycle)--;
+			}
 		}
 	}
+}
+
+void		time_to_die(t_env *e)
+{
+	uint32_t	i;
+
+	e->cur_die = 0;
+	i = -1;
+	e->lives = 0;
+	e->alives = 0;
+	e->check++;
+	while (++i < e->nb_player)
+	{
+		e->lives += e->player[i].live;
+		if (!(e->player[i].live))
+			e->player[i].alive = 0;
+		else
+			e->alives++;
+		e->player[i].live = 0;
+		if (e->lives > NBR_LIVE || e->check == MAX_CHECKS)
+		{
+			e->cycle_die -= CYCLE_DELTA;
+			e->check = 0;
+		}
+	}
+	if (!e->alives || e->cycle_die <= 0)
+		e->run = 0;
 }
 
 static void	run(t_env *e)
@@ -59,8 +86,18 @@ static void	run(t_env *e)
 	e->run = 1;
 	while (e->run)
 	{
+		if (!(e->cycle % 50))
+		{
+			dump_memory(e);
+			usleep(250000);
+		}
 		check_players_inst(e);
+		e->cycle++;
+		e->cur_die++;
+		if (e->cur_die == e->cycle_die)
+			time_to_die(e);
 	}
+	dump_memory(e);
 }
 
 void	init_players(t_env *e)
@@ -71,6 +108,7 @@ void	init_players(t_env *e)
 	i = -1;
 	while (++i < e->nb_player)
 	{
+		e->player[i].alive = 1;
 		e->player[i].live = 0;
 		j = -1;
 		while (++j < e->player[i].header.prog_size)
@@ -120,5 +158,3 @@ int			main(int argc, char **argv)
 //and A4(D4|D4|REG) -> 06 A4 FF FF FF FF 00 FF 00 0F 05
 //or A4(D4|D4|REG) -> 07 A4 FF FF FF FF 00 FF 00 0F 05
 //xor A4(D4|D4|REG) -> 08 A4 FF FF FF FF 00 FF 00 0F 05
-
-// ./corewar -v 4 test2.cor -> Returned values

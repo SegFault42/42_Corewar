@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/25 15:43:35 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/26 17:04:47 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ struct		s_instruction
 {
 	uint8_t		opcode;
 	uint8_t		ocp;
-	uint8_t		param[3];// Type des parametres
-	uint32_t	val[3];// Valeur des parametres
-	int			n_cycle;// Nombre de cycles avant exécution
+	uint8_t		param[3];
+	uint32_t	val[3];
+	int			n_cycle;
 	int			i;
 };
 
@@ -89,22 +89,24 @@ struct		s_op
 	uint16_t	n_cycle;
 	char		*description;
 	bool		carry;
-	bool		direct;// taille d'un T_DIR (true -> 2, false -> 4)
+	bool		direct;
 };
 
 struct		s_process
 {
-	t_instruction	inst;// Instruction en cours d'execution
+	t_instruction	inst;
+	uint8_t			player_id;
 	bool			carry;
-	uint16_t		start;// Point de départ du programme
+	uint16_t		start;
 	uint16_t		pc;
 	int				reg[REG_NUMBER];
 };
 
 struct		s_player
 {
+	bool		alive;
 	uint16_t	live;
-	header_t	header;
+	t_header	header;
 	uint8_t		*op;
 };
 
@@ -115,6 +117,11 @@ struct		s_env
 	uint32_t	nb_process;
 	int			cur_process;
 	uint32_t	cycle;
+	int			cur_die;
+	int			cycle_die;
+	uint32_t	check;
+	uint32_t	alives;
+	uint32_t	lives;
 	t_player	*player;
 	t_process	*process;
 };

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/25 17:41:43 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/26 17:13:25 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	player_color(t_env *e, int i)
 	while (++j < e->nb_process)
 	{
 		p = &(e->process[j]);
-		if (i == (p->start + p->pc) % MEM_SIZE)
+		if (e->player[p->player_id].alive && i == (p->start + p->pc) % MEM_SIZE)
 			ft_putstr("\033[30;47m");
 	}
 	ft_putnbr_hex(g_mem[i], 2);
@@ -75,4 +75,9 @@ void		dump_memory(t_env *e)
 		ft_putchar((i + 1) % 64 ? ' ' : '\n');
 	}
 	player_info(e);
+	printf("Cycle: %d\n", e->cycle);
+	printf("Cycles to die: %d / %d\n", e->cur_die, e->cycle_die);
+	printf("Lives: %d / %d\n", e->lives, NBR_LIVE);
+	printf("Alives: %d\n", e->alives);
+	printf("Max check: %d / %d\n", e->check, MAX_CHECKS);
 }

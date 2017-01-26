@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 13:48:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/25 12:14:29 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/26 11:23:57 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ unsigned int ft_straight_bytes(unsigned int bytes)
 	return (ret);
 }
 
-void	ft_straight_header(header_t *header)
+void	ft_straight_header(t_header *header)
 {
 	header->magic = ft_straight_bytes(header->magic);
 	header->prog_size = ft_straight_bytes(header->prog_size);
@@ -43,7 +43,7 @@ int	ft_load(uint8_t fd[MAX_PLAYERS], t_env *env)
 		return (-1);
 	while (++i < env->nb_player)
 	{
-		if (read(fd[i], &env->player[i].header, sizeof(header_t)) != sizeof(header_t))
+		if (read(fd[i], &env->player[i].header, sizeof(t_header)) != sizeof(t_header))
 				return (-1);
 		ft_straight_header(&env->player[i].header);
 		env->player[i].op = (uint8_t *)malloc(env->player[i].header.prog_size * \
