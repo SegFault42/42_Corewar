@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/25 15:31:21 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/26 15:19:33 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,13 +132,15 @@ void	parse_instructions(int *fd, t_glob *glob)
 		// free(line);
 		line = get_instruction(line, label_exist);
 		if (line)
+		{
+			ft_fprintf(1, YELLOW"line = %s\n"END, line);
 			if ((parse = parse_info(glob, line)) != TRUE)
 			{
 				ft_strdel(&line);
 				error(parse);
 			}
+		}
 		// ft_putendl(line);
-		ft_fprintf(1, YELLOW"line = %s\n"END, line);
 		// ft_fprintf(1, YELLOW"=================================================\n"END, line);
 		// ft_debug();
 	}

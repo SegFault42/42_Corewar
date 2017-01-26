@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/25 17:38:43 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/26 15:23:34 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	ft_memset(&header, 0, sizeof(header));
 	init_op_table(glob.op_table);
-	glob.list = new_info();
+	glob.list = NULL;
 	if (parse_s_file(argv[1], &header, &glob) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
 	//==========================Creation du .cor===============================
@@ -123,8 +123,8 @@ int	main(int argc, char **argv)
 	// }
 	while (glob.list)
 	{
-		ft_putnbr(glob.list->opcode);
-		ft_putendl("");
+		// ft_putnbr(glob.list->opcode);
+		ft_putendl(glob.list->param[0]);
 		glob.list = glob.list->next;
 	}
 	free_op_table(glob.op_table);

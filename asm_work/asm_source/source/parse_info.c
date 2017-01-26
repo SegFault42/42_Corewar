@@ -6,12 +6,30 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 16:45:54 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/25 17:31:57 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/26 15:31:17 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "common.h"
+
+void push_back(t_info **lst, t_info *new)
+{
+	t_info	*tmp;
+
+	tmp = *lst;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	else
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
 
 int			skip_alpha(char *line)
 {
@@ -46,12 +64,11 @@ int			parse_info(t_glob *glob, char *line)
 	t_info	*tmp;
 	int		i;
 
-	tmp = glob->list;
-	while (tmp->next)
-		tmp = tmp->next;
-	if (!(tmp->next = new_info()))
+	tmp = NULL;
+	if (!(tmp = new_info()))
 		return (MALLOC);
 	i = set_opcode(tmp, line, glob->op_table);
+	push_back(&glob->list, tmp);
 	tmp->param = ft_strsplit(&line[i], ',');
 	tmp->ocp = ocp_calc(tmp->param, tmp);
 	return (TRUE);
