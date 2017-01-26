@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/25 18:24:12 by rabougue         ###   ########.fr        #
+#    Updated: 2017/01/26 22:50:44 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ NAME = gui
 CC = gcc
 FLAG = -Wall -Wextra -Werror -O3
 LFT = ./libft/libft.a
-SRCS = ./source/main.c ./source/gui.c ./source/font.c ./source/tools.c\
+SRCS = ./source/main.c ./source/gui.c ./source/font.c ./source/tools.c ./source/init.c\
 
 OBJS = $(SRCS:.c=.o)
 

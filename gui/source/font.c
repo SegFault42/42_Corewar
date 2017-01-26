@@ -6,21 +6,15 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 19:08:05 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/24 21:48:29 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/26 22:48:29 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void		init_ttf(t_win *win, t_font *font)
+void		select_font(t_win *win, t_font *font, char *str)
 {
-	if (TTF_Init() == ERROR)
-	{
-		ft_fprintf(2, "%s\n", TTF_GetError());
-		close_window(win, ERROR);
-	}
-	/*font->font = TTF_OpenFont("./font/monaco.ttf", font->font_size);*/
-	font->font = TTF_OpenFont("/Library/Fonts/Arial Bold.ttf", font->font_size);
+	font->font = TTF_OpenFont(str, font->font_size);
 	if (font->font == NULL)
 	{
 		ft_fprintf(2, "%s\n", TTF_GetError());
