@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 16:45:54 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/26 15:34:51 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/26 15:35:03 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			parse_info(t_glob *glob, char *line)
 	t_info	*tmp;
 	int		i;
 
-	tmp2 = NULL;
+	tmp = NULL;
 	if (!(tmp = new_info()))
 		return (MALLOC);
 	i = set_opcode(tmp, line, glob->op_table);
