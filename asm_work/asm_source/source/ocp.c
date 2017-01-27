@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 17:07:44 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/27 10:03:12 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/27 17:24:16 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,45 @@
 ** Fonction de calcule de l'opc, bien verifier que les parametres soient
 ** valident et que le char ** ne fasse pas plus de 3
 */
+static int			check_one_arg(t_info *info, int arg)
+{
+	info->ocp >>= 6;
+	if ((arg & info->ocp) == 0)
+		return (OCP);
+	return (TRUE);
+}
 
-int					check_ocp(t_op *tab, unsigned char ocp, uint8_t opcode)
+int					check_ocp(t_op *tab, t_info *info)
 {
 	int				i;
 	uint8_t			j;
-	uint8_t			len;
+	int				len;
 	int				test;
 
 	j = 0;
-	i = search(opcode, tab);
-	if (i < 0)
-		return (OCP);
+	i = search(info->opcode, tab);
 	len = tab[i].nb_arg;
-	ocp >>= 2;
+	ft_putstr("linstruction------->              ");
+	ft_putendl(tab[i].instruction_name);
+	if (i < 0 || (size_t)len != char_tab_len(info->param))
+		return (OCP);
+	if (len == 1)
+		return (check_one_arg(info, tab[i].arg_value[0]));
 	while (j < len)
 	{
-		test = tab[i].arg_value[j] & ocp;
-		ft_putnbr(ocp);
+		info->ocp >>= 2;
+		test = tab[i].arg_value[len - 1] & info->ocp;
+		ft_putstr("ocp ----->");
+		ft_putnbr(info->ocp);
 		ft_putendl("");
-		// if (!test)
-		// 	return (OCP);
-		ocp >>= 2;
-		j++;
+		ft_putnbr(tab[i].arg_value[j]);
+		ft_putendl("");
+		if (test == 0)
+			return (OCP);
+		len--;
 	}
+	// if (!tab[i].arg_value[j] & ocp)
+	// 	return (FALSE);
 	return (TRUE);
 }
 

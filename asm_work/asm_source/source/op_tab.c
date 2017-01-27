@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_tab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 12:10:51 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/13 12:11:26 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/27 17:10:28 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_op_table(t_op *op_table)
 	op_table[2] = (t_op){ft_strdup("st"), 2, {T_REG, T_IND | T_REG}, 3, 5, ft_strdup("store"), 1, 0};
 	op_table[3] = (t_op){ft_strdup("add"), 3, {T_REG, T_REG, T_REG}, 4, 10, ft_strdup("addition"), 1, 0};
 	op_table[4] = (t_op){ft_strdup("sub"), 3, {T_REG, T_REG, T_REG}, 5, 10, ft_strdup("soustraction"), 1, 0};
-	op_table[5] = (t_op){ft_strdup("and"), 1, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6, ft_strdup("et (and r1, r2, r3   r1&r2 -> r3"), 1, 0};
+	op_table[5] = (t_op){ft_strdup("and"), 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6, ft_strdup("et (and r1, r2, r3   r1&r2 -> r3"), 1, 0};
 	op_table[6] = (t_op){ft_strdup("or"), 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6, ft_strdup("ou  (or   r1, r2, r3   r1 | r2 -> r3"), 1, 0};
 	op_table[7] = (t_op){ft_strdup("xor"), 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6, ft_strdup("ou (xor  r1, r2, r3   r1^r2 -> r3"), 1, 0};
 	op_table[8] = (t_op){ft_strdup("zjmp"), 1, {T_DIR}, 9, 20, ft_strdup("jump if zero"), 0, 1};

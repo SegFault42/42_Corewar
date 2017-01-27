@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/27 08:50:17 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/27 16:31:35 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,6 @@ void				init_op_table(t_op *op_table);
 void				free_op_table(t_op *op_table);
 t_info				*new_info(void);
 int					search(uint8_t opcode, t_op *tab);
-int					check_ocp(t_op *tab, unsigned char ocp, uint8_t opcode);
+int					check_ocp(t_op *tab, t_info *info);
 
 #endif
