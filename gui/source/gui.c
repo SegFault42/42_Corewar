@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/27 16:36:51 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/27 20:56:40 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,25 +114,60 @@ static void init_env(t_env *env)
 	env->nb_player = 2;
 	env->nb_process = random() % 50;
 	env->cur_process = random() % 50;
+	env->cur_die = random() % 50;
 	env->cycle -= 1;
 }
 
 void	write_general_info(t_font *font_general, t_env *env, t_win *win)
 {
-	char	*cycle;
-
-	/*font_general->text_rect.x = 1325; // coord y ou le texte sera place*/
-	/*font_general->text_rect.y = 30; // coord y ou le texte sera place*/
-	/*draw_text(font_general, win, "Cycle = ", 0);*/
-	/*SDL_DestroyTexture(font_general->texture);*/
+	char	*itoa;
 
 	font_general->text_rect.x = 1420; // coord y ou le texte sera place
 	font_general->text_rect.y = 38; // coord y ou le texte sera place
-	cycle = ft_itoa(env->cycle);
-	draw_text(font_general, win, cycle, 0);
-	free(cycle);
+	itoa = ft_itoa(env->cycle);
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
+	SDL_DestroyTexture(font_general->texture);
+
+	itoa = ft_itoa(env->nb_process);
+	font_general->text_rect.x = 1680; // coord y ou le texte sera place
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
 	SDL_DestroyTexture(font_general->texture);
 	
+	itoa = ft_itoa(env->lives);
+	font_general->text_rect.x = 1850; // coord y ou le texte sera place
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
+	SDL_DestroyTexture(font_general->texture);
+	
+	itoa = ft_itoa(env->cur_die);
+	font_general->text_rect.x = 1500; // coord y ou le texte sera place
+	font_general->text_rect.y = 87; // coord y ou le texte sera place
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
+	SDL_DestroyTexture(font_general->texture);
+	
+	itoa = ft_itoa(env->cur_die);
+	font_general->text_rect.x = 1720; // coord y ou le texte sera place
+	font_general->text_rect.y = 87; // coord y ou le texte sera place
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
+	SDL_DestroyTexture(font_general->texture);
+	
+	itoa = ft_itoa(env->check);
+	font_general->text_rect.x = 1510; // coord y ou le texte sera place
+	font_general->text_rect.y = 137; // coord y ou le texte sera place
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
+	SDL_DestroyTexture(font_general->texture);
+	
+	itoa = ft_itoa(env->alives);
+	font_general->text_rect.x = 1760; // coord y ou le texte sera place
+	font_general->text_rect.y = 137; // coord y ou le texte sera place
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
+	SDL_DestroyTexture(font_general->texture);
 }
 
 void	general_info(t_font *font_general, t_win *win)

@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/27 15:10:36 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/27 20:18:31 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,17 @@ typedef struct		s_font
 
 typedef struct		s_env
 {
-	
 	bool			run;
-	uint32_t		nb_player;
-	uint32_t		nb_process;
+	uint32_t		nb_player;//Nombre de joueurs
+	uint32_t		nb_process;//Nombre de processus
 	int				cur_process;
-	uint32_t		cycle;
+	uint32_t		cycle;//Cycles totaux
+	int				cur_die;//Cycles courant avant CYCLES_TO_DIE
+	int				cycle_die;//CYCLES_TO_DIE actuel
+	uint32_t		check;//checks acutels avant MAX_CHECKS
+	uint32_t		alives;//Nombre de joueurs en vie
+	uint32_t		lives;//Nombre de lives sur NBR_LIVES
+	uint8_t			verbose;
 }					t_env;
 
 void	gui();
@@ -82,8 +87,8 @@ void	create_window(t_win *win);
 void	close_window(t_win *win, int8_t error);
 void	sdl_clear(t_win *win, uint8_t r, uint8_t g, uint8_t b);
 /*
-** font.c
-*/
+ ** font.c
+ */
 void	init_ttf(t_win *win);
 void	select_font(t_win *win, t_font *font, char *str);
 void	draw_text(t_font *font, t_win *win, char *str, int i);
