@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 16:45:54 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/26 15:35:03 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/27 09:35:49 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ int			parse_info(t_glob *glob, char *line)
 	push_back(&glob->list, tmp);
 	tmp->param = ft_strsplit(&line[i], ',');
 	tmp->ocp = ocp_calc(tmp->param, tmp);
-	return (TRUE);
+	return (check_ocp(glob->op_table, tmp->ocp, tmp->opcode));
 }

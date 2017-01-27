@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/25 17:32:25 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/27 08:50:17 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define BAD_NUMBER_PARAM		13
 # define BAD_ARGUMENT			14
 # define MALLOC					15
+# define OCP					16
 
 typedef struct		s_op
 {
@@ -80,7 +81,7 @@ typedef struct		s_header
 typedef struct		s_info
 {
 	char			**param;
-	char			opcode;
+	uint8_t			opcode;
 	unsigned char	ocp;
 	uint8_t			arg_value[4];
 	struct s_info	*next;
@@ -119,6 +120,7 @@ void				parse_instructions(int *fd, t_glob *glob);
 void				init_op_table(t_op *op_table);
 void				free_op_table(t_op *op_table);
 t_info				*new_info(void);
-
+int					search(uint8_t opcode, t_op *tab);
+int					check_ocp(t_op *tab, unsigned char ocp, uint8_t opcode);
 
 #endif

@@ -11,5 +11,5 @@ Nearly the whole course of the river is paralleled by the Strada statale della V
 l2:		sti r1, %:live, %1
 		and r1, %0, r1
 
-live:	live %1
+live:	live %1, r2
 		zjmp %:live

@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/26 15:23:34 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/01/27 09:49:24 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	error(int error)
 		ft_fprintf(2, RED"Wrong parametres\n"END);
 	else if (error == MALLOC)
 		ft_fprintf(2, RED"malloc error\n"END);
+	else if (error == OCP)
+		ft_fprintf(2, RED"wrong arguments\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 	exit(EXIT_FAILURE);
@@ -121,12 +123,6 @@ int	main(int argc, char **argv)
 	// 			op_table[i].carry,
 	// 			op_table[i].dir_indir);
 	// }
-	while (glob.list)
-	{
-		// ft_putnbr(glob.list->opcode);
-		ft_putendl(glob.list->param[0]);
-		glob.list = glob.list->next;
-	}
 	free_op_table(glob.op_table);
 	return (0);
 }
