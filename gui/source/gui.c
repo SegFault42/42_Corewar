@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/26 23:28:29 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/27 16:36:51 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,9 @@ void	draw_memory(t_win *win, t_font *font)
 		{
 			ft_memmove(frag_memory, &g_memory[i], 1);
 			memory = ft_hexa_itoa(frag_memory[i], 1);
-			/*font->text_color = (SDL_Color){255, 0, 255, 255};*/
 			draw_text(font, win, memory, i);
 			free(memory);
 			SDL_DestroyTexture(font->texture);
-			/*free(frag_memory[i]);*/
-			/*if (!(TTF_SizeText(font->font, "0xFF", &w, &h)))*/
-				/*ft_fprintf(1, "w = %d, h = %d\n", w, h);*/
 			font->text_rect.x += INCR_TEXT_X;
 			++i;
 		}
@@ -93,35 +89,23 @@ void	draw_memory(t_win *win, t_font *font)
 	}
 	font->text_rect.y = 1000; // coord y ou le texte sera place
 	font->text_rect.x = 1000; // coord y ou le texte sera place
-	/*font->font = TTF_OpenFont("/Library/Fonts/AmericanTypewriter.ttc", font->font_size);*/
-	/*font->font_size = 50;*/
-	/*draw_text(font, win, ft_itoa(win->delay), 5);*/
-	/*font->font_size = 15;*/
-	/*font->font = TTF_OpenFont("/Library/Fonts/Arial Bold.ttf", font->font_size);*/
 	font->text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte sera place
 	font->text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte sera place
 }
 
 void	fill_memory()
 {
-	int i = 0;
+	int i = -1;
 
-	while (i < MEM_SIZE)
-	{
+	while (i++ < MEM_SIZE)
 		g_memory[i] = 'A' + random() % 26;
-		/*g_memory[i] = i;*/
-		/*font->memory[i] = *ft_itoa_base(font->memory[i], 16);*/
-		/*printf("%d\n", i);*/
-		++i;
-	}
-	i = 0;
-	while (i < 50)
+	i = -1;
+	while (i++ < 50)
 	{
 		g_memory_color[i + random() % MEM_SIZE] = 1;
 		g_memory_color[i + random() % MEM_SIZE] = 2;
 		g_memory_color[i + random() % MEM_SIZE] = 3;
 		g_memory_color[i +random() % MEM_SIZE] = 4;
-		++i;
 	}
 }
 
@@ -130,34 +114,40 @@ static void init_env(t_env *env)
 	env->nb_player = 2;
 	env->nb_process = random() % 50;
 	env->cur_process = random() % 50;
-	env->cycle -= 20;
+	env->cycle -= 1;
 }
 
-void	draw_general_info(t_win *win, t_env *env)
+void	write_general_info(t_font *font_general, t_env *env, t_win *win)
 {
-	// ouvrir le font une seul fois
-	t_font	font_general;
 	char	*cycle;
 
+	/*font_general->text_rect.x = 1325; // coord y ou le texte sera place*/
+	/*font_general->text_rect.y = 30; // coord y ou le texte sera place*/
+	/*draw_text(font_general, win, "Cycle = ", 0);*/
+	/*SDL_DestroyTexture(font_general->texture);*/
+
+	font_general->text_rect.x = 1420; // coord y ou le texte sera place
+	font_general->text_rect.y = 38; // coord y ou le texte sera place
 	cycle = ft_itoa(env->cycle);
-	ft_memset(&font_general, 0, sizeof(t_font));
-	font_general.font_size = 140;
-	font_general.font_size = 15;
-	select_font(win, &font_general, "/Library/Fonts/Arial Bold.ttf");
-	font_general.text_rect.x = 1325; // coord y ou le texte sera place
-	font_general.text_rect.y = 30; // coord y ou le texte sera place
-	font_general.text_color = (SDL_Color){174, 174, 174, 255};
-	draw_text(&font_general, win, "Cycle = ", 0);
-	font_general.text_rect.x = 1385; // coord y ou le texte sera place
-	draw_text(&font_general, win, cycle, 0);
+	draw_text(font_general, win, cycle, 0);
 	free(cycle);
-	SDL_DestroyTexture(font_general.texture);
+	SDL_DestroyTexture(font_general->texture);
+	
+}
+
+void	general_info(t_font *font_general, t_win *win)
+{
+	// ouvrir le font une seul fois
+
+	font_general->font_size = 25;
+	select_font(win, font_general, "/Library/Fonts/Arial Bold.ttf");
+	font_general->text_color = (SDL_Color){174, 174, 174, 255};
 }
 
 void	gui()
 {
 	t_win		win;
-	t_font		font;
+	t_font		font[2];
 	SDL_Event	event;
 	t_wallpaper	wallpaper;
 	t_env		env;
@@ -173,17 +163,18 @@ void	gui()
 	ft_memset(g_memory, 0, MEM_SIZE);
 	win.delay = 0;
 	/*font.memory = (char *)ft_memalloc(sizeof(char) * MEM_SIZE);*/
-	font.font_size = 15;
+	font[0].font_size = 15;
 	create_window(&win);
 	sdl_clear(&win, 55, 55, 55);
 	init_ttf(&win);
-	select_font(&win, &font, "/Library/Fonts/Arial Bold.ttf");
-	change_text_color(font.text_color, 255, 0, 0);
-	font.text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte sera place
-	font.text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte sera place
+	select_font(&win, &font[0], "/Library/Fonts/Arial Bold.ttf");
+	change_text_color(font[0].text_color, 255, 0, 0);
+	font[0].text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte sera place
+	font[0].text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte sera place
 	/*SDL_Rect dstrect = { 0, 0, 1920, 1080 };*/
 	/*int x = 0;*/
 	print_wallpaper(&wallpaper, &win, "./wallpaper/corewar.bmp");
+	general_info(&font[1], &win);
 	while (42)
 	{
 		init_env(&env);
@@ -206,8 +197,8 @@ void	gui()
 		}
 		if (button_press(&event, &wallpaper, &win) == true)
 			break ;
-		draw_memory(&win, &font);
-		draw_general_info(&win, &env);
+		draw_memory(&win, &font[0]);
+		write_general_info(&font[1], &env, &win);
 		SDL_RenderPresent(win.render);
 	}
 	TTF_Quit();
