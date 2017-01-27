@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/27 13:05:08 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/27 21:48:30 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void		time_to_die(t_env *e)
 		{
 			e->cycle_die -= CYCLE_DELTA;
 			e->check = 0;
+			if (e->verbose & SHOW_CYCLES)
+				ft_printf("New cycle to die: %d\n", e->cycle_die);
 		}
 	}
 	if (!e->alives || e->cycle_die <= 0)
@@ -88,7 +90,10 @@ static void	run(t_env *e)
 	e->run = 1;
 	while (e->run)
 	{
-		if (e->cycle == 1500/*8785*/)
+		if (e->verbose & SHOW_CYCLES)
+			ft_printf("Current cycle: %d (%d / %d)\n", e->cycle,\
+													e->cur_die, e->cycle_die);
+		if (e->cycle == 8785)
 			break ;
 		check_players_inst(e);
 		e->cycle++;
@@ -146,6 +151,8 @@ int			main(int argc, char **argv)
 	run(&e);
 	dump_memory(&e);
 }
+//cp ../ressources/corewar/test2.cor .
+//./corewar -v 4 test2.cor
 
 // 0b 68 01 00 0f 00 01 06 64 01 00 00 00 00 01 01 00 00 00 01 09 ff fb
 //sti 68(REG|DIR|DIR) -> 0b 68 01 00 0f 00 01

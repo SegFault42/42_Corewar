@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 12:57:37 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/27 21:39:15 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	exec_lld(t_env *e, t_process *proc)
 	uint32_t		val;
 	t_instruction	*inst;
 
-	// printf("Exec lld\n");
-	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -27,7 +25,9 @@ void	exec_lld(t_env *e, t_process *proc)
 		reg = src_param(proc, 0, 1, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
-		// printf("Exec lld ok: proc->reg[%d] = %d\n", reg + 1, proc->reg[reg]);
+		if (e->verbose & SHOW_OPERATIONS)
+			ft_printf("P%d | ld: %d -> r%d\n",\
+											e->cur_process + 1, val, reg + 1);
 	}
 }
 
@@ -38,8 +38,6 @@ void	exec_lldi(t_env *e, t_process *proc)
 	uint32_t		val;
 	t_instruction	*inst;
 
-	// printf("Exec lldi\n");
-	(void)e;
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
@@ -48,7 +46,9 @@ void	exec_lldi(t_env *e, t_process *proc)
 		reg = src_param(proc, 0, 2, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
-		// printf("Exec lldi ok: proc->reg[%d] = %d\n", reg + 1, proc->reg[reg]);
+		if (e->verbose & SHOW_OPERATIONS)
+			ft_printf("P%d | ldi: %d -> r%d\n", e->cur_process + 1,\
+																val, reg + 1);
 	}
 }
 
@@ -56,14 +56,15 @@ void	exec_lfork(t_env *e, t_process *proc)
 {
 	uint16_t	pc;
 
-	// printf("Exec lfork\n");
 	if (valid_params(proc))
 	{
-		pc = proc->pc + src_param(proc, 0, 0, 0);
+		pc = (proc->pc + src_param(proc, 0, 0, 0)) % MEM_SIZE;
 		proc->pc = (proc->pc + 3) % MEM_SIZE;
 		init_instruction(&(proc->inst));
 		fork_process(e, proc, pc);
-		// printf("Exec lfork ok\n");
+		if (e->verbose & SHOW_OPERATIONS)
+			ft_printf("P%d | lfork: %d (PC+IDX: %d)\n", e->cur_process + 1,\
+														proc->inst.val[0], pc);
 	}
 }
 

@@ -6,13 +6,13 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/24 10:30:43 by qhonore           #+#    #+#              #
-#    Updated: 2017/01/27 13:26:31 by qhonore          ###   ########.fr        #
+#    Updated: 2017/01/27 13:47:35 by qhonore          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
-INC_PATH = ./includes/
+INC_PATH = ./include/
 
 SRC_NAME = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 		   ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c \
@@ -41,6 +41,7 @@ SRC_NAME = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 		   print_base.c parser.c print_arg.c color.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 NAME = libft.a
+DEP = include/libft.h
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
@@ -49,7 +50,9 @@ INC = $(addprefix -I,$(INC_PATH))
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-all: init $(NAME)
+all:
+	@echo "\033[32;44m Make $(NAME) \033[0m"
+	@make $(NAME)
 
 
 $(NAME): $(OBJ)
@@ -58,15 +61,15 @@ $(NAME): $(OBJ)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
-
-.PHONY: init supp clean fclean re
+	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
 clean:
 	rm -f $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || echo "" > /dev/null
 
-fclean: supp clean
+fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: clean fclean re
