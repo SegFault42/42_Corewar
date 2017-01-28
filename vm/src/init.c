@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/28 17:50:21 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 20:20:29 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	init_process(t_process *process, uint32_t id, uint16_t start)
 	process->start = start;
 	process->pc = 0;
 	process->player_id = id - 1;
-	process->reg[0] = id;
+	process->reg[0] = -id;
 	while (++i < REG_NUMBER)
 		process->reg[i] = 0;
 }

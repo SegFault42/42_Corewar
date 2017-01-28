@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 21:39:03 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 19:49:25 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,24 @@
 void	exec_zjmp(t_env *e, t_process *proc)
 {
 	t_instruction	*inst;
+	int				zjmp;
 
 	inst = &(proc->inst);
+	zjmp = (inst->val[0] % MEM_SIZE > MEM_SIZE / 2 ?\
+						-(MEM_SIZE - inst->val[0] % MEM_SIZE) : inst->val[0]);
 	if (valid_params(proc) && proc->carry)
 	{
 		proc->pc = (proc->pc + inst->val[0]) % MEM_SIZE;
 		if (e->verbose & SHOW_OPERATIONS)
-			ft_printf("P%d | zjmp: %d OK (PC: %d)\n", e->cur_process + 1,\
-														inst->val[0], proc->pc);
+			ft_printf("P%d | zjmp: %d(%d) OK (PC: %d)\n", e->cur_process + 1,\
+												inst->val[0], zjmp, proc->pc);
 	}
 	else
 	{
 		proc->pc += 3;
 		if (e->verbose & SHOW_OPERATIONS)
-			ft_printf("P%d | zjmp: %d FAILED (PC: %d)\n", e->cur_process + 1,\
-														inst->val[0], proc->pc);
+			ft_printf("P%d | zjmp: %d(%d) FAILED (PC: %d)\n",\
+							e->cur_process + 1, inst->val[0], zjmp, proc->pc);
 	}
 }
 
@@ -80,11 +83,13 @@ void	exec_fork(t_env *e, t_process *proc)
 	if (valid_params(proc))
 	{
 		pc = (proc->pc + src_param(proc, 1, 0, 0)) % MEM_SIZE;
-		proc->pc = (proc->pc + 3) % MEM_SIZE;
-		init_instruction(&(proc->inst));
-		fork_process(e, proc, pc);
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | fork: %d (PC+IDX: %d)\n", e->cur_process + 1,\
 														proc->inst.val[0], pc);
+		if (e->verbose & SHOW_PC_MOVES)
+			pc_moves(proc, 3);
+		proc->pc = (proc->pc + 3) % MEM_SIZE;
+		init_instruction(&(proc->inst));
+		fork_process(e, proc, pc);
 	}
 }
