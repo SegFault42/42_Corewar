@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 21:36:18 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 17:21:22 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exec_live(t_env *e, t_process *proc)
 {
 	uint32_t	val;
 
-	val = src_param(proc, 0, 0, 0);
+	val = src_param(proc, 0, 0, 0);//TEST + 2 à enlever
 	if (e->verbose & SHOW_OPERATIONS)
 		ft_printf("P%d | live: %d\n", e->cur_process + 1, val);
 	if (val >= 1 && val <= e->nb_player)

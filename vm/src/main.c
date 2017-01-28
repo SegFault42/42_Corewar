@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/27 21:48:30 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 17:54:08 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,14 @@ void		check_players_inst(t_env *e)
 			if (p->inst.n_cycle == -1)
 			{
 				if (!check_opcode(p, get_mem_uint8(p, p->inst.i)))
-					p->pc++;
+					p->pc = (p->pc + 1) % MEM_SIZE;
 				else if (!check_ocp(p, get_mem_uint8(p, p->inst.i)))
-					p->pc += 2;
+					p->inst.bad_ocp = 1;
 			}
-			else
-			{
-				if (!(p->inst.n_cycle))
-					exec_instruction(e, p);
-				else
-					(p->inst.n_cycle)--;
-			}
+			if (!(p->inst.n_cycle))
+				exec_instruction(e, p);
+			else if (p->inst.n_cycle > 0)
+				(p->inst.n_cycle)--;
 		// }
 	}
 }
@@ -69,7 +66,11 @@ void		time_to_die(t_env *e)
 	{
 		e->lives += e->player[i].live;
 		if (!(e->player[i].live))
+		{
+			if (e->verbose & SHOW_DEATHS)
+				ft_printf("Player %d is {:red}dead{:eoc}\n", i + 1);
 			e->player[i].alive = 0;
+		}
 		else
 			e->alives++;
 		e->player[i].live = 0;
@@ -90,16 +91,19 @@ static void	run(t_env *e)
 	e->run = 1;
 	while (e->run)
 	{
+		e->cycle++;
+		e->cur_die++;
 		if (e->verbose & SHOW_CYCLES)
 			ft_printf("Current cycle: %d (%d / %d)\n", e->cycle,\
 													e->cur_die, e->cycle_die);
-		if (e->cycle == 8785)
-			break ;
 		check_players_inst(e);
-		e->cycle++;
-		e->cur_die++;
 		if (e->cur_die == e->cycle_die)
 			time_to_die(e);
+		if (e->dump && e->cycle == e->dump)
+		{
+			dump_memory(e);
+			break ;
+		}
 	}
 }
 
@@ -149,9 +153,8 @@ int			main(int argc, char **argv)
 	if (!(init_vm(&e, argc, argv)))
 		return (-1);//free
 	run(&e);
-	dump_memory(&e);
 }
-//cp ../ressources/corewar/test2.cor .
+//../ressources/corewar/asm ../ressources/corewar/test2.s && cp ../ressources/corewar/test2.cor . && ./corewar -v 7 test2.cor -d 3000
 //./corewar -v 4 test2.cor
 
 // 0b 68 01 00 0f 00 01 06 64 01 00 00 00 00 01 01 00 00 00 01 09 ff fb

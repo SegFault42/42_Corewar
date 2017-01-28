@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/26 12:24:24 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 17:55:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,31 @@ t_op		get_op(int i)
 	return (g_op_tab[i - 1]);
 }
 
-static void	next_instruction(t_process *proc)
+void		pc_moves(t_process *proc, int i)
+{
+	int		j;
+
+	j = -1;
+	ft_printf("ADV %d (0x%04x -> 0x%04x) ", i, proc->start + proc->pc,\
+									(proc->start + proc->pc + i) % MEM_SIZE);
+	while (++j < i)
+	{
+		ft_putnbr_hex(get_mem_uint8(proc, j), 2);
+		ft_putchar(j + 1 < i ? ' ' : '\n');
+	}
+}
+
+static void	next_instruction(t_env *e, t_process *proc)
 {
 	t_instruction	*inst;
 
 	inst = &(proc->inst);
 	if (inst->opcode != ZJMP)
-		proc->pc += inst->i + 1;
+	{
+		if (e->verbose & SHOW_PC_MOVES)
+			pc_moves(proc, inst->i + 1);
+		proc->pc = (proc->pc + inst->i + 1) % MEM_SIZE;
+	}
 	init_instruction(inst);
 }
 
@@ -77,10 +95,23 @@ void		exec_instruction(t_env *e, t_process *proc)
 {
 	int		opcode;
 
-	opcode = proc->inst.opcode;
-	g_exec_op[proc->inst.opcode - 1](e, proc);
-	if (opcode != FORK && opcode != LFORK)
-		next_instruction(proc);
+	if (proc->inst.bad_ocp)
+	{
+		if (e->verbose & SHOW_PC_MOVES)
+		{
+			ft_printf("BAD OCP: ");
+			pc_moves(proc, 2);
+		}
+		proc->pc = (proc->pc + 2) % MEM_SIZE;
+		init_instruction(&(proc->inst));
+	}
+	else
+	{
+		opcode = proc->inst.opcode;
+		g_exec_op[proc->inst.opcode - 1](e, proc);
+		if (opcode != FORK && opcode != LFORK)
+			next_instruction(e, proc);
+	}
 	// dump_memory(e);
 	// char* str; while (get_next_line(0, &str) != 1){free(str);}
 }

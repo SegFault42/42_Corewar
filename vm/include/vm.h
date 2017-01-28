@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 13:14:40 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 16:54:27 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ struct		s_instruction
 	uint8_t		param[3];
 	uint32_t	val[3];
 	int			n_cycle;
+	int			bad_ocp;
 	int			i;
 };
 
@@ -132,6 +133,7 @@ struct		s_env
 	t_player	*player;
 	t_process	*process;
 	uint8_t		verbose;
+	uint32_t	dump;
 };
 
 /*
@@ -164,6 +166,7 @@ void		set_mem_uint8(t_process *process, uint16_t index, uint8_t val);
 void		set_mem_uint16(t_process *process, uint16_t index, uint16_t val);
 void		set_mem_uint32(t_process *process, uint16_t index, uint32_t val);
 void		dump_memory(t_env *e);
+void		ft_putnbr_hex(int octet, int rem);
 
 void		exec_instruction(t_env *e, t_process *proc);
 void		exec_live(t_env *e, t_process *proc);
@@ -188,6 +191,7 @@ bool		valid_params(t_process *proc);
 uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg);
 void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val);
 void		fork_process(t_env *e, t_process *proc, uint16_t pc);
+void		pc_moves(t_process *proc, int i);
 
 int			ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
 int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS]);

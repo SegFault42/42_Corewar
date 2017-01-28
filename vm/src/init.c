@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 12:25:55 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 17:50:21 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_instruction(t_instruction *inst)
 	inst->val[1] = 0;
 	inst->val[2] = 0;
 	inst->n_cycle = -1;
+	inst->bad_ocp = 0;
 	inst->i = 0;
 }
 
@@ -81,4 +82,5 @@ void	init_env(t_env *e)
 	e->player = 0;
 	e->process = 0;
 	e->verbose = 0;
+	e->dump = 0;
 }

@@ -6,13 +6,13 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 11:35:49 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 16:43:20 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	ft_putnbr_hex(int octet, int rem)
+void	ft_putnbr_hex(int octet, int rem)
 {
 		char const *base = "0123456789abcdef";
 

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 21:39:15 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/01/28 13:23:55 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,12 @@ void	exec_aff(t_env *e, t_process *proc)
 {
 	uint32_t	val;
 
-	// printf("Exec aff\n");
-	(void)e;
 	if (valid_params(proc))
 	{
 		val = src_param(proc, 0, 0, 1);
 		proc->carry = (!val ? 1 : 0);
+		if (e->verbose & SHOW_OPERATIONS)
+			ft_printf("P%d | aff: %d -> %C\n", e->cur_process + 1, val, val);
 		//A faire
-		// printf("Exec aff ok\n");
 	}
 }
