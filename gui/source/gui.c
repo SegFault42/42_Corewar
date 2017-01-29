@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/27 20:56:40 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/28 18:02:51 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	error(uint8_t error)
 		ft_fprintf(2, RED"Failed to create window.\n"END);
 	exit(EXIT_FAILURE);
 }
-
 
 void	sdl_clear(t_win *win, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -115,6 +114,10 @@ static void init_env(t_env *env)
 	env->nb_process = random() % 50;
 	env->cur_process = random() % 50;
 	env->cur_die = random() % 50;
+	env->cycle_die = random() % 50;
+	env->check = random() % 50;
+	env->lives = 22;
+	env->alives = 4;
 	env->cycle -= 1;
 }
 
@@ -170,19 +173,45 @@ void	write_general_info(t_font *font_general, t_env *env, t_win *win)
 	SDL_DestroyTexture(font_general->texture);
 }
 
+void	write_challengers(t_font *font_general, t_win *win)
+{
+	font_general->text_rect.x = 1423; // coord y ou le texte sera place
+	font_general->text_rect.y = 683; // coord y ou le texte sera place
+	draw_text(font_general, win, "Helltain", 0);
+	SDL_DestroyTexture(font_general->texture);
+	
+	font_general->text_rect.x = 1423; // coord y ou le texte sera place
+	font_general->text_rect.y = 757; // coord y ou le texte sera place
+	draw_text(font_general, win, "Zork", 0);
+	SDL_DestroyTexture(font_general->texture);
+
+	font_general->text_rect.x = 1423; // coord y ou le texte sera place
+	font_general->text_rect.y = 832; // coord y ou le texte sera place
+	draw_text(font_general, win, "BigZork", 0);
+	SDL_DestroyTexture(font_general->texture);
+	
+	font_general->text_rect.x = 1423; // coord y ou le texte sera place
+	font_general->text_rect.y = 902; // coord y ou le texte sera place
+	draw_text(font_general, win, "FlutterShy", 0);
+	SDL_DestroyTexture(font_general->texture);
+}
+
 void	general_info(t_font *font_general, t_win *win)
 {
-	// ouvrir le font une seul fois
-
-	font_general->font_size = 25;
-	select_font(win, font_general, "/Library/Fonts/Arial Bold.ttf");
-	font_general->text_color = (SDL_Color){174, 174, 174, 255};
+	font_general[1].font_size = 25;
+	select_font(win, &font_general[1], "/Library/Fonts/Arial Bold.ttf");
+	font_general[1].text_color = (SDL_Color){174, 174, 174, 255};
+	
+	font_general[2].font_size = 50;
+	/*select_font(win, &font_general[2], "/Library/Fonts/AmericanTypewriter.ttc");*/
+	select_font(win, &font_general[2], "./font/ufonts.com_american-typewriter-bold.ttf");
+	font_general[2].text_color = (SDL_Color){174, 174, 174, 255};
 }
 
 void	gui()
 {
 	t_win		win;
-	t_font		font[2];
+	t_font		font[3];
 	SDL_Event	event;
 	t_wallpaper	wallpaper;
 	t_env		env;
@@ -209,7 +238,7 @@ void	gui()
 	/*SDL_Rect dstrect = { 0, 0, 1920, 1080 };*/
 	/*int x = 0;*/
 	print_wallpaper(&wallpaper, &win, "./wallpaper/corewar.bmp");
-	general_info(&font[1], &win);
+	general_info(font, &win);
 	while (42)
 	{
 		init_env(&env);
@@ -234,6 +263,7 @@ void	gui()
 			break ;
 		draw_memory(&win, &font[0]);
 		write_general_info(&font[1], &env, &win);
+		write_challengers(&font[2], &win);
 		SDL_RenderPresent(win.render);
 	}
 	TTF_Quit();
