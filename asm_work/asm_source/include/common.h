@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/16 19:16:31 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/30 17:11:52 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@
 # define BAD_LABEL_FORMAT		9
 # define NAME_NOT_FOUND			10
 # define COMMENT_NOT_FOUND		11
-# define BAD_INST			12
+# define INSTR_INEXIST			12
+# define BAD_NUMBER_PARAM		13
+# define BAD_ARGUMENT			14
+# define MALLOC					15
 
 typedef struct		s_op
 {
@@ -66,12 +69,6 @@ typedef struct		s_op
 	bool			dir_indir;
 }					t_op;
 
-typedef struct		s_inst
-{
-	char		*inst;
-	t_list		*param;
-}			t_inst;
-
 typedef struct		s_header
 {
 	unsigned int	magic;
@@ -79,10 +76,26 @@ typedef struct		s_header
 	char			comment[COMMENT_LENGTH + 1];
 	char			prog_name[PROG_NAME_LENGTH + 1];
 }					t_header;
+
+typedef struct		s_info
+{
+	char			**param;
+	char			opcode;
+	unsigned char	ocp;
+	uint8_t			arg_value[4];
+	struct s_info	*next;
+}					t_info;
+
+typedef struct		s_glob
+{
+	t_op 			op_table[17];
+	t_info			*list;
+}					t_glob;
 /*
 ** parse_s_file.c
 */
-int8_t				parse_s_file(char *file, t_header *header);
+unsigned char		ocp_calc(char **tab, t_info *info);
+int8_t				parse_s_file(char *file, t_header *header, t_glob *glob);
 /*
 ** main.c
 */
@@ -90,19 +103,27 @@ void				error(int error);
 
 void				parse_name(int *fd, t_header *header);
 void				parse_comment(int *fd, t_header *header);
+int 				parse_info(t_glob *glob, char *line);
 /*
 ** tools.c
 */
 int					skip_blank(char *line);
 int					is_cmt(char *line);
+int     			wordnb(char *str);
 /*
 ** check_label.c
 */
-void				parse_instructions(int *fd);
+void				parse_instructions(int *fd, t_glob *glob);
 /*
 ** op_tab.c
 */
-void	init_op_table(t_op *op_table);
-void	free_op_table(t_op *op_table);
+void				init_op_table(t_op *op_table);
+void				free_op_table(t_op *op_table);
+t_info				*new_info(void);
 
+
+/*
+** clear_line.c
+*/
+char    			*clear_line(char *str);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2016/12/12 19:23:47 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/01/17 13:16:48 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define DIR_CODE				2
 # define IND_CODE				3
 
+# define PARAM_1				192
+# define PARAM_2				48
+# define PARAM_3				12
 
 #define MAX_ARGS_NUMBER			4
 #define MAX_PLAYERS				4

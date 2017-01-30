@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/17 15:56:18 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/16 20:42:50 by rabougue         ###   ########.fr        #
+#    Updated: 2017/01/30 17:41:49 by jcazako          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #klkjl
@@ -17,8 +17,8 @@
 
 abcdefghijklmnopqrstuvwxyz_0123456789:
 
-l2:		sti r1, %:live, %1
-		and r1, %0, r1
+l2:		sti r1,    %:live,     %1
+		and     r1,    %0,   r1
 
-live:	live %1
-		zjmp %:live
+live:	live   %1    #hello  ;  le
+		zjmp    %:   	  live
