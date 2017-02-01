@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/28 20:20:29 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/01 14:10:38 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	init_process(t_process *process, uint32_t id, uint16_t start)
 	process->start = start;
 	process->pc = 0;
 	process->player_id = id - 1;
+	process->live = 0;
+	process->alive = 1;
 	process->reg[0] = -id;
 	while (++i < REG_NUMBER)
 		process->reg[i] = 0;
@@ -79,6 +81,8 @@ void	init_env(t_env *e)
 	e->check = 0;
 	e->alives = 0;
 	e->lives = 0;
+	e->valid_lives = 0;
+	e->last_live = 0;
 	e->player = 0;
 	e->process = 0;
 	e->verbose = 0;

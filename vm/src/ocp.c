@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:46:17 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/28 16:55:34 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/01 11:24:03 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,5 @@ int			check_ocp(t_process *proc, uint8_t ocp)
 		get_values(proc, inst);
 		return (1);
 	}
-	// init_instruction(inst);
 	return (0);
 }

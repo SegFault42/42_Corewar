@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/28 20:25:55 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/01 18:16:00 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void	exec_live(t_env *e, t_process *proc)
 	val = src_param(proc, 0, 0, 0);
 	if (e->verbose & SHOW_OPERATIONS)
 		ft_printf("P%d | live: %d\n", e->cur_process + 1, val);
+	proc->live++;
+	e->lives++;
 	if (-val >= 1 && -val <= e->nb_player)
 	{
 		e->player[-val - 1].live += 1;
-		e->lives++;
+		e->last_live = val;
+		e->valid_lives++;
 		if (e->verbose & SHOW_LIVE)
 			ft_printf("Player %d is {:green}alive{:eoc}\n", -val);
 	}
@@ -61,10 +64,11 @@ void	exec_st(t_env *e, t_process *proc)
 		proc->carry = (!val ? 1 : 0);
 		if (inst->param[1] == T_IND)
 		{
+			// set_mem_uint32(proc, inst->val[1] % MEM_SIZE, val);
 			set_mem_uint32(proc, inst->val[1] % MEM_SIZE, val);
 			if (e->verbose & SHOW_OPERATIONS)
-				ft_printf("P%d | st: r%d(%d) -> %d\n", e->cur_process + 1,\
-									inst->val[0], val, inst->val[1] % MEM_SIZE);
+				ft_printf("P%d | st: r%d(%d) -> %d(%d)\n", e->cur_process + 1,\
+								inst->val[0], val, inst->val[1] % MEM_SIZE, aff_address(inst->val[1]));
 		}
 		else if (inst->param[1] == T_REG)
 		{

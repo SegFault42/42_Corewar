@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 13:48:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/28 13:55:41 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/01 15:56:00 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int			parse_options(t_env *e, int argc, char **argv, int i)
 {
 	if (!ft_strcmp(argv[i], "-v") && i + 1 < argc && ft_isdigitstr(argv[i + 1]))
 		e->verbose = ft_atoi(argv[++i]);
-	if (!ft_strcmp(argv[i], "-d") && i + 1 < argc && ft_isdigitstr(argv[i + 1]))
+	if ((!ft_strcmp(argv[i], "-dump") || !ft_strcmp(argv[i], "-d"))
+	&& i + 1 < argc && ft_isdigitstr(argv[i + 1]))
 		e->dump = ft_atoi(argv[++i]);
 	i++;
 	return (i);

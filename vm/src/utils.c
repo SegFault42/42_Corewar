@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 12:57:48 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/01 16:50:19 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg)
 		else
 			val = inst->val[i] - 1;
 	}
-	else// if (inst->param[i] == T_DIR)
+	else
 		val = inst->val[i];
 	return (val);
 }
@@ -81,6 +81,9 @@ void		copy_processes(t_env *e, t_process *cpy)
 		j = -1;
 		p = &(cpy[i]);
 		p->inst = e->process[i].inst;
+		p->player_id = e->process[i].player_id;
+		p->live = e->process[i].live;
+		p->alive = e->process[i].alive;
 		p->carry = e->process[i].carry;
 		p->start = e->process[i].start;
 		p->pc = e->process[i].pc;
@@ -105,14 +108,18 @@ void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 	e->nb_process += 1;
 	init_instruction(&(new->inst));
 	new->player_id = proc->player_id;
+	new->live = proc->live;
+	new->alive = 1;
 	new->carry = proc->carry;
 	new->start = proc->start;
 	new->pc = pc % MEM_SIZE;
 	i = -1;
 	while (++i < REG_NUMBER)
 		new->reg[i] = proc->reg[i];
-	// printf("FORK, process%d\n", e->nb_process);
-	// printf("carry: %d, start: %04X, pc = %04X\n", new->carry, new->start, new->pc);
-	// printf("reg(1:%08X, 2:%08X, 3:%08X, 4:%08X, 5:%08X, 6:%08X, 7:%08X, 8:%08X", new->reg[0], new->reg[1], new->reg[2], new->reg[3], new->reg[4], new->reg[5], new->reg[6], new->reg[7]);
-	// printf(", 9:%08X, 10:%08X, 11:%08X, 12:%08X, 13:%08X, 14:%08X, 15:%08X, 16:%08X)\n", new->reg[8], new->reg[9], new->reg[10], new->reg[11], new->reg[12], new->reg[13], new->reg[14], new->reg[15]);
+}
+
+int		aff_address(int val)
+{
+	val %= MEM_SIZE;
+	return (val > MEM_SIZE / 2 ? -(MEM_SIZE - val) : val);
 }

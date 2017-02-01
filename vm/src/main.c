@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/01/28 20:27:12 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/01 18:17:57 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void		check_players_inst(t_env *e)
 	while (--(e->cur_process) >= 0)
 	{
 		p = &(e->process[e->cur_process]);
-		// if (e->player[p->player_id].alive)
-		// {
+		if (p->alive)
+		{
 			if (p->inst.n_cycle == -1)
 			{
 				if (!check_opcode(p, get_mem_uint8(p, p->inst.i)))
@@ -49,7 +49,23 @@ void		check_players_inst(t_env *e)
 				exec_instruction(e, p);
 			else if (p->inst.n_cycle > 0)
 				(p->inst.n_cycle)--;
-		// }
+		}
+	}
+}
+
+void		check_process(t_env *e, t_process *p, int i)
+{
+	if (p->alive)
+	{
+		if (!(p->live))
+		{
+			if (e->verbose & SHOW_DEATHS)
+				ft_printf("Process %d is {:red}dead{:eoc}\n", i);
+			p->alive = 0;
+		}
+		else
+			e->alives++;
+		p->live = 0;
 	}
 }
 
@@ -61,26 +77,20 @@ void		time_to_die(t_env *e)
 	i = -1;
 	e->alives = 0;
 	e->check++;
-	while (++i < e->nb_player)
+	while (++i < e->nb_process)
+		check_process(e, &(e->process[i]), i + 1);
+	if (e->lives >= NBR_LIVE || e->check == MAX_CHECKS)
 	{
-		if (!(e->player[i].live))
-		{
-			if (e->verbose & SHOW_DEATHS)
-				ft_printf("Player %d is {:red}dead{:eoc}\n", i + 1);
-			e->player[i].alive = 0;
-		}
-		else
-			e->alives++;
-		e->player[i].live = 0;
-		if (e->lives > NBR_LIVE || e->check == MAX_CHECKS)
-		{
-			e->cycle_die -= CYCLE_DELTA;
-			e->check = 0;
-			if (e->verbose & SHOW_CYCLES)
-				ft_printf("New cycle to die: %d\n", e->cycle_die);
-		}
+		e->cycle_die -= CYCLE_DELTA;
+		e->check = 0;
+		if (e->verbose & SHOW_CYCLES)
+			ft_printf("New cycle to die: %d\n", e->cycle_die);
 	}
+	i = -1;
+	while (++i < e->nb_player)
+		e->player[i].live = 0;
 	e->lives = 0;
+	e->valid_lives = 0;
 	if (!e->alives || e->cycle_die <= 0)
 		e->run = 0;
 }
@@ -99,10 +109,7 @@ static void	run(t_env *e)
 		if (e->cur_die == e->cycle_die)
 			time_to_die(e);
 		if (e->dump && e->cycle == e->dump)
-		{
-			dump_memory(e);
 			break ;
-		}
 	}
 }
 
@@ -114,7 +121,6 @@ void	init_players(t_env *e)
 	i = -1;
 	while (++i < e->nb_player)
 	{
-		e->player[i].alive = 1;
 		e->player[i].live = 0;
 		j = -1;
 		while (++j < e->player[i].header.prog_size)
@@ -152,9 +158,12 @@ int			main(int argc, char **argv)
 	if (!(init_vm(&e, argc, argv)))
 		return (-1);//free
 	run(&e);
+	dump_memory(&e);
 }
 //../ressources/corewar/asm ../ressources/corewar/test2.s && cp ../ressources/corewar/test2.cor . && ./corewar -v 31 test2.cor -d 300
-//./corewar -v 4 test2.cor
+//./corewar helltrain.cor -v 29 -d 4300
+
+//GET VALUES AT EXEC
 
 // 0b 68 01 00 0f 00 01 06 64 01 00 00 00 00 01 01 00 00 00 01 09 ff fb
 //sti 68(REG|DIR|DIR) -> 0b 68 01 00 0f 00 01
