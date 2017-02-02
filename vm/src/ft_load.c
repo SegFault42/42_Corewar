@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 13:48:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 15:56:00 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 16:29:13 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS])
 
 	i = 1;
 	n = 0;
-	while (i < argc && n < MAX_PLAYERS)
+	while (i < argc)
 	{
 		if (*argv[i] == '-')
 			i = parse_options(e, argc, argv, i);
-		else if (i < argc)
+		else if (i < argc && n < MAX_PLAYERS)
 		{
 			fd[n] = open(argv[i], O_RDONLY);
 			if (fd[n] < 0)
@@ -92,24 +92,3 @@ int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS])
 	}
 	return (n);
 }
-
-// int ft_run(uint8_t *, t_env *);
-
-// int	main(int argc, char **argv)
-// {
-// 	t_env	*env;
-// 	uint8_t	fd[MAX_PLAYERS];
-// 	uint8_t mem[MEM_SIZE] = "weferget";
-//
-// 	if (argc < 2)
-// 		return (-1);
-// 	env = (t_env *)ft_memalloc(sizeof(t_env));
-// 	if ((env->nb_usr = ft_parse(argc, argv, fd)) < 1)
-// 		return (-1);//close fd if error;
-// 	env->nb_process = env->nb_usr;
-// 	if (ft_load(fd, env))
-// 		return (-1); //free if error
-// 	// if (ft_run(mem, env))
-// 	// 	return (-1);
-// 	return (0);
-// }

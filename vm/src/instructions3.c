@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/02 11:00:58 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 18:07:06 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,41 @@ void	exec_zjmp(t_env *e, t_process *proc)
 	inst = &(proc->inst);
 	if (valid_params(proc) && proc->carry)
 	{
-		proc->pc = (proc->pc + inst->val[0]) % MEM_SIZE;
+		proc->pc = (proc->pc + idx_address(inst->val[0])) % MEM_SIZE;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | zjmp: %d(%d) OK (PC: %d)\n", e->cur_process + 1,\
-							inst->val[0], mem_address(inst->val[0]), proc->pc);
+							inst->val[0], idx_address(inst->val[0]), proc->pc);
 	}
 	else
 	{
 		proc->pc += 3;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | zjmp: %d(%d) FAIL (PC: %d)\n", e->cur_process + 1,\
-							inst->val[0], mem_address(inst->val[0]), proc->pc);
+							inst->val[0], idx_address(inst->val[0]), proc->pc);
 	}
 }
 
 void	exec_ldi(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
-	uint16_t		address;
+	int32_t			src1;
+	int32_t			src2;
 	uint32_t		val;
 	t_instruction	*inst;
 
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
-		address = src_param(proc, 0, 0, 1) + src_param(proc, 0, 1, 1);
-		val = get_mem_uint32(proc, address % IDX_MOD);
+		src1 = src_param(proc, 1, 0, 1);
+		if (proc->inst.param[0] != T_IND)
+			src1 = get_address(src1);
+		src2 = get_address(src_param(proc, 1, 1, 1));
+		val = get_mem_uint32(proc, ((src1 + src2) % IDX_MOD));
 		reg = src_param(proc, 0, 2, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
-			ft_printf("P%d | ldi: %d -> r%d\n", e->cur_process + 1,\
-																val, reg + 1);
+			ft_printf("P%d | ldi: %d -> r%d\n | load from %d + %d = %d (PC+IDX: %d)\n", e->cur_process + 1, val, reg + 1, src1, src2, src1 + src2, proc->pc + ((src1 + src2) % IDX_MOD));
 	}
 }
 

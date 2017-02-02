@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/02 13:20:35 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 17:05:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg)
 	if (inst->param[i] == T_IND)
 	{
 		if (idx)
-	 		val = get_mem_uint32(proc, inst->val[i] % IDX_MOD);
+	 		val = get_mem_uint32(proc, idx_address(inst->val[i]));
 		else
-			val = get_mem_uint32(proc, inst->val[i]);
+			val = get_mem_uint32(proc, mem_address(inst->val[i]));
 	}
 	else if (inst->param[i] == T_REG)
 	{
