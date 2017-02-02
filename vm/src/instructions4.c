@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 17:21:50 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 11:01:04 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exec_lfork(t_env *e, t_process *proc)
 		pc = (proc->pc + src_param(proc, 0, 0, 0)) % MEM_SIZE;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | lfork: %d (PC+IDX: %d)\n", e->cur_process + 1,\
-									aff_address(src_param(proc, 1, 0, 0)), pc);
+									mem_address(src_param(proc, 1, 0, 0)), pc);
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, 3);
 		proc->pc = (proc->pc + 3) % MEM_SIZE;

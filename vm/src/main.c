@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/01 18:17:57 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 08:46:02 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int			main(int argc, char **argv)
 	dump_memory(&e);
 }
 //../ressources/corewar/asm ../ressources/corewar/test2.s && cp ../ressources/corewar/test2.cor . && ./corewar -v 31 test2.cor -d 300
-//./corewar helltrain.cor -v 29 -d 4300
+//./corewar helltrain.cor -v 29 -d 4410
 
 //GET VALUES AT EXEC
 

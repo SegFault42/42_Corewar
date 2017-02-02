@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 16:50:34 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 12:28:45 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # define SHOW_PC_MOVES 16
 
 # define BYTES_BY_LINE 64 // 32
+# define ADDRESS_MAX 65536
 
 /*
 ********************************************************************************
@@ -163,6 +164,7 @@ void		init_env(t_env *e);
 
 int			check_ocp(t_process *proc, uint8_t ocp);
 t_op		get_op(int i);
+void		get_values(t_process *proc, t_instruction *inst);
 
 uint8_t		get_mem_uint8(t_process *process, uint16_t index);
 uint16_t	get_mem_uint16(t_process *process, uint16_t index);
@@ -197,7 +199,9 @@ uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg);
 void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val);
 void		fork_process(t_env *e, t_process *proc, uint16_t pc);
 void		pc_moves(t_process *proc, int i);
-int			aff_address(int val);
+int			idx_address(int val);
+int			mem_address(int val);
+int			get_address(int val);
 
 int			ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
 int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS]);

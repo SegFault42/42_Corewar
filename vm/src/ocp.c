@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:46:17 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 11:24:03 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 12:28:37 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,7 @@ int			check_ocp(t_process *proc, uint8_t ocp)
 	}
 	inst->n_cycle = get_op(inst->opcode).n_cycle - 1;
 	if (check_params(inst))
-	{
-		get_values(proc, inst);
 		return (1);
-	}
+	get_values(proc, inst);
 	return (0);
 }

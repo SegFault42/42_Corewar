@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 17:21:27 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 11:00:58 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	exec_zjmp(t_env *e, t_process *proc)
 		proc->pc = (proc->pc + inst->val[0]) % MEM_SIZE;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | zjmp: %d(%d) OK (PC: %d)\n", e->cur_process + 1,\
-							inst->val[0], aff_address(inst->val[0]), proc->pc);
+							inst->val[0], mem_address(inst->val[0]), proc->pc);
 	}
 	else
 	{
 		proc->pc += 3;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | zjmp: %d(%d) FAIL (PC: %d)\n", e->cur_process + 1,\
-							inst->val[0], aff_address(inst->val[0]), proc->pc);
+							inst->val[0], mem_address(inst->val[0]), proc->pc);
 	}
 }
 
@@ -82,7 +82,7 @@ void	exec_fork(t_env *e, t_process *proc)
 		pc = (proc->pc + src_param(proc, 1, 0, 0)) % MEM_SIZE;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | fork: %d (PC+IDX: %d)\n", e->cur_process + 1,\
-									aff_address(src_param(proc, 1, 0, 0)), pc);
+									mem_address(src_param(proc, 1, 0, 0)), pc);
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, 3);
 		proc->pc = (proc->pc + 3) % MEM_SIZE;

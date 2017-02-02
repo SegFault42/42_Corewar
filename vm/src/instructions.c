@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 18:16:00 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 13:20:57 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,10 @@ void	exec_st(t_env *e, t_process *proc)
 		proc->carry = (!val ? 1 : 0);
 		if (inst->param[1] == T_IND)
 		{
-			// set_mem_uint32(proc, inst->val[1] % MEM_SIZE, val);
-			set_mem_uint32(proc, inst->val[1] % MEM_SIZE, val);
+			set_mem_uint32(proc, idx_address(inst->val[1]), val);
 			if (e->verbose & SHOW_OPERATIONS)
-				ft_printf("P%d | st: r%d(%d) -> %d(%d)\n", e->cur_process + 1,\
-								inst->val[0], val, inst->val[1] % MEM_SIZE, aff_address(inst->val[1]));
+				ft_printf("P%d | st: r%d(%d) -> %d\n", e->cur_process + 1,\
+								inst->val[0], val, idx_address(inst->val[1]));
 		}
 		else if (inst->param[1] == T_REG)
 		{

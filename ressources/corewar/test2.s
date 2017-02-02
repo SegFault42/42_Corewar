@@ -2,50 +2,59 @@
 
 .comment "I'M ALIIIIVE"
 
-live %-1
-ld 1892, r1
-or r1, %0, r1
-ld %184549376, r1
-or r1, %0, r1
-sti r1, %:test, %0
-test: st r1, r2
-or r2, %0, r2
-st r1, 1510 ;tocheck (P1 | st: r1(184549376) -> 486 | P    1 | st r1 1510)
-add r1, r2, r3
-or r3, %0, r3
-sub r2, r3, r4
-or r4, %0, r4
-and r5, 4515, r5
-or r5, %0, r5
-and r5, %15, r5
-or r5, %0, r5
-and r5, r5, r5
-or r5, %0, r5
-and 4525, 1215, r5
-or r5, %0, r5
-and 1355, %15, r5
-or r5, %0, r5
-and 1565, r5, r5
-or r5, %0, r5
-and %5, 1715, r5
-or r5, %0, r5
-and %5, %15, r5
-or r5, %0, r5
-and %5, r5, r5
-or r5, %0, r5
-or %5, %5, r6
-xor %0, %0, r7
-zjmp %3
-ldi 1510, %2, r8
-or r8, %0, r8
-sti r8, %128, %5
-or r5, %0, r5
-live %-1
-fork %0
-lld %10, r1
-or r1, %0, r1
-lldi %128, %2, r8
-or r8, %0, r8
-live %-1
-lfork %0
-aff r3
+st r1, 78757827
+st r1, 7578527
+st r1, 72872424
+st r1, 758756782
+st r1, 785425485
+st r1, 78572727
+st r1, 98673673
+st r1, 78672872
+st r1, 181646876
+st r1, 72782728
+st r1, 699242
+st r1, 7276776
+st r1, 68486184
+st r1, 91913487
+st r1, 91347484
+st r1, 64318613
+st r1, 9131491
+st r1, 13134384
+st r1, 16
+st r1, 1969837
+st r1, 7879434973
+st r1, 89874
+st r1, 9844
+st r1, 776461
+st r1, 949848
+st r1, 48
+st r1, 198
+st r1, 19
+st r1, 1
+st r1, 887
+st r1, 9879494
+st r1, 8
+st r1, 4
+st r1, 9169484895
+st r1, 89439
+st r1, 1684894
+st r1, 4096
+st r1, 512
+st r1, 4097
+st r1, 513
+st r1, 4095
+st r1, 511
+st r1, 646938110
+st r1, 160610
+st r1, 119900
+st r1, 49460806
+st r1, 109608694089
+st r1, 9469030
+st r1, 464984189496
+st r1, 469723137
+st r1, 125645774
+st r1, 15625768
+st r1, 663261
+st r1, 152772673561
+st r1, 152716371
+st r1, 165716572

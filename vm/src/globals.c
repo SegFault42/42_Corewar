@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/28 20:04:16 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 13:04:32 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,22 +96,13 @@ void		exec_instruction(t_env *e, t_process *proc)
 	int		opcode;
 
 	if (proc->inst.bad_ocp)
-	{
-		if (e->verbose & SHOW_PC_MOVES)
-		{
-			ft_printf("BAD OCP: ");
-			pc_moves(proc, 2);
-		}
-		proc->pc = (proc->pc + 2) % MEM_SIZE;
-		init_instruction(&(proc->inst));
-	}
+		next_instruction(e, proc);
 	else
 	{
+		get_values(proc, &(proc->inst));
 		opcode = proc->inst.opcode;
 		g_exec_op[proc->inst.opcode - 1](e, proc);
 		if (opcode != FORK && opcode != LFORK)
 			next_instruction(e, proc);
 	}
-	// dump_memory(e);
-	// char* str; while (get_next_line(0, &str) != 1){free(str);}
 }

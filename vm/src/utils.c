@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 16:50:19 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 13:20:35 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,25 @@ void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 		new->reg[i] = proc->reg[i];
 }
 
-int		aff_address(int val)
+int		get_address(int val)
 {
+	if (val >= ADDRESS_MAX / 2)
+		val -= ADDRESS_MAX;
+	return (val);
+}
+
+int		mem_address(int val)
+{
+	if (val >= ADDRESS_MAX / 2)
+		val -= ADDRESS_MAX;
 	val %= MEM_SIZE;
-	return (val > MEM_SIZE / 2 ? -(MEM_SIZE - val) : val);
+	return (val);
+}
+
+int		idx_address(int val)
+{
+	if (val >= ADDRESS_MAX / 2)
+		val -= ADDRESS_MAX;
+	val %= IDX_MOD;
+	return (val);
 }
