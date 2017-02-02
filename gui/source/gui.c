@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/28 18:02:51 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/02 16:16:21 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,13 @@ void	write_general_info(t_font *font_general, t_env *env, t_win *win)
 	draw_text(font_general, win, itoa, 0);
 	ft_strdel(&itoa);
 	SDL_DestroyTexture(font_general->texture);
+
+	itoa = ft_itoa(win->delay / 10 * -1);
+	font_general->text_rect.x = 1540; // coord y ou le texte sera place
+	font_general->text_rect.y = 1015; // coord y ou le texte sera place
+	draw_text(font_general, win, itoa, 0);
+	ft_strdel(&itoa);
+	SDL_DestroyTexture(font_general->texture);
 }
 
 void	write_challengers(t_font *font_general, t_win *win)
@@ -252,18 +259,18 @@ void	gui()
 		/*free(itoa_x);*/
 		/*SDL_DestroyTexture(font.texture);*/
 		/*++x;*/
+		draw_memory(&win, &font[0]);
+		write_general_info(&font[1], &env, &win);
+		write_challengers(&font[2], &win);
 		if (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
 				break ;
+			if (button_press(&event, &wallpaper, &win) == true)
+				break ;
 			/*button_press(&event, &wallpaper, &win);*/
 			/*ft_fprintf(1, "X ");*/
 		}
-		if (button_press(&event, &wallpaper, &win) == true)
-			break ;
-		draw_memory(&win, &font[0]);
-		write_general_info(&font[1], &env, &win);
-		write_challengers(&font[2], &win);
 		SDL_RenderPresent(win.render);
 	}
 	TTF_Quit();

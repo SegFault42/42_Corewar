@@ -6,20 +6,20 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 14:05:56 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/26 21:46:01 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/02 16:26:09 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
+
 bool	button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win)
 {
-
 	if (event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
 	{
 		if (event->button.x >= 1334 && event->button.x <= 1367 && event->button.y >= 1012 && event->button.y <= 1046)
 		{
-			if (win->delay < 200)
+			if (win->delay < 90)
 				win->delay += 10;
 			printf("%d\n", win->delay);
 		}
@@ -29,13 +29,13 @@ bool	button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win)
 				win->delay -= 10;
 			printf("%d\n", win->delay);
 		}
-		/*else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_p)*/
-			/*screenshot(&win);*/
+		if (event->button.x >= 1238 && event->button.x <= 1298 && event->button.y >= 1006 && event->button.y <= 1052)
+		{
+			screenshot(win);
+		}
 	}
 	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE) // ferme la fenetre quand on appuie sur echape
 		return (true);
-	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE)
-		SDL_Delay(win->delay);
 	SDL_Delay(win->delay);
 	return (false);
 	(void)wallpaper;

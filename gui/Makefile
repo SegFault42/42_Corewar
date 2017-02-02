@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/26 22:50:44 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/02 14:34:46 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ INCLUDE = -I ./include/ -I ./libft/includes/
 LSDL = -L ./libsdl/ -lSDL2
 FRAMEWORK = -framework OpenGL
 SDL2DYLIB = ./libsdl/libSDL2-2.0.0.dylib
-SDL2_image = ./libsdl/SDL2_image
+#SDL2_image = ./libsdl/SDL2_image # ok sur elcapitan
+SDL2_image = ./libsdl/SDL2_image.framework/SDL2_image
 SDL2_ttf = ./libsdl/SDL2_ttf.framework/Versions/A/SDL2_ttf
 SDL2_mixer = ./libsdl/SDL2_mixer.framework/Versions/A/SDL2_mixer
 SDL2_smpeg2 = ./libsdl/SDL2_mixer.framework/Versions/A/Frameworks/smpeg2.framework/smpeg2
