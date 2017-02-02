@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/02 11:01:04 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/02 21:31:20 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exec_lld(t_env *e, t_process *proc)
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
-			ft_printf("P%d | ld: %d -> r%d\n",\
+			ft_printf("P%d | lld: %d -> r%d\n",\
 											e->cur_process + 1, val, reg + 1);
 	}
 }
@@ -34,21 +34,25 @@ void	exec_lld(t_env *e, t_process *proc)
 void	exec_lldi(t_env *e, t_process *proc)
 {
 	uint8_t			reg;
-	uint16_t		address;
+	int32_t			src1;
+	int32_t			src2;
+	int32_t			address;
 	uint32_t		val;
-	t_instruction	*inst;
 
-	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
-		address = src_param(proc, 0, 0, 1) + src_param(proc, 0, 1, 1);
+		src1 = src_param(proc, 1, 0, 1);
+		if (proc->inst.param[0] == T_DIR)
+			src1 = get_address(src1);
+		src2 = get_address(src_param(proc, 1, 1, 1));
+		address = src1 + src2;
 		val = get_mem_uint32(proc, address);
 		reg = src_param(proc, 0, 2, 0);
 		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
-			ft_printf("P%d | ldi: %d -> r%d\n", e->cur_process + 1,\
-																val, reg + 1);
+			ft_printf("P%d | lldi: %d -> r%d\n | load from %d(PC: %d)\n",\
+			e->cur_process + 1, val, reg + 1, src1 + src2, proc->pc + address);
 	}
 }
 
@@ -60,7 +64,7 @@ void	exec_lfork(t_env *e, t_process *proc)
 	{
 		pc = (proc->pc + src_param(proc, 0, 0, 0)) % MEM_SIZE;
 		if (e->verbose & SHOW_OPERATIONS)
-			ft_printf("P%d | lfork: %d (PC+IDX: %d)\n", e->cur_process + 1,\
+			ft_printf("P%d | lfork: %d (PC: %d)\n", e->cur_process + 1,\
 									mem_address(src_param(proc, 1, 0, 0)), pc);
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, 3);
