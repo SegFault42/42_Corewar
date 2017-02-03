@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 15:25:17 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 17:29:01 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void		init_processes(t_env *e);
 void		init_env(t_env *e);
 void		init_players(t_env *e);
 int			init_vm(t_env *e, int argc, char **argv);
-int			ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
+void		ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
 int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS]);
 
 uint8_t		get_mem_uint8(t_process *process, uint16_t index);
@@ -208,5 +208,7 @@ int			check_ocp(t_process *proc, uint8_t ocp);
 int			check_opcode(t_process *proc, uint8_t opcode);
 t_op		get_op(int i);
 void		run(t_env *e);
+
+void		die(t_env *e, char *error);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/03 15:24:59 by qhonore          ###   ########.fr        #
+#    Updated: 2017/02/03 16:37:12 by qhonore          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIB_PATH = ./libft/
 SRC_NAME = main.c dump_memory.c globals.c init.c init2.c ocp.c\
 		   get_memory.c set_memory.c utils.c utils2.c instructions.c\
 		   instructions2.c instructions3.c instructions4.c\
-		   ft_load.c run.c
+		   ft_load.c run.c exit.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = -lft
 NAME = corewar

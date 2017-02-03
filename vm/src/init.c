@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 15:28:12 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 17:31:27 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void		init_env(t_env *e)
 	e->lives = 0;
 	e->valid_lives = 0;
 	e->last_live = 0;
-	e->player = 0;
-	e->process = 0;
+	e->player = NULL;
+	e->process = NULL;
 	e->verbose = 0;
 	e->dump = 0;
 }

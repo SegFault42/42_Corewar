@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 15:30:35 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 17:33:15 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 	int			i;
 
 	if (!(cpy = (t_process*)malloc(sizeof(t_process) * (e->nb_process + 1))))
-		printf("fork: malloc failure\n");
+		die(e, "realloc failure (cpy)");
 	copy_processes(e, cpy);
 	new = &(e->process[e->nb_process]);
 	proc = &(e->process[e->cur_process]);
