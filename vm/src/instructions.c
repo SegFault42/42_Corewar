@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/02 13:20:57 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 14:59:34 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ void	exec_live(t_env *e, t_process *proc)
 	if (-val >= 1 && -val <= e->nb_player)
 	{
 		e->player[-val - 1].live += 1;
-		e->last_live = val;
+		e->last_live = -val;
 		e->valid_lives++;
 		if (e->verbose & SHOW_LIVE)
-			ft_printf("Player %d is {:green}alive{:eoc}\n", -val);
+			ft_printf("Player %d (%s) is {:green}alive{:eoc}\n", -val,\
+										e->player[-val - 1].header.prog_name);
 	}
 }
 

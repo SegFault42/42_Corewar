@@ -6,13 +6,13 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 14:10:38 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 15:28:12 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	init_memory(void)
+void		init_memory(void)
 {
 	int		i;
 
@@ -24,7 +24,7 @@ void	init_memory(void)
 		g_color[i] = 0;
 }
 
-void	init_instruction(t_instruction *inst)
+void		init_instruction(t_instruction *inst)
 {
 	inst->opcode = 0;
 	inst->ocp = 0;
@@ -56,7 +56,7 @@ static void	init_process(t_process *process, uint32_t id, uint16_t start)
 		process->reg[i] = 0;
 }
 
-void	init_processes(t_env *e)
+void		init_processes(t_env *e)
 {
 	t_process	*p;
 	uint32_t	i;
@@ -69,7 +69,7 @@ void	init_processes(t_env *e)
 	}
 }
 
-void	init_env(t_env *e)
+void		init_env(t_env *e)
 {
 	e->run = 0;
 	e->nb_player = 0;

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:21:56 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/01 18:15:51 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 15:27:38 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ uint16_t	get_mem_uint16(t_process *process, uint16_t index)
 
 	i = process->start + process->pc + index;
 	val = g_mem[i % MEM_SIZE] << 8;
-	// ft_printf("get_mem_uint16[%x]: val1 = %x", i, g_mem[i % MEM_SIZE]);
 	i++;
-	// ft_printf(", val2 = %x, val = %x\n", g_mem[i % MEM_SIZE], val + g_mem[i % MEM_SIZE]);
 	return (val + g_mem[i % MEM_SIZE]);
 }
 

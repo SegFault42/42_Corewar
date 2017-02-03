@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/02 21:31:20 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 15:29:16 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,16 @@ void	exec_lldi(t_env *e, t_process *proc)
 
 void	exec_lfork(t_env *e, t_process *proc)
 {
-	uint16_t	pc;
+	int16_t			pc;
+	t_instruction	*inst;
 
+	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
-		pc = (proc->pc + src_param(proc, 0, 0, 0)) % MEM_SIZE;
+		pc = (proc->pc + mem_address(inst->val[0])) % MEM_SIZE;
 		if (e->verbose & SHOW_OPERATIONS)
-			ft_printf("P%d | lfork: %d (PC: %d)\n", e->cur_process + 1,\
-									mem_address(src_param(proc, 1, 0, 0)), pc);
+			ft_printf("P%d | lfork: %d (%d)\n", e->cur_process + 1,\
+												get_address(inst->val[0]), pc);
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, 3);
 		proc->pc = (proc->pc + 3) % MEM_SIZE;
@@ -84,6 +86,5 @@ void	exec_aff(t_env *e, t_process *proc)
 		proc->carry = (!val ? 1 : 0);
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | aff: %d -> %C\n", e->cur_process + 1, val, val);
-		//A faire
 	}
 }
