@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 17:29:32 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 19:31:24 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int		init_vm(t_env *e, int argc, char **argv)
 	uint8_t	fd[MAX_PLAYERS];
 
 	if ((e->nb_player = ft_parse(e, argc, argv, fd)) < 1)
-		return (0);
+		die(e, "Please give a file to load!");
 	e->nb_process = e->nb_player;
+	e->alives = e->nb_player;
 	ft_load(fd, e);
 	if (!(e->process = (t_process*)malloc(sizeof(t_process) * e->nb_process)))
 		die(e, "malloc failure (e->process)");

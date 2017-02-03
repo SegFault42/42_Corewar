@@ -6,13 +6,11 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 13:48:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 17:30:27 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 20:30:01 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-/// 4 malloc have to be free including 1 in a loop ...
 
 uint32_t	ft_straight_bytes(unsigned int bytes)
 {
@@ -50,7 +48,7 @@ void		ft_load(uint8_t fd[MAX_PLAYERS], t_env *env)
 	{
 		if (read(fd[i], &env->player[i].header, sizeof(t_header)) != \
 		sizeof(t_header))
-			die(env, "player has not good instructions's length");
+			die(env, "file is too short");
 		ft_straight_header(&env->player[i].header, env);
 		if (!(env->player[i].op = (uint8_t *)malloc(\
 		env->player[i].header.prog_size * sizeof(uint8_t))))
@@ -69,6 +67,8 @@ int			parse_options(t_env *e, int argc, char **argv, int i)
 	if ((!ft_strcmp(argv[i], "-dump") || !ft_strcmp(argv[i], "-d"))
 	&& i + 1 < argc && ft_isdigitstr(argv[i + 1]))
 		e->dump = ft_atoi(argv[++i]);
+	if (!ft_strcmp(argv[i], "-s") && i + 1 < argc && ft_isdigitstr(argv[i + 1]))
+		e->sdump = ft_atoi(argv[++i]);
 	i++;
 	return (i);
 }
@@ -88,7 +88,7 @@ int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS])
 		{
 			fd[n] = open(argv[i], O_RDONLY);
 			if (fd[n] < 0)
-				return (-n);
+				return (0);
 			n++;
 			i++;
 		}

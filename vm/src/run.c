@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 15:24:28 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 20:30:36 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,17 @@ static void	time_to_die(t_env *e)
 		e->run = 0;
 }
 
+static void	dump_n_wait(t_env *e)
+{
+	char	*str;
+
+	dump_memory(e);
+	ft_printf("Press enter to continue...");
+	while (get_next_line(0, &str) != 1)
+		if (str)
+			free(str);
+}
+
 void		run(t_env *e)
 {
 	e->run = 1;
@@ -94,5 +105,7 @@ void		run(t_env *e)
 			time_to_die(e);
 		if (e->dump && e->cycle == e->dump)
 			break ;
+		if (e->sdump && !(e->cycle % e->sdump))
+			dump_n_wait(e);
 	}
 }

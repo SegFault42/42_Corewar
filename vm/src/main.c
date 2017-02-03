@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/03 15:28:47 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 20:25:18 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,32 @@ static void	announce_winner(t_env *e)
 	}
 }
 
+static void	usage(void)
+{
+	ft_printf("{:yellow}Usage: ./corewar [-dvsg] [-n id] champ1.cor [-n id] \
+champ2.cor\n");
+	ft_printf("-g   : SDL output mode\n");
+	ft_printf("-d N : Dumps memory after N cycles then exits\n");
+	ft_printf("-s N : Runs N cycles, dumps memory, pauses, then repeats\n");
+	ft_printf("-v N : Verbosity levels, can be added together to enable several\
+\n\t- 0 : Show only essentials\n\t- 1 : Show lives\n\t- 2 : Show cycles\n\t- 4 \
+: Show operations (Params are NOT litteral ...)\n\t- 8 : Show deaths\n\t- 16 : \
+Show PC movements{:eoc}\n");
+	exit(-1);
+}
+
 int			main(int argc, char **argv)
 {
 	t_env	e;
 
 	if (argc < 2)
-		return (-1);
+		usage();
 	init_env(&e);
 	init_memory();
 	if (!(init_vm(&e, argc, argv)))
-		return (-1);//free
+		return (-1);
 	run(&e);
-	if (e.dump)
+	if (e.dump || e.sdump)
 		dump_memory(&e);
 	announce_winner(&e);
 }

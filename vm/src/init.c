@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 17:31:27 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 20:07:30 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,5 @@ void		init_env(t_env *e)
 	e->process = NULL;
 	e->verbose = 0;
 	e->dump = 0;
+	e->sdump = 0;
 }

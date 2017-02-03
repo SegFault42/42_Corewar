@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 17:29:01 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 20:07:19 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ struct		s_env
 	t_process	*process;// Tableau des processus
 	uint8_t		verbose;// Bonus -v (1|2|4|8|16) (cumulables: 12 = 8 + 4)
 	uint32_t	dump;// Dump de la memoire -d [cycle du dump]
+	uint32_t	sdump;// Dump de la memoire -s [cycle du dump]
 };
 
 /*
@@ -210,5 +211,6 @@ t_op		get_op(int i);
 void		run(t_env *e);
 
 void		die(t_env *e, char *error);
+void		free_env(t_env *e);
 
 #endif

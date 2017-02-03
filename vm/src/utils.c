@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 17:33:15 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/03 19:20:26 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,5 @@ void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 	i = -1;
 	while (++i < REG_NUMBER)
 		new->reg[i] = proc->reg[i];
+	e->alives++;
 }
