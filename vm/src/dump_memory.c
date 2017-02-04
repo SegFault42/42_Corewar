@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 15:27:12 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 15:05:51 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static void	player_color(t_env *e, int i)
 	t_process	*p;
 
 	j = -1;
-	if (g_color[i] == 1)
-		ft_putstr("\033[34m");
-	else if (g_color[i] == 2)
-		ft_putstr("\033[33m");
-	else if (g_color[i] == 3)
-		ft_putstr("\033[32m");
-	else if (g_color[i] == 4)
-		ft_putstr("\033[31m");
+	if (e->nb_player > 0 && g_color[i] == e->player_id[0])
+		ft_putstr("\033[38;5;29m");
+	else if (e->nb_player > 1 && g_color[i] == e->player_id[1])
+		ft_putstr("\033[38;5;55m");
+	else if (e->nb_player > 2 && g_color[i] == e->player_id[2])
+		ft_putstr("\033[38;5;88m");
+	else if (e->nb_player > 3 && g_color[i] == e->player_id[3])
+		ft_putstr("\033[38;5;208m");
 	while (++j < e->nb_process)
 	{
 		p = &(e->process[j]);
@@ -46,9 +46,9 @@ void		dump_memory(t_env *e)
 		player_color(e, i);
 		ft_putchar((i + 1) % BYTES_BY_LINE ? ' ' : '\n');
 	}
-	printf("Cycle: %d\n", e->cycle);
-	printf("Cycles to die: %d / %d\n", e->cur_die, e->cycle_die);
-	printf("Lives: %d / %d\n", e->lives, NBR_LIVE);
-	printf("Alives: %d\n", e->alives);
-	printf("Max check: %d / %d\n", e->check, MAX_CHECKS);
+	ft_printf("Cycle: %d\n", e->cycle);
+	ft_printf("Cycles to die: %d / %d\n", e->cur_die, e->cycle_die);
+	ft_printf("Lives: %d / %d\n", e->lives, NBR_LIVE);
+	ft_printf("Alives: %d\n", e->alives);
+	ft_printf("Max check: %d / %d\n", e->check, MAX_CHECKS);
 }

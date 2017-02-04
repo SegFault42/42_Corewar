@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 20:07:30 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 14:41:22 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void	init_process(t_process *process, uint32_t id, uint16_t start)
 	process->carry = 0;
 	process->start = start;
 	process->pc = 0;
-	process->player_id = id - 1;
+	process->player_id = id;
 	process->live = 0;
 	process->alive = 1;
-	process->reg[0] = -id;
+	process->reg[0] = id;
 	while (++i < REG_NUMBER)
 		process->reg[i] = 0;
 }
@@ -65,12 +65,14 @@ void		init_processes(t_env *e)
 	while (++i < e->nb_process)
 	{
 		p = &(e->process[i]);
-		init_process(p, i + 1, i * MEM_SIZE / e->nb_process);
+		init_process(p, e->player_id[i], i * MEM_SIZE / e->nb_process);
 	}
 }
 
 void		init_env(t_env *e)
 {
+	int		i;
+
 	e->run = 0;
 	e->nb_player = 0;
 	e->nb_process = 0;
@@ -88,4 +90,7 @@ void		init_env(t_env *e)
 	e->verbose = 0;
 	e->dump = 0;
 	e->sdump = 0;
+	i = -1;
+	while (++i < MAX_PLAYERS)
+		e->player_id[i] = 0;
 }

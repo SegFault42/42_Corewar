@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/03 20:25:18 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 14:48:25 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	announce_winner(t_env *e)
 
 	if (!e->alives || e->cycle_die <= 0)
 	{
-		id = e->last_live;
+		id = valid_player(e, e->last_live);
 		if (e->last_live)
-			ft_printf("Player %d(%s) as {:green}won{:eoc}.\n", id,\
-											e->player[id - 1].header.prog_name);
+			ft_printf("Player %d(%s) as {:green}won{:eoc}.\n", e->last_live,\
+												e->player[id].header.prog_name);
 		else
 			ft_printf("No live, it's a {:yellow}draw{:eoc}.\n");
 	}
@@ -49,8 +49,7 @@ int			main(int argc, char **argv)
 		usage();
 	init_env(&e);
 	init_memory();
-	if (!(init_vm(&e, argc, argv)))
-		return (-1);
+	init_vm(&e, argc, argv);
 	run(&e);
 	if (e.dump || e.sdump)
 		dump_memory(&e);

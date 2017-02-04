@@ -6,33 +6,11 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 13:48:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 20:30:01 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 14:54:21 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-uint32_t	ft_straight_bytes(unsigned int bytes)
-{
-	unsigned int	ret;
-
-	ret = bytes & 0xFF;
-	ret <<= 8;
-	ret += bytes >> 8 & 0xFF;
-	ret <<= 8;
-	ret += bytes >> 16 & 0xFF;
-	ret <<= 8;
-	ret += bytes >> 24 & 0xFF;
-	return (ret);
-}
-
-void		ft_straight_header(t_header *header, t_env *env)
-{
-	header->magic = ft_straight_bytes(header->magic);
-	header->prog_size = ft_straight_bytes(header->prog_size);
-	if (header->prog_size > CHAMP_MAX_SIZE)
-		die(env, "prog_size > CHAMP_MAX_SIZE");
-}
 
 void		ft_load(uint8_t fd[MAX_PLAYERS], t_env *env)
 {
@@ -60,8 +38,43 @@ void		ft_load(uint8_t fd[MAX_PLAYERS], t_env *env)
 	}
 }
 
-int			parse_options(t_env *e, int argc, char **argv, int i)
+static int	check_player_id(t_env *e, uint32_t id, char **argv, int *j)
 {
+	int		fd;
+	int		i;
+
+	(*j)++;
+	if (id && (fd = open(argv[*j + 1], O_RDONLY)) > 0)
+	{
+		close(fd);
+		i = -1;
+		while (++i < MAX_PLAYERS)
+			if (e->player_id[i] == id)
+				return (0);
+		return (1);
+	}
+	return (0);
+}
+
+static int	next_id(t_env *e, uint32_t n)
+{
+	int		i;
+
+	i = -1;
+	while (++i < MAX_PLAYERS)
+		if (e->player_id[i] == n)
+		{
+			n++;
+			i = -1;
+		}
+	return (n);
+}
+
+int			parse_options(t_env *e, int argc, char **argv, int n)
+{
+	int		i;
+
+	i = 0;
 	if (!ft_strcmp(argv[i], "-v") && i + 1 < argc && ft_isdigitstr(argv[i + 1]))
 		e->verbose = ft_atoi(argv[++i]);
 	if ((!ft_strcmp(argv[i], "-dump") || !ft_strcmp(argv[i], "-d"))
@@ -69,26 +82,31 @@ int			parse_options(t_env *e, int argc, char **argv, int i)
 		e->dump = ft_atoi(argv[++i]);
 	if (!ft_strcmp(argv[i], "-s") && i + 1 < argc && ft_isdigitstr(argv[i + 1]))
 		e->sdump = ft_atoi(argv[++i]);
+	if (!ft_strcmp(argv[i], "-n") && i + 2 < argc && ft_isdigitstr(argv[i + 1])
+	&& check_player_id(e, ft_atoi(argv[i + 1]), argv, &i))
+		e->player_id[n] = ft_atoi(argv[i]);
 	i++;
 	return (i);
 }
 
 int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS])
 {
-	uint8_t i;
-	uint8_t n;
+	int			i;
+	uint32_t	n;
 
 	i = 1;
 	n = 0;
 	while (i < argc)
 	{
 		if (*argv[i] == '-')
-			i = parse_options(e, argc, argv, i);
+			i += parse_options(e, argc - i, (argv + i), n);
 		else if (i < argc && n < MAX_PLAYERS)
 		{
 			fd[n] = open(argv[i], O_RDONLY);
 			if (fd[n] < 0)
 				return (0);
+			if (!(e->player_id[n]))
+				e->player_id[n] = next_id(e, n + 1);
 			n++;
 			i++;
 		}

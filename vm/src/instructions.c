@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 14:59:34 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 15:14:40 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 void	exec_live(t_env *e, t_process *proc)
 {
 	uint32_t	val;
+	int			id;
 
 	val = src_param(proc, 0, 0, 0);
 	if (e->verbose & SHOW_OPERATIONS)
 		ft_printf("P%d | live: %d\n", e->cur_process + 1, val);
 	proc->live++;
 	e->lives++;
-	if (-val >= 1 && -val <= e->nb_player)
+	id = valid_player(e, val);
+	if (id != -1)
 	{
-		e->player[-val - 1].live += 1;
-		e->last_live = -val;
+		e->player[id].live += 1;
+		e->last_live = val;
 		e->valid_lives++;
 		if (e->verbose & SHOW_LIVE)
-			ft_printf("Player %d (%s) is {:green}alive{:eoc}\n", -val,\
-										e->player[-val - 1].header.prog_name);
+			ft_printf("\033[0mPlayer %d (%s) is {:green}alive{:eoc}\n", val,\
+										e->player[id].header.prog_name);
 	}
 }
 

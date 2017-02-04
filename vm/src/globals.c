@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/02 13:04:32 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 15:15:52 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,6 @@ t_op		get_op(int i)
 	return (g_op_tab[i - 1]);
 }
 
-void		pc_moves(t_process *proc, int i)
-{
-	int		j;
-
-	j = -1;
-	ft_printf("ADV %d (0x%04x -> 0x%04x) ", i, proc->start + proc->pc,\
-									(proc->start + proc->pc + i) % MEM_SIZE);
-	while (++j < i)
-	{
-		ft_putnbr_hex(get_mem_uint8(proc, j), 2);
-		ft_putchar(j + 1 < i ? ' ' : '\n');
-	}
-}
-
 static void	next_instruction(t_env *e, t_process *proc)
 {
 	t_instruction	*inst;
@@ -91,6 +77,18 @@ static void	next_instruction(t_env *e, t_process *proc)
 	init_instruction(inst);
 }
 
+static void	color_inst(t_env *e, t_process *proc)
+{
+	if (e->nb_player > 0 && proc->player_id == e->player_id[0])
+		ft_putstr("\033[38;5;29m");
+	else if (e->nb_player > 1 && proc->player_id == e->player_id[1])
+		ft_putstr("\033[38;5;55m");
+	else if (e->nb_player > 2 && proc->player_id == e->player_id[2])
+		ft_putstr("\033[38;5;88m");
+	else if (e->nb_player > 3 && proc->player_id == e->player_id[3])
+		ft_putstr("\033[38;5;208m");
+}
+
 void		exec_instruction(t_env *e, t_process *proc)
 {
 	int		opcode;
@@ -99,9 +97,11 @@ void		exec_instruction(t_env *e, t_process *proc)
 		next_instruction(e, proc);
 	else
 	{
+		color_inst(e, proc);
 		get_values(proc, &(proc->inst));
 		opcode = proc->inst.opcode;
 		g_exec_op[proc->inst.opcode - 1](e, proc);
+		ft_putstr("\033[0m");
 		if (opcode != FORK && opcode != LFORK)
 			next_instruction(e, proc);
 	}

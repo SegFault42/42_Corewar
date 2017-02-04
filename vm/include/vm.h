@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 20:07:19 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 15:35:34 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define SHOW_DEATHS 8
 # define SHOW_PC_MOVES 16
 
-# define BYTES_BY_LINE 64 // 32
+# define BYTES_BY_LINE 32
 # define ADDRESS_MAX 65536
 
 /*
@@ -105,42 +105,43 @@ struct		s_op
 
 struct		s_process
 {
-	t_instruction	inst;// Instruction en cours de traitement
-	uint8_t			player_id;// ID du createur (Pour la couleur)
-	uint16_t		live;// Nombre de live pour depuis cycle_die (valide ou non)
-	bool			alive;// Processus en vie ou non
-	bool			carry;// Carry (0 ou 1)
-	uint16_t		start;// Position de depart
-	uint16_t		pc;// PC (a cumuler avec start pour la position reel)
-	int				reg[REG_NUMBER];// registres
+	t_instruction	inst;
+	uint32_t		player_id;
+	uint16_t		live;
+	bool			alive;
+	bool			carry;
+	uint16_t		start;
+	uint16_t		pc;
+	int				reg[REG_NUMBER];
 };
 
 struct		s_player
 {
-	uint16_t	live;// Nombre de lives valides depuis cycle_die
-	t_header	header;// Infos du joueur (header_t)
-	uint8_t		*op;// Programme initial
+	uint16_t	live;
+	t_header	header;
+	uint8_t		*op;
 };
 
 struct		s_env
 {
 	bool		run;
-	uint32_t	nb_player;// Nombre de joueurs
-	uint32_t	nb_process;// Nombre de processus
-	int			cur_process;// Processus en cours d'execution
-	uint32_t	cycle;// Nombre de cycles totaux
-	int			cur_die;// Nombre actuel / CYCLE_TO_DIE (cur_die/cycle_die)
-	int			cycle_die;// CYCLE_TO_DIE actuel
-	uint32_t	check;// Nombre de checks / MAX_CHECKS
-	uint32_t	alives;// Nombre de processus en vie
-	uint32_t	lives;// Nombre de lives / NBR_LIVE
-	uint32_t	valid_lives;// Nombre de lives valide (>= 1 && <= nb_player)
-	uint32_t	last_live;// Dernier live valide (ex: 0xfffffffe)
-	t_player	*player;// Tableau des joueurs
-	t_process	*process;// Tableau des processus
-	uint8_t		verbose;// Bonus -v (1|2|4|8|16) (cumulables: 12 = 8 + 4)
-	uint32_t	dump;// Dump de la memoire -d [cycle du dump]
-	uint32_t	sdump;// Dump de la memoire -s [cycle du dump]
+	uint32_t	nb_player;
+	uint32_t	nb_process;
+	int			cur_process;
+	uint32_t	cycle;
+	int			cur_die;
+	int			cycle_die;
+	uint32_t	check;
+	uint32_t	alives;
+	uint32_t	lives;
+	uint32_t	valid_lives;
+	uint32_t	last_live;
+	t_player	*player;
+	t_process	*process;
+	uint8_t		verbose;
+	uint32_t	dump;
+	uint32_t	sdump;
+	uint32_t	player_id[MAX_PLAYERS];
 };
 
 /*
@@ -149,8 +150,8 @@ struct		s_env
 ********************************************************************************
 */
 
-uint8_t	g_mem[MEM_SIZE];
-uint8_t	g_color[MEM_SIZE];
+uint8_t		g_mem[MEM_SIZE];
+uint32_t	g_color[MEM_SIZE];
 
 /*
 ********************************************************************************
@@ -163,7 +164,9 @@ void		init_instruction(t_instruction *inst);
 void		init_processes(t_env *e);
 void		init_env(t_env *e);
 void		init_players(t_env *e);
-int			init_vm(t_env *e, int argc, char **argv);
+void		init_vm(t_env *e, int argc, char **argv);
+uint32_t	ft_straight_bytes(unsigned int bytes);
+void		ft_straight_header(t_header *header, t_env *env);
 void		ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
 int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS]);
 
@@ -185,6 +188,7 @@ int			get_address(int val);
 void		ft_putnbr_hex(int octet, int rem);
 bool		valid_reg(uint8_t reg);
 bool		valid_params(t_process *proc);
+int			valid_player(t_env *e, uint32_t id);
 void		get_values(t_process *proc, t_instruction *inst);
 
 void		exec_instruction(t_env *e, t_process *proc);

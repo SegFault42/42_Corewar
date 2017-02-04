@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 19:31:24 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 14:40:41 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	init_players(t_env *e)
 		while (++j < e->player[i].header.prog_size)
 		{
 			g_mem[e->process[i].start + j] = e->player[i].op[j];
-			g_color[e->process[i].start + j] = i + 1;
+			g_color[e->process[i].start + j] = e->player_id[i];
 		}
 	}
 }
 
-int		init_vm(t_env *e, int argc, char **argv)
+void	init_vm(t_env *e, int argc, char **argv)
 {
 	uint8_t	fd[MAX_PLAYERS];
 
@@ -43,5 +43,4 @@ int		init_vm(t_env *e, int argc, char **argv)
 		die(e, "malloc failure (e->process)");
 	init_processes(e);
 	init_players(e);
-	return (1);
 }
