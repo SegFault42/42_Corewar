@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/04 14:48:25 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 20:53:40 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int			main(int argc, char **argv)
 	init_env(&e);
 	init_memory();
 	init_vm(&e, argc, argv);
-	run(&e);
+	init_sdl(&(e.sdl));
+	run(&e, &(e.sdl));
 	if (e.dump || e.sdump)
 		dump_memory(&e);
 	announce_winner(&e);
+	free_env(&e);
 }

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 16:53:16 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 21:23:14 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,19 @@
 
 # include "libft.h"
 # include "op.h"
+# include "common.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <math.h>
+# include <errno.h>
+# include <sys/stat.h>
+# include <SDL2/SDL.h>
+# include <sys/types.h>
+# include <SDL2/SDL_ttf.h>
+# include "SDL2/SDL_image.h"
 
 /*
 ********************************************************************************
@@ -65,6 +73,18 @@
 # define BYTES_BY_LINE 32
 # define ADDRESS_MAX 65536
 
+# define ERROR (-1)
+# define INIT_VIDEO_ERROR (1)
+# define CREATE_WINDOW_ERROR (2)
+
+# define WIDTH (1920)
+# define HEIGHT (1080)
+
+# define ORIGIN_TEXT_X (20) // coord ou le texte sera place en x
+# define ORIGIN_TEXT_Y (15) // coord ou le texte sera place en y
+# define INCR_TEXT_X (20) // espacement entre chaque octet en x
+# define INCR_TEXT_Y (15) // espacement entre chaque octet en y
+
 /*
 ********************************************************************************
 **                                   TYPEDEF                                 **
@@ -76,6 +96,10 @@ typedef struct s_op	t_op;
 typedef struct s_process	t_process;
 typedef struct s_player	t_player;
 typedef struct s_env	t_env;
+typedef struct s_wallpaper	t_wallpaper;
+typedef struct s_win	t_win;
+typedef struct s_font	t_font;
+typedef struct s_sdl	t_sdl;
 typedef void(*t_func)(t_env*, t_process*);
 
 /*
@@ -126,6 +150,37 @@ struct		s_player
 	uint8_t		*op;
 };
 
+struct		s_wallpaper
+{
+	SDL_Surface		*wallpaper;
+	SDL_Texture		*texture;
+};
+
+struct		s_win
+{
+	SDL_Window		*win;
+	SDL_Renderer	*render;
+	uint16_t		delay;
+};
+
+struct		s_font
+{
+	uint8_t			font_size;
+	TTF_Font		*font;
+	SDL_Color		text_color;
+	SDL_Surface		*text;
+	SDL_Texture		*texture;
+	SDL_Rect		text_rect;
+};
+
+struct		s_sdl
+{
+	t_win		win;
+	t_font		font[3];
+	SDL_Event	event;
+	t_wallpaper	wallpaper;
+};
+
 struct		s_env
 {
 	bool		run;
@@ -146,6 +201,7 @@ struct		s_env
 	uint32_t	dump;
 	uint32_t	sdump;
 	uint32_t	player_id[MAX_PLAYERS];
+	t_sdl		sdl;
 };
 
 /*
@@ -169,6 +225,7 @@ void		init_processes(t_env *e);
 void		init_env(t_env *e);
 void		init_players(t_env *e);
 void		init_vm(t_env *e, int argc, char **argv);
+void		init_sdl(t_sdl *sdl);
 uint32_t	ft_straight_bytes(unsigned int bytes);
 void		ft_straight_header(t_header *header, t_env *env);
 void		ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
@@ -220,9 +277,30 @@ void		exec_mul(t_env *e, t_process *proc);
 int			check_ocp(t_process *proc, uint8_t ocp);
 int			check_opcode(t_process *proc, uint8_t opcode);
 t_op		get_op(int i);
-void		run(t_env *e);
+void		run(t_env *e, t_sdl *sdl);
 
 void		die(t_env *e, char *error);
 void		free_env(t_env *e);
+
+int			gui(t_env *e, t_sdl *sdl);
+void		error(uint8_t error);
+void		create_window(t_win *win);
+void		close_window(t_win *win, int8_t error);
+void		sdl_clear(t_win *win, uint8_t r, uint8_t g, uint8_t b);
+/*
+** font.c
+*/
+void		init_ttf(t_win *win);
+void		select_font(t_win *win, t_font *font, char *str);
+void		draw_text(t_env *e, char *str, int i);
+
+void		draw_memory(t_win *win, t_font *font);
+
+void		screenshot(t_win *win);
+void		print_wallpaper(t_wallpaper *wallpaper, t_win *win, char *path);
+bool		button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win);
+
+void		change_text_color(SDL_Color text_color, uint8_t r, uint8_t g, uint8_t b);
+void		general_info(t_font *font_general, t_win *win);
 
 #endif

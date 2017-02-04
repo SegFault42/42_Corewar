@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 14:48:35 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 20:57:21 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ static void	dump_n_wait(t_env *e)
 			free(str);
 }
 
-void		run(t_env *e)
+void		run(t_env *e, t_sdl *sdl)
 {
+
 	e->run = 1;
 	while (e->run)
 	{
@@ -103,6 +104,8 @@ void		run(t_env *e)
 		check_players_inst(e);
 		if (e->cur_die == e->cycle_die)
 			time_to_die(e);
+		if (!gui(e, sdl))
+			break ;
 		if (e->dump && e->cycle == e->dump)
 			break ;
 		if (e->sdump && !(e->cycle % e->sdump))
