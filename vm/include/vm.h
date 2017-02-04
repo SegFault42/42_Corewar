@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 15:35:34 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 16:53:16 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 ********************************************************************************
 */
 
-# define OPS_NUMBER 16
+# define OPS_NUMBER 20
 
 # define LIVE 1
 # define LD 2
@@ -51,6 +51,10 @@
 # define LLDI 14
 # define LFORK 15
 # define AFF 16
+# define JMP 17
+# define CMP 18
+# define DIV 19
+# define MUL 20
 
 # define SHOW_LIVE 1
 # define SHOW_CYCLES 2
@@ -208,6 +212,10 @@ void		exec_lld(t_env *e, t_process *proc);
 void		exec_lldi(t_env *e, t_process *proc);
 void		exec_lfork(t_env *e, t_process *proc);
 void		exec_aff(t_env *e, t_process *proc);
+void		exec_jmp(t_env *e, t_process *proc);
+void		exec_cmp(t_env *e, t_process *proc);
+void		exec_div(t_env *e, t_process *proc);
+void		exec_mul(t_env *e, t_process *proc);
 
 int			check_ocp(t_process *proc, uint8_t ocp);
 int			check_opcode(t_process *proc, uint8_t opcode);

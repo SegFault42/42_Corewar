@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 15:15:52 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/04 16:52:36 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ t_op	g_op_tab[OPS_NUMBER] =
 	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},\
 		14, 50, "long load index", 1, 1},
 	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1},
-	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0}
+	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
+	{"jmp", 1, {T_DIR}, 17, 25, "jump", 0, 1},
+	{"cmp", 2, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR},\
+		18, 3, "cmp (val1 == val2)", 1, 0},
+	{"div", 3, {T_REG, T_REG, T_REG}, 19, 20, "division", 1, 0},
+	{"mul", 3, {T_REG, T_REG, T_REG}, 20, 20, "multiplication", 1, 0}
 };
 
 t_func	g_exec_op[OPS_NUMBER] =
@@ -55,7 +60,11 @@ t_func	g_exec_op[OPS_NUMBER] =
 	exec_lld,
 	exec_lldi,
 	exec_lfork,
-	exec_aff
+	exec_aff,
+	exec_jmp,
+	exec_cmp,
+	exec_div,
+	exec_mul
 };
 
 t_op		get_op(int i)
@@ -68,7 +77,7 @@ static void	next_instruction(t_env *e, t_process *proc)
 	t_instruction	*inst;
 
 	inst = &(proc->inst);
-	if (inst->opcode != ZJMP)
+	if (inst->opcode != ZJMP && inst->opcode != JMP)
 	{
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, inst->i + 1);
