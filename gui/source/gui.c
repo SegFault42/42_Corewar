@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/02 16:16:21 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/02 17:25:55 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,9 +208,8 @@ void	general_info(t_font *font_general, t_win *win)
 	font_general[1].font_size = 25;
 	select_font(win, &font_general[1], "/Library/Fonts/Arial Bold.ttf");
 	font_general[1].text_color = (SDL_Color){174, 174, 174, 255};
-	
+
 	font_general[2].font_size = 50;
-	/*select_font(win, &font_general[2], "/Library/Fonts/AmericanTypewriter.ttc");*/
 	select_font(win, &font_general[2], "./font/ufonts.com_american-typewriter-bold.ttf");
 	font_general[2].text_color = (SDL_Color){174, 174, 174, 255};
 }
@@ -222,43 +221,28 @@ void	gui()
 	SDL_Event	event;
 	t_wallpaper	wallpaper;
 	t_env		env;
-	/*int8_t		r = 55, g = 55, b = 55;*/
-	/*char		*itoa_x;*/
-	/*SDL_Renderer	*wallpaper = SDL_CreateRenderer(win.win, -1, 0);*/
 
 	ft_memset(&env, 0, sizeof(&env));
-	env.cycle = 15000;
+	env.cycle = 15000; // temporaire
 	ft_memset(&win, 0, sizeof(&win));
 	ft_memset(&font, 0, sizeof(&font));
-	ft_memset(&font, 0, sizeof(&wallpaper));
+	ft_memset(&wallpaper, 0, sizeof(&wallpaper));
 	ft_memset(g_memory, 0, MEM_SIZE);
 	win.delay = 0;
-	/*font.memory = (char *)ft_memalloc(sizeof(char) * MEM_SIZE);*/
 	font[0].font_size = 15;
 	create_window(&win);
-	sdl_clear(&win, 55, 55, 55);
 	init_ttf(&win);
 	select_font(&win, &font[0], "/Library/Fonts/Arial Bold.ttf");
 	change_text_color(font[0].text_color, 255, 0, 0);
-	font[0].text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte sera place
-	font[0].text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte sera place
-	/*SDL_Rect dstrect = { 0, 0, 1920, 1080 };*/
-	/*int x = 0;*/
+	font[0].text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte de la memoire sera place
+	font[0].text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte de la memoire sera place
 	print_wallpaper(&wallpaper, &win, "./wallpaper/corewar.bmp");
 	general_info(font, &win);
 	while (42)
 	{
 		init_env(&env);
-		/*win.g_screen_surface = SDL_GetWindowSurface(win.win);*/
-		/*print_wallpaper(&win);*/
 		fill_memory();
 		SDL_RenderCopy(win.render, wallpaper.texture, NULL, NULL);
-		/*itoa_x = ft_itoa(x);*/
-			/*sdl_clear(&win, r, g, b);*/
-		/*draw_text(&font, &win, itoa_x);*/
-		/*free(itoa_x);*/
-		/*SDL_DestroyTexture(font.texture);*/
-		/*++x;*/
 		draw_memory(&win, &font[0]);
 		write_general_info(&font[1], &env, &win);
 		write_challengers(&font[2], &win);
@@ -268,8 +252,6 @@ void	gui()
 				break ;
 			if (button_press(&event, &wallpaper, &win) == true)
 				break ;
-			/*button_press(&event, &wallpaper, &win);*/
-			/*ft_fprintf(1, "X ");*/
 		}
 		SDL_RenderPresent(win.render);
 	}
