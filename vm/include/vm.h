@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 12:48:47 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 16:32:42 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ struct		s_env
 	uint8_t		verbose;
 	uint32_t	dump;
 	uint32_t	sdump;
+	bool		fdf;
 	bool		gui;
 	uint32_t	player_id[MAX_PLAYERS];
 	t_sdl		sdl;

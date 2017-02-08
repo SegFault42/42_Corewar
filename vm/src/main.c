@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/08 14:34:06 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 16:02:24 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ static void	announce_winner(t_env *e)
 
 static void	usage(void)
 {
-	ft_printf("{:yellow}Usage: ./corewar [-dvsg] [-n id] champ1.cor [-n id] \
+	ft_printf("{:yellow}Usage: ./corewar [-dvsgf] [-n id] champ1.cor [-n id] \
 champ2.cor\n");
 	ft_printf("-g   : SDL output mode\n");
+	ft_printf("-f   : FDF output mode\n");
 	ft_printf("-d N : Dumps memory after N cycles then exits\n");
 	ft_printf("-s N : Runs N cycles, dumps memory, pauses, then repeats\n");
 	ft_printf("-v N : Verbosity levels, can be added together to enable several\

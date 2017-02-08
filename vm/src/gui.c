@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/08 14:28:20 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 16:58:22 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	write_general_info(t_font *font_general, t_env *env, t_win *win)
 	ft_strdel(&itoa);
 	SDL_DestroyTexture(font_general->texture);
 
-	itoa = ft_itoa(env->cur_die);
+	itoa = ft_itoa(env->cycle_die);
 	font_general->text_rect.x = 1720; // coord y ou le texte sera place
 	font_general->text_rect.y = 87; // coord y ou le texte sera place
 	draw_text(font_general, win, itoa, 0);
@@ -158,25 +158,37 @@ void	write_general_info(t_font *font_general, t_env *env, t_win *win)
 
 void	write_challengers(t_font *font_general, t_win *win)
 {
-	font_general->text_rect.x = 1423; // coord y ou le texte sera place
-	font_general->text_rect.y = 683; // coord y ou le texte sera place
-	draw_text(font_general, win, "Helltain", 0);
-	SDL_DestroyTexture(font_general->texture);
+	t_env	*e;
 
-	font_general->text_rect.x = 1423; // coord y ou le texte sera place
-	font_general->text_rect.y = 757; // coord y ou le texte sera place
-	draw_text(font_general, win, "Zork", 0);
-	SDL_DestroyTexture(font_general->texture);
-
-	font_general->text_rect.x = 1423; // coord y ou le texte sera place
-	font_general->text_rect.y = 832; // coord y ou le texte sera place
-	draw_text(font_general, win, "BigZork", 0);
-	SDL_DestroyTexture(font_general->texture);
-
-	font_general->text_rect.x = 1423; // coord y ou le texte sera place
-	font_general->text_rect.y = 902; // coord y ou le texte sera place
-	draw_text(font_general, win, "FlutterShy", 0);
-	SDL_DestroyTexture(font_general->texture);
+	e = get_env();
+	if (e->nb_player > 0)
+	{
+		font_general->text_rect.x = 1423; // coord y ou le texte sera place
+		font_general->text_rect.y = 683; // coord y ou le texte sera place
+		draw_text(font_general, win, e->player[0].header.prog_name, 0);
+		SDL_DestroyTexture(font_general->texture);
+	}
+	if (e->nb_player > 1)
+	{
+		font_general->text_rect.x = 1423; // coord y ou le texte sera place
+		font_general->text_rect.y = 757; // coord y ou le texte sera place
+		draw_text(font_general, win, e->player[1].header.prog_name, 0);
+		SDL_DestroyTexture(font_general->texture);
+	}
+	if (e->nb_player > 2)
+	{
+		font_general->text_rect.x = 1423; // coord y ou le texte sera place
+		font_general->text_rect.y = 832; // coord y ou le texte sera place
+		draw_text(font_general, win, e->player[2].header.prog_name, 0);
+		SDL_DestroyTexture(font_general->texture);
+	}
+	if (e->nb_player > 3)
+	{
+		font_general->text_rect.x = 1423; // coord y ou le texte sera place
+		font_general->text_rect.y = 902; // coord y ou le texte sera place
+		draw_text(font_general, win, e->player[3].header.prog_name, 0);
+		SDL_DestroyTexture(font_general->texture);
+	}
 }
 
 void	general_info(t_font *font_general, t_win *win)

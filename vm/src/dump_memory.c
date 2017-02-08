@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 15:05:51 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 16:36:29 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void		dump_memory(t_env *e)
 		player_color(e, i);
 		ft_putchar((i + 1) % BYTES_BY_LINE ? ' ' : '\n');
 	}
-	ft_printf("Cycle: %d\n", e->cycle);
+	ft_printf("Cycle totaux: %d\n", e->cycle);
 	ft_printf("Cycles to die: %d / %d\n", e->cur_die, e->cycle_die);
-	ft_printf("Lives: %d / %d\n", e->lives, NBR_LIVE);
-	ft_printf("Alives: %d\n", e->alives);
+	ft_printf("Lives: %d(%d) / %d\n", e->lives, e->valid_lives, NBR_LIVE);
+	ft_printf("Processes alives: %d / %d\n", e->alives, e->nb_process);
 	ft_printf("Max check: %d / %d\n", e->check, MAX_CHECKS);
+	ft_printf("Last live -> Player %d\n", e->last_live);
 }
