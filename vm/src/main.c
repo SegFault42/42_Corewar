@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/04 20:53:40 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 14:34:06 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,19 @@ Show PC movements{:eoc}\n");
 
 int			main(int argc, char **argv)
 {
-	t_env	e;
+	t_env	*e;
 
 	if (argc < 2)
 		usage();
-	init_env(&e);
+	e = get_env();
+	init_env(e);
 	init_memory();
-	init_vm(&e, argc, argv);
-	init_sdl(&(e.sdl));
-	run(&e, &(e.sdl));
-	if (e.dump || e.sdump)
-		dump_memory(&e);
-	announce_winner(&e);
-	free_env(&e);
+	init_vm(e, argc, argv);
+	if (e->gui)
+		init_sdl(&(e->sdl));
+	run(e, &(e->sdl));
+	if (e->dump || e->sdump)
+		dump_memory(e);
+	announce_winner(e);
+	free_env(e);
 }

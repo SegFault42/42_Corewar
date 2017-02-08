@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 20:57:21 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 14:46:44 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,27 @@ static void	time_to_die(t_env *e)
 		e->run = 0;
 }
 
-static void	dump_n_wait(t_env *e)
+static int	dump_n_wait(t_env *e)
 {
-	char	*str;
+	char	c;
+	int		flags;
 
 	dump_memory(e);
 	ft_printf("Press enter to continue...");
-	while (get_next_line(0, &str) != 1)
-		if (str)
-			free(str);
+	c = '\0';
+	flags = fcntl(0, F_GETFL, 0);
+	fcntl(0, F_SETFL, flags | O_NONBLOCK);
+	while (c != '\n')
+	{
+		if (e->gui && !gui(e, &(e->sdl)))
+		{
+			fcntl(0, F_SETFL, flags);
+			return (0);
+		}
+		read(0, &c, 1);
+	}
+	fcntl(0, F_SETFL, flags);
+	return (1);
 }
 
 void		run(t_env *e, t_sdl *sdl)
@@ -104,11 +116,11 @@ void		run(t_env *e, t_sdl *sdl)
 		check_players_inst(e);
 		if (e->cur_die == e->cycle_die)
 			time_to_die(e);
-		if (!gui(e, sdl))
+		if (e->gui && !gui(e, sdl))
 			break ;
 		if (e->dump && e->cycle == e->dump)
 			break ;
-		if (e->sdump && !(e->cycle % e->sdump))
-			dump_n_wait(e);
+		if (e->sdump && !(e->cycle % e->sdump) && !dump_n_wait(e))
+			 break ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 19:08:05 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/04 22:24:44 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 12:48:10 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@ SDL_Texture	*SurfaceToTexture(t_win *win, t_font *font)
 
 void		draw_text(t_font *font, t_win *win, char *str, int i)
 {
-	if (g_color[i] == 1)
+	t_env	*e;
+
+	e = get_env();
+	if (e->nb_player > 0 && g_color[i] == e->player_id[0])
 		font->text_color = (SDL_Color){0, 255, 0, 255};
-	else if (g_color[i] == 2)
+	if (e->nb_player > 1 && g_color[i] == e->player_id[1])
 		font->text_color = (SDL_Color){255, 0, 255, 255};
-	else if (g_color[i] == 3)
+	if (e->nb_player > 2 && g_color[i] == e->player_id[2])
 		font->text_color = (SDL_Color){0, 215, 255, 0};
-	else if (g_color[i] == 4)
+	if (e->nb_player > 3 && g_color[i] == e->player_id[3])
 		font->text_color = (SDL_Color){255, 255, 0, 255};
 	/*else*/
 		/*font->text_color = (SDL_Color){255, 255, 255, 255};*/

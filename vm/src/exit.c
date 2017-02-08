@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 16:24:51 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 20:02:15 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 14:34:24 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ void	free_env(t_env *e)
 	}
 	if (e->process)
 		free(e->process);
-	TTF_Quit();
-	win = &(e->sdl.win);
-	close_window(win, EXIT_SUCCESS);
+	if (e->gui)
+	{
+		TTF_Quit();
+		win = &(e->sdl.win);
+		close_window(win, EXIT_SUCCESS);
+	}
 }
 
 void	die(t_env *e, char *error)

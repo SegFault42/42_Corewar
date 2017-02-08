@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 16:52:36 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 12:42:58 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ t_func	g_exec_op[OPS_NUMBER] =
 	exec_div,
 	exec_mul
 };
+
+t_env	*get_env(void)
+{
+	static t_env env;
+
+	return (&env);
+}
 
 t_op		get_op(int i)
 {

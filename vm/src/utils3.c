@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 15:35:29 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 15:10:12 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ uint32_t	ft_straight_bytes(unsigned int bytes)
 void		ft_straight_header(t_header *header, t_env *env)
 {
 	header->magic = ft_straight_bytes(header->magic);
+	if (header->magic != COREWAR_EXEC_MAGIC)
+		die(env, "magic is not 0xea83f3");
 	header->prog_size = ft_straight_bytes(header->prog_size);
 	if (header->prog_size > CHAMP_MAX_SIZE)
 		die(env, "prog_size > CHAMP_MAX_SIZE");

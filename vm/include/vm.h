@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 21:23:14 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 12:48:47 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 # include "libft.h"
 # include "op.h"
-# include "common.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -200,6 +199,7 @@ struct		s_env
 	uint8_t		verbose;
 	uint32_t	dump;
 	uint32_t	sdump;
+	bool		gui;
 	uint32_t	player_id[MAX_PLAYERS];
 	t_sdl		sdl;
 };
@@ -277,6 +277,7 @@ void		exec_mul(t_env *e, t_process *proc);
 int			check_ocp(t_process *proc, uint8_t ocp);
 int			check_opcode(t_process *proc, uint8_t opcode);
 t_op		get_op(int i);
+t_env		*get_env(void);
 void		run(t_env *e, t_sdl *sdl);
 
 void		die(t_env *e, char *error);
@@ -292,7 +293,7 @@ void		sdl_clear(t_win *win, uint8_t r, uint8_t g, uint8_t b);
 */
 void		init_ttf(t_win *win);
 void		select_font(t_win *win, t_font *font, char *str);
-void		draw_text(t_env *e, char *str, int i);
+void		draw_text(t_font *font, t_win *win, char *str, int i);
 
 void		draw_memory(t_win *win, t_font *font);
 

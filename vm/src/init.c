@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 14:41:22 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/08 12:48:59 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void		init_env(t_env *e)
 	e->verbose = 0;
 	e->dump = 0;
 	e->sdump = 0;
+	e->gui = 0;
 	i = -1;
 	while (++i < MAX_PLAYERS)
 		e->player_id[i] = 0;
