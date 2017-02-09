@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/08 20:57:48 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/09 06:04:50 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_NAME = main.c dump_memory.c globals.c init.c init2.c ocp.c\
 		   get_memory.c set_memory.c utils.c utils2.c instructions.c\
 		   instructions2.c instructions3.c instructions4.c\
 		   ft_load.c run.c exit.c utils3.c instructions5.c\
-		   gui.c font.c tools.c init_sdl.c
+		   gui.c font.c tools.c init_sdl.c draw_text.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = -lft
 NAME = corewar

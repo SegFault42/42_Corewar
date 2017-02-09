@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/09 01:53:21 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/09 06:26:44 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,5 +304,10 @@ bool		button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win);
 
 void		change_text_color(SDL_Color text_color, uint8_t r, uint8_t g, uint8_t b);
 void		general_info(t_font *font_general, t_win *win);
+
+char		*write_lives(t_env *env);
+char		*cycle_to_die(t_env *env);
+char		*process_alives(t_env *env);
+char		*max_check(t_env *env);
 
 #endif
