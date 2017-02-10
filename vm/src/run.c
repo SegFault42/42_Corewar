@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 22:19:57 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/10 12:08:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,29 +79,6 @@ static void	time_to_die(t_env *e)
 		e->run = 0;
 }
 
-static int	dump_n_wait(t_env *e)
-{
-	char	c;
-	int		flags;
-
-	dump_memory(e);
-	ft_printf("Press enter to continue...");
-	c = '\0';
-	flags = fcntl(0, F_GETFL, 0);
-	fcntl(0, F_SETFL, flags | O_NONBLOCK);
-	while (c != '\n')
-	{
-		if (e->gui && !gui(e, &(e->sdl)))
-		{
-			fcntl(0, F_SETFL, flags);
-			return (0);
-		}
-		read(0, &c, 1);
-	}
-	fcntl(0, F_SETFL, flags);
-	return (1);
-}
-
 void		run(t_env *e, t_sdl *sdl)
 {
 
@@ -120,7 +97,10 @@ void		run(t_env *e, t_sdl *sdl)
 			break ;
 		if (e->dump && e->cycle == e->dump)
 			break ;
-		if (e->sdump && !(e->cycle % e->sdump) && !dump_n_wait(e))
-			 break ;
+		if (e->sdump && !(e->cycle % e->sdump))
+		{
+			dump_memory(e);
+			wait_enter(e);
+		}
 	}
 }

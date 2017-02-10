@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 12:42:58 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/10 12:09:13 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,6 @@ void		exec_instruction(t_env *e, t_process *proc)
 		if (opcode != FORK && opcode != LFORK)
 			next_instruction(e, proc);
 	}
+	if (e->op_pause)
+		wait_enter(e);
 }
