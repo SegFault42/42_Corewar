@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 19:08:05 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/08 16:59:38 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/09 07:10:58 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void		draw_text(t_font *font, t_win *win, char *str, int i)
 		font->text_color = (SDL_Color){0 * op, 215 * op, 255 * op, 255};
 	if (e->nb_player > 3 && g_color[i] == e->player_id[3])
 		font->text_color = (SDL_Color){255 * op, 255 * op, 0 * op, 255};
+	font[2].text_color = (SDL_Color){174, 174, 174, 255};
 	/*else*/
 		/*font->text_color = (SDL_Color){255, 255, 255, 255};*/
 	font->text = TTF_RenderText_Solid(font->font, str, font->text_color);

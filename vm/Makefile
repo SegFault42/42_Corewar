@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/09 06:04:50 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/09 06:56:06 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 all: lib
-	@echo "\033[32;44m Make $(NAME) \033[0m"
+	@echo "\033[32;44m Make $(NAME) \033[0m \r"
 	@make $(NAME)
 
 $(NAME): $(OBJ)

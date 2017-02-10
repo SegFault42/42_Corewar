@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/24 10:30:43 by qhonore           #+#    #+#              #
-#    Updated: 2017/01/27 13:47:35 by qhonore          ###   ########.fr        #
+#    Updated: 2017/02/09 06:55:34 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 all:
-	@echo "\033[32;44m Make $(NAME) \033[0m"
+	@echo "\033[32;44m Make $(NAME) \033[0m \r"
 	@make $(NAME)
 
 
