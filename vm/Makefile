@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/09 06:56:06 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/10 17:40:39 by qhonore          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SDL2_image = ./libsdl/SDL2_image.framework/Versions/A/SDL2_image
 SDL2_ttf = ./libsdl/SDL2_ttf.framework/Versions/A/SDL2_ttf
 SDL2_mixer = ./libsdl/SDL2_mixer.framework/Versions/A/SDL2_mixer
 SDL2_smpeg2 = ./libsdl/SDL2_mixer.framework/Versions/A/Frameworks/smpeg2.framework/smpeg2
+SDL2 = libsdl/SDL2.framework/Versions/A/SDL2
 ################################################################################
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
@@ -49,11 +50,11 @@ all: lib
 	@make $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(LIB_NAME) $(LSDL) $(LIB) $(SDL2_ttf) $(SDL2_mixer) $(SDL2_image) $(INC) $^ -o $@ $(FRAMEWORK)
+	@$(CC) $(LIB_NAME) $(LSDL) $(LIB) $(SDL2_ttf) $(SDL2_mixer) $(SDL2_image) $(SDL2) $(INC) $^ -o $@ $(FRAMEWORK)
 	@install_name_tool -change /usr/local/lib/libSDL2-2.0.0.dylib $(SDL2DYLIB) $(NAME)
 	@install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf $(SDL2_ttf) $(NAME)
 	@install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer $(SDL2_mixer) $(NAME)
-	@install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 $(SDL2DYLIB) $(SDL2_ttf)
+	@install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 $(SDL2) $(NAME)
 	@install_name_tool -change @executable_path/../Frameworks/SDL2.framework/Versions/A/SDL2 $(SDL2DYLIB) $(SDL2_smpeg2)
 	@install_name_tool -change @rpath/SDL2_image.framework/Versions/A/SDL2_image $(SDL2_image) $(NAME)
 
