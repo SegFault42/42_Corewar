@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/09 06:26:44 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/11 04:06:11 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 ********************************************************************************
 */
 
-# include "libft.h"
 # include "op.h"
+# include "libft.h"
+# include <time.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -83,6 +84,12 @@
 # define ORIGIN_TEXT_Y (15) // coord ou le texte sera place en y
 # define INCR_TEXT_X (20) // espacement entre chaque octet en x
 # define INCR_TEXT_Y (15) // espacement entre chaque octet en y
+
+# define GREY_TEXT (-1)
+# define GREEN_TEXT (-2)
+# define PURPLE_TEXT (-3)
+# define CYAN_TEXT (-4)
+# define YELLOW_TEXT (-5)
 
 /*
 ********************************************************************************
@@ -160,6 +167,7 @@ struct		s_win
 	SDL_Window		*win;
 	SDL_Renderer	*render;
 	uint16_t		delay;
+	int8_t			color;
 };
 
 struct		s_font

@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/09 07:10:30 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/11 02:57:36 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,42 +104,42 @@ void	write_general_info(t_font *font_general, t_env *env, t_win *win)
 	font_general->text_rect.x = 1510; // coord y ou le texte sera place
 	font_general->text_rect.y = 38; // coord y ou le texte sera place
 	str = ft_itoa(env->cycle);
-	draw_text(font_general, win, str, 0);
+	draw_text(font_general, win, str, GREY_TEXT);
 	ft_strdel(&str);
 	SDL_DestroyTexture(font_general->texture);
 
 	font_general->text_rect.x = 1500; // coord y ou le texte sera place
 	font_general->text_rect.y = 83; // coord y ou le texte sera place
 	str = cycle_to_die(env);
-	draw_text(font_general, win, str, 0);
+	draw_text(font_general, win, str, GREY_TEXT);
 	ft_strdel(&str);
 	SDL_DestroyTexture(font_general->texture);
 
 	font_general->text_rect.x = 1410; // coord y ou le texte sera place
 	font_general->text_rect.y = 129; // coord y ou le texte sera place
 	str = write_lives(env);
-	draw_text(font_general, win, str, 0);
+	draw_text(font_general, win, str, GREY_TEXT);
 	ft_strdel(&str);
 	SDL_DestroyTexture(font_general->texture);
 
 	font_general->text_rect.x = 1520; // coord y ou le texte sera place
 	font_general->text_rect.y = 175; // coord y ou le texte sera place
 	str = process_alives(env);
-	draw_text(font_general, win, str, 0);
+	draw_text(font_general, win, str, GREY_TEXT);
 	ft_strdel(&str);
 	SDL_DestroyTexture(font_general->texture);
 	
 	font_general->text_rect.x = 1487; // coord y ou le texte sera place
 	font_general->text_rect.y = 221; // coord y ou le texte sera place
 	str = max_check(env);
-	draw_text(font_general, win, str, 0);
+	draw_text(font_general, win, str, GREY_TEXT);
 	ft_strdel(&str);
 	SDL_DestroyTexture(font_general->texture);
 	
 	font_general->text_rect.x = 1550; // coord y ou le texte sera place
 	font_general->text_rect.y = 267; // coord y ou le texte sera place
 	str = ft_itoa(env->last_live);
-	draw_text(font_general, win, str, 0);
+	draw_text(font_general, win, str, GREY_TEXT);
 	ft_strdel(&str);
 	SDL_DestroyTexture(font_general->texture);
 }
@@ -153,28 +153,28 @@ void	write_challengers(t_font *font_general, t_win *win)
 	{
 		font_general->text_rect.x = 1423; // coord y ou le texte sera place
 		font_general->text_rect.y = 683; // coord y ou le texte sera place
-		draw_text(font_general, win, e->player[0].header.prog_name, 0);
+		draw_text(font_general, win, e->player[0].header.prog_name, GREEN_TEXT);
 		SDL_DestroyTexture(font_general->texture);
 	}
 	if (e->nb_player > 1)
 	{
 		font_general->text_rect.x = 1423; // coord y ou le texte sera place
 		font_general->text_rect.y = 757; // coord y ou le texte sera place
-		draw_text(font_general, win, e->player[1].header.prog_name, 0);
+		draw_text(font_general, win, e->player[1].header.prog_name, PURPLE_TEXT);
 		SDL_DestroyTexture(font_general->texture);
 	}
 	if (e->nb_player > 2)
 	{
 		font_general->text_rect.x = 1423; // coord y ou le texte sera place
 		font_general->text_rect.y = 832; // coord y ou le texte sera place
-		draw_text(font_general, win, e->player[2].header.prog_name, 0);
+		draw_text(font_general, win, e->player[2].header.prog_name, CYAN_TEXT);
 		SDL_DestroyTexture(font_general->texture);
 	}
 	if (e->nb_player > 3)
 	{
 		font_general->text_rect.x = 1423; // coord y ou le texte sera place
 		font_general->text_rect.y = 902; // coord y ou le texte sera place
-		draw_text(font_general, win, e->player[3].header.prog_name, 0);
+		draw_text(font_general, win, e->player[3].header.prog_name, YELLOW_TEXT);
 		SDL_DestroyTexture(font_general->texture);
 	}
 }

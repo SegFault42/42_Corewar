@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 06:02:34 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/09 06:24:44 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/11 03:00:17 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 char	*cycle_to_die(t_env *env)
 {
 	char	*itoa;
-	char	*join = NULL;
-	char	*tmp = NULL;
+	char	*join;
+	char	*tmp;
 
 	itoa = ft_itoa(env->cur_die);
 	join = ft_strjoin(itoa, " / ");
@@ -33,8 +33,8 @@ char	*cycle_to_die(t_env *env)
 char	*write_lives(t_env *env)
 {
 	char	*itoa;
-	char	*join = NULL;
-	char	*tmp = NULL;
+	char	*join;
+	char	*tmp;
 
 	itoa = ft_itoa(env->lives);
 	join = ft_strjoin(itoa, " (");
@@ -47,7 +47,7 @@ char	*write_lives(t_env *env)
 	ft_strdel(&itoa);
 	tmp = ft_strdup(join);
 	ft_strdel(&join);
-	join = ft_strjoin(tmp, ") ");
+	join = ft_strjoin(tmp, ") / ");
 	ft_strdel(&tmp);
 	itoa = ft_itoa(NBR_LIVE);
 	tmp = ft_strdup(join);
@@ -61,8 +61,8 @@ char	*write_lives(t_env *env)
 char	*process_alives(t_env *env)
 {
 	char	*itoa;
-	char	*join = NULL;
-	char	*tmp = NULL;
+	char	*join;
+	char	*tmp;
 
 	itoa = ft_itoa(env->alives);
 	join = ft_strjoin(itoa, " / ");
@@ -79,8 +79,8 @@ char	*process_alives(t_env *env)
 char	*max_check(t_env *env)
 {
 	char	*itoa;
-	char	*join = NULL;
-	char	*tmp = NULL;
+	char	*join;
+	char	*tmp;
 
 	itoa = ft_itoa(env->check);
 	join = ft_strjoin(itoa, " / ");
