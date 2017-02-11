@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 19:10:15 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 16:36:29 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/11 23:51:33 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,26 @@
 static void	player_color(t_env *e, int i)
 {
 	uint32_t	j;
-	t_process	*p;
 
 	j = -1;
-	if (e->nb_player > 0 && g_color[i] == e->player_id[0])
-		ft_putstr("\033[38;5;29m");
-	else if (e->nb_player > 1 && g_color[i] == e->player_id[1])
-		ft_putstr("\033[38;5;55m");
-	else if (e->nb_player > 2 && g_color[i] == e->player_id[2])
-		ft_putstr("\033[38;5;88m");
-	else if (e->nb_player > 3 && g_color[i] == e->player_id[3])
-		ft_putstr("\033[38;5;208m");
-	while (++j < e->nb_process)
+	if (e->nb_player > 0 && g_pc[i] == e->player_id[0])
+		ft_putstr("\033[39;48;5;29m");
+	else if (e->nb_player > 1 && g_pc[i] == e->player_id[1])
+		ft_putstr("\033[39;48;5;55m");
+	else if (e->nb_player > 2 && g_pc[i] == e->player_id[2])
+		ft_putstr("\033[39;48;5;88m");
+	else if (e->nb_player > 3 && g_pc[i] == e->player_id[3])
+		ft_putstr("\033[39;48;5;202m");
+	else
 	{
-		p = &(e->process[j]);
-		if (p->alive && i == (p->start + p->pc) % MEM_SIZE)
-			ft_putstr("\033[30;47m");
+		if (e->nb_player > 0 && g_color[i] == e->player_id[0])
+			ft_putstr("\033[38;5;29m");
+		else if (e->nb_player > 1 && g_color[i] == e->player_id[1])
+			ft_putstr("\033[38;5;55m");
+		else if (e->nb_player > 2 && g_color[i] == e->player_id[2])
+			ft_putstr("\033[38;5;88m");
+		else if (e->nb_player > 3 && g_color[i] == e->player_id[3])
+			ft_putstr("\033[38;5;208m");
 	}
 	ft_putnbr_hex(g_mem[i], 2);
 	ft_putstr("\033[0m");

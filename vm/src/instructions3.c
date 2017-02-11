@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/03 15:29:30 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/11 23:49:39 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	exec_zjmp(t_env *e, t_process *proc)
 	inst = &(proc->inst);
 	if (valid_params(proc) && proc->carry)
 	{
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = 0;
 		proc->pc = (proc->pc + idx_address(inst->val[0])) % MEM_SIZE;
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = proc->player_id;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | zjmp: %d(%d) OK (PC: %d)\n", e->cur_process + 1,\
 							inst->val[0], idx_address(inst->val[0]), proc->pc);
@@ -31,7 +33,9 @@ void	exec_zjmp(t_env *e, t_process *proc)
 			inst->val[0], idx_address(inst->val[0]), (proc->pc + 3) % MEM_SIZE);
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, 3);
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = 0;
 		proc->pc = (proc->pc + 3) % MEM_SIZE;
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = proc->player_id;
 	}
 }
 
@@ -98,7 +102,9 @@ void	exec_fork(t_env *e, t_process *proc)
 												get_address(inst->val[0]), pc);
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, 3);
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = 0;
 		proc->pc = (proc->pc + 3) % MEM_SIZE;
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = proc->player_id;
 		init_instruction(&(proc->inst));
 		fork_process(e, proc, pc);
 	}

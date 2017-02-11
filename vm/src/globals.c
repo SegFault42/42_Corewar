@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 12:42:58 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/11 23:49:39 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ static void	next_instruction(t_env *e, t_process *proc)
 	{
 		if (e->verbose & SHOW_PC_MOVES)
 			pc_moves(proc, inst->i + 1);
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = 0;
 		proc->pc = (proc->pc + inst->i + 1) % MEM_SIZE;
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = proc->player_id;
 	}
 	init_instruction(inst);
 }
@@ -121,4 +123,6 @@ void		exec_instruction(t_env *e, t_process *proc)
 		if (opcode != FORK && opcode != LFORK)
 			next_instruction(e, proc);
 	}
+	if (e->op_pause)
+		wait_enter(e);
 }

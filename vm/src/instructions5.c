@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 16:52:34 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/11 23:49:39 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	exec_jmp(t_env *e, t_process *proc)
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = 0;
 		proc->pc = (proc->pc + idx_address(inst->val[0])) % MEM_SIZE;
+		g_pc[(proc->start + proc->pc) % MEM_SIZE] = proc->player_id;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | zjmp: %d(%d) OK (PC: %d)\n", e->cur_process + 1,\
 							inst->val[0], idx_address(inst->val[0]), proc->pc);

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/11 04:06:11 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/11 23:06:35 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ struct		s_env
 	uint32_t	sdump;
 	bool		fdf;
 	bool		gui;
+	bool		op_pause;
 	uint32_t	player_id[MAX_PLAYERS];
 	t_sdl		sdl;
 };
@@ -221,6 +222,7 @@ struct		s_env
 
 uint8_t		g_mem[MEM_SIZE];
 uint32_t	g_color[MEM_SIZE];
+uint32_t	g_pc[MEM_SIZE];
 
 /*
 ********************************************************************************
@@ -260,6 +262,7 @@ bool		valid_reg(uint8_t reg);
 bool		valid_params(t_process *proc);
 int			valid_player(t_env *e, uint32_t id);
 void		get_values(t_process *proc, t_instruction *inst);
+void		wait_enter(t_env *e);
 
 void		exec_instruction(t_env *e, t_process *proc);
 void		exec_live(t_env *e, t_process *proc);

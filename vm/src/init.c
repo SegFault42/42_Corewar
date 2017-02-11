@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 15:31:36 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/11 23:08:54 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void		init_memory(void)
 	i = -1;
 	while (++i < MEM_SIZE)
 		g_color[i] = 0;
+	i = -1;
+	while (++i < MEM_SIZE)
+		g_pc[i] = 0;
 }
 
 void		init_instruction(t_instruction *inst)
@@ -54,6 +57,7 @@ static void	init_process(t_process *process, uint32_t id, uint16_t start)
 	process->reg[0] = id;
 	while (++i < REG_NUMBER)
 		process->reg[i] = 0;
+	g_pc[start] = id;
 }
 
 void		init_processes(t_env *e)
@@ -92,6 +96,7 @@ void		init_env(t_env *e)
 	e->sdump = 0;
 	e->fdf = 0;
 	e->gui = 0;
+	e->op_pause = 0;
 	i = -1;
 	while (++i < MAX_PLAYERS)
 		e->player_id[i] = 0;

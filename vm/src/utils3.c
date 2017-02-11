@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 15:10:12 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/10 12:07:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,25 @@ void		pc_moves(t_process *proc, int i)
 		ft_putnbr_hex(get_mem_uint8(proc, j), 2);
 		ft_putchar(j + 1 < i ? ' ' : '\n');
 	}
+}
+
+void		wait_enter(t_env *e)
+{
+	char	c;
+	int		flags;
+
+	ft_printf("Press enter to continue...");
+	c = '\0';
+	flags = fcntl(0, F_GETFL, 0);
+	fcntl(0, F_SETFL, flags | O_NONBLOCK);
+	while (c != '\n')
+	{
+		if (e->gui && !gui(e, &(e->sdl)))
+		{
+			e->run = 0;
+			break ;
+		}
+		read(0, &c, 1);
+	}
+	fcntl(0, F_SETFL, flags);
 }
