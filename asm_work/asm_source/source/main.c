@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/30 17:22:12 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/11 21:26:01 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,20 @@ int	main(int argc, char **argv)
 	t_header	header;
 	t_glob		glob;
 	char str[2192] = {0};
-	char	**par;
-	t_info	*lst;
+	//char	**par;
+	//t_info	*lst;
 
 	if (argc != 2)
 		exit(EXIT_FAILURE);
 	ft_memset(&header, 0, sizeof(header));
 	init_op_table(glob.op_table);
 	glob.list = NULL;
+	glob.label = NULL;
 	if (parse_s_file(argv[1], &header, &glob) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
 
 	//==========================test_jc===============================
-	lst = glob .list;
+	/*lst = glob .list;
 	while (lst)
 	{
 		par = lst->param;
@@ -106,7 +107,17 @@ int	main(int argc, char **argv)
 		}
 		ft_putendl("=================");
 		lst = lst->next;
+	}*/
+	t_list	*lt;
+	lt = glob.label;
+	while (lt)
+	{
+		//ft_putendl(((t_label*)(lt->content))->str);
+		//ft_putnbr(((t_label*)(lt->content))->n_inst);
+		//ft_putchar('\n');
+		lt = lt->next;
 	}
+
 	//==========================test_jc===============================
 
 	//==========================Creation du .cor===============================
@@ -125,6 +136,8 @@ int	main(int argc, char **argv)
 	//nb instruction here
 	lseek(fd, 140, SEEK_SET); // comment here
 	ft_fprintf(fd, "%s", header.comment);
+	lseek(fd, 0, SEEK_END); // comment here
+	write_param(fd, glob);
 	close(fd);
 	//=========================================================================
 	/*ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);*/

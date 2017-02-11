@@ -6,7 +6,7 @@
 #    By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/30 16:59:36 by jcazako          ###   ########.fr        #
+#    Updated: 2017/02/11 16:43:37 by jcazako          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,10 @@ SRCS = $(SRC)/main.c \
 	   $(SRC)/ocp.c\
 	   $(SRC)/check_param.c\
 	   $(SRC)/clear_line.c\
+	   $(SRC)/write_param.c\
+	   $(SRC)/count_byte_inst.c\
+	   $(SRC)/get_label_val.c\
+	   $(SRC)/invert.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 

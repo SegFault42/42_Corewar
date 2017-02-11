@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 10:45:26 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/18 12:39:34 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/02/11 20:16:02 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int		is_reg(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	if (str[i] == 'r')
+	while (str && *str && ft_strchr(" \t", *str))
+		str++;
+	if (str && *str == 'r')
 	{
-		i++;
-		while (ft_isdigit(str[i]))
-			i++;
-		if (!str[i])
+		str++;
+		while (*str && ft_isdigit(*str))
+			str++;
+		if (!*str)
 			return (TRUE);
 	}
 	return (FALSE);
@@ -50,16 +50,16 @@ int		is_direct(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t')
+	while (str && *str && ft_strchr(" \t", *str))
 		str++;
-	if (str[i] == '%')
+	if (str && *str == DIRECT_CHAR)
 	{
 		str++;
-		if (str[i] == ':')
+		if (*str == LABEL_END)
 			str++;
-		while (ft_strchr(LABEL_CHARS, str[i]) && *str)
+		while (*str && ft_strchr(LABEL_CHARS, *str))
 			str++;
-		if (*str == '\0')
+		if (!*str)
 			return (TRUE);
 	}
 	return (FALSE);
@@ -77,19 +77,22 @@ int		is_ind(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	if (str[i] == '%' && str[i + 1] == ':')
+	while (str && *str && ft_strchr(" \t", *str))
+		str++;
+	if (str && *str == LABEL_END)
 	{
-		i += 2;
-		if (ft_strchr(LABEL_CHARS, str[i]))
-		{
-			i += 2;
-			while (ft_strchr(LABEL_CHARS, str[i]) && str[i])
-			i++;
-			if (!str[i])
+		str++;
+		while (*str && ft_strchr(LABEL_CHARS, *str))
+			str++;
+		if (!*str)
 			return (TRUE);
-		}
+	}
+	else if (str)
+	{
+		while (*str && ft_isdigit(*str))
+			str++;
+		if (!*str)
+			return (TRUE);
 	}
 	return (FALSE);
 }

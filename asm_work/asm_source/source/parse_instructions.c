@@ -118,14 +118,36 @@ static void	replace_line(char **line)
 	}	
 }
 
+static void	parse_label(t_glob *glob, char *line, bool *label_exist, int i)
+{
+	char	*label;
+	t_label	content;
+	t_list	*tmp;
+
+	if ((label = check_if_label_exist(line)))
+	{
+		*label_exist = true;
+		if (check_if_label_good_formatted(label) == false)
+			error(BAD_LABEL_FORMAT);
+		content.str = label;
+		content.n_inst = i;
+		if (!(tmp = ft_lstnew(&content, sizeof(content))))
+			error(MALLOC);
+		ft_lstadd(&glob->label, tmp);
+		//free(label);
+	}
+}
+
 void	parse_instructions(int *fd, t_glob *glob)
 {
 	char	*line;
 	char	*label;
 	bool	label_exist;
 	int	parse;
+	int	i;
 
 	label = NULL;
+	i = 0;
 	while (get_next_line(*fd, &line) > 0)
 	{
 		label_exist = false;
@@ -136,14 +158,7 @@ void	parse_instructions(int *fd, t_glob *glob)
 		}
 		else if (ft_strchr(line, '#') || ft_strchr(line, ';'))
 			replace_line(&line);
-		if ((label = check_if_label_exist(line)) != NULL)
-		{
-			label_exist = true;
-			if (check_if_label_good_formatted(label) == false)
-				error(BAD_LABEL_FORMAT);
-			free(label);
-		}
-		// verifier si il y a une instruction apres le label et la parser.
+		parse_label(glob, line, &label_exist, i);
 		line = get_instruction(line, label_exist);
 		if (line)
 		{
@@ -152,6 +167,7 @@ void	parse_instructions(int *fd, t_glob *glob)
 				ft_strdel(&line);
 				error(parse);
 			}
+			i++;
 		}
 	}
 }
