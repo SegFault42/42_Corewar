@@ -6,24 +6,30 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 14:05:56 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/11 04:52:49 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/12 05:16:01 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-bool	button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win)
+bool	button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win, t_sdl *sdl)
 {
 	if (event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
 	{
 		if (event->button.x >= 1238 && event->button.x <= 1298 &&
 			event->button.y >= 1006 && event->button.y <= 1052)
-			screenshot(win);
+		{
+			screenshot(win, sdl);
+			Mix_PlayChannel(-1, sdl->sound.chunk, 0);
+		}
 	}
 	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE) // ferme la fenetre quand on appuie sur echape
 		return (true);
 	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE)
+	{
 		win->color = ~win->color;
+		/*Mix_PlayMusic(sdl->sound.music, -1);*/
+	}
 	SDL_Delay(win->delay);
 	return (false);
 	(void)wallpaper;
@@ -35,12 +41,12 @@ void	print_wallpaper(t_wallpaper *wallpaper, t_win *win, char *path)
 	wallpaper->texture = SDL_CreateTextureFromSurface(win->render, wallpaper->wallpaper);
 }
 
-void	screenshot(t_win *win)
+void	screenshot(t_win *win, t_sdl *sdl)
 {
 	SDL_Surface	*p_screen;
 	char		*name;
 	time_t		clk;
-	
+
 	clk = time(NULL);
 	if (!(name = (char *)ft_memalloc(sizeof(char) * ft_strlen(ctime(&clk)))))
 	{
@@ -55,5 +61,5 @@ void	screenshot(t_win *win)
 	SDL_SaveBMP(p_screen, name);
 	ft_strdel(&name);
 	SDL_FreeSurface(p_screen);
-	/*Mix_PlayChannel(-1, win->chunk, 0);*/
+	Mix_PlayChannel(-1, sdl->sound.chunk, 0);
 }

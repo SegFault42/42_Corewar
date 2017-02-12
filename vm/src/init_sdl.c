@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 22:36:40 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/04 20:30:20 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/12 00:45:00 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	create_window(t_win *win)
 {
-	if (SDL_Init(SDL_INIT_VIDEO) == ERROR)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == ERROR)
 		error(INIT_VIDEO_ERROR);
 
 	IMG_Init(IMG_INIT_PNG);

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 20:10:26 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/12 04:49:08 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ void	init_sdl(t_sdl *sdl)
 	ft_memset(&(sdl->win), 0, sizeof(&(sdl->win)));
 	ft_memset(&(sdl->font), 0, sizeof(&(sdl->font)));
 	ft_memset(&(sdl->wallpaper), 0, sizeof(&(sdl->wallpaper)));
+	ft_memset(&(sdl->wallpaper), 0, sizeof(&(sdl->sound)));
 	// ft_memset(g_mem, 0, MEM_SIZE);
 	(sdl->win).delay = 0;
 	(sdl->font)[0].font_size = 15;
 	create_window(&(sdl->win));
 	init_ttf(&(sdl->win));
+	init_sound(&(sdl->sound));
 	select_font(&(sdl->win), &(sdl->font)[0], "/Library/Fonts/Arial Bold.ttf");
 	change_text_color((sdl->font)[0].text_color, 255, 0, 0);
 	(sdl->font)[0].text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte de la memoire sera place

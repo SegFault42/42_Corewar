@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/11 02:57:36 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/12 05:03:57 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ int		gui(t_env *env, t_sdl *sdl)
 	{
 		if ((sdl->event).type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
 			return (0);
-		if (button_press(&(sdl->event), &(sdl->wallpaper), &(sdl->win)) == true)
+		if (button_press(&(sdl->event), &(sdl->wallpaper), &(sdl->win), sdl) == true)
 			return (0);
 	}
 	SDL_RenderPresent((sdl->win).render);

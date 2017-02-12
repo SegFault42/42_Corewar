@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 19:08:05 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/11 23:51:57 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/12 00:31:42 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,24 @@ SDL_Texture	*SurfaceToTexture(t_win *win, t_font *font)
 static void	set_color(t_env *e, t_font *font, int i)
 {
 	if (e->nb_player > 0 && g_color[i] == e->player_id[0])
-		font->text_color = (SDL_Color){1, 135, 95, 255};
+		font->text_color = (SDL_Color){0, 255, 0, 255};
 	if (e->nb_player > 1 && g_color[i] == e->player_id[1])
-		font->text_color = (SDL_Color){94, 35, 175, 255};
+		font->text_color = (SDL_Color){255, 0, 255, 255};
 	if (e->nb_player > 2 && g_color[i] == e->player_id[2])
-		font->text_color = (SDL_Color){135, 15, 0, 255};
+		font->text_color = (SDL_Color){0, 215, 255, 255};
 	if (e->nb_player > 3 && g_color[i] == e->player_id[3])
-		font->text_color = (SDL_Color){255, 135, 0, 255};
+		font->text_color = (SDL_Color){255, 255, 0, 255};
 	if (i == GREY_TEXT)
 		font->text_color = (SDL_Color){155, 155, 155, 255};
 	if (i == GREEN_TEXT)
-		font->text_color = (SDL_Color){1, 135, 95, 255};
+		font->text_color = (SDL_Color){48, 234, 5, 255};
 	if (i == PURPLE_TEXT)
-		font->text_color = (SDL_Color){94, 35, 175, 255};
+		font->text_color = (SDL_Color){255, 0, 255, 255};
 	if (i == CYAN_TEXT)
-		font->text_color = (SDL_Color){135, 15, 0, 255};
+		font->text_color = (SDL_Color){0, 255, 247, 255};
 	if (i == YELLOW_TEXT)
-		font->text_color = (SDL_Color){255, 135, 0, 255};
+		font->text_color = (SDL_Color){252, 243, 0, 255};
+
 }
 
 void		draw_text(t_font *font, t_win *win, char *str, int i)
@@ -62,13 +63,13 @@ void		draw_text(t_font *font, t_win *win, char *str, int i)
 	j = -1;
 	e = get_env();
 	if (e->nb_player > 0 && g_pc[i] == e->player_id[0])
-		font->text_color = (SDL_Color){1 * 0.5, 135 * 0.5, 95 * 0.5, 255};
+		font->text_color = (SDL_Color){0 * 0.5, 255 * 0.5, 0 * 0.5, 255};
 	else if (e->nb_player > 1 && g_pc[i] == e->player_id[1])
-		font->text_color = (SDL_Color){94 * 0.5, 35 * 0.5, 175 * 0.5, 255};
+		font->text_color = (SDL_Color){255 * 0.5, 0 * 0.5, 255 * 0.5, 255};
 	else if (e->nb_player > 2 && g_pc[i] == e->player_id[2])
-		font->text_color = (SDL_Color){135 * 0.5, 15 * 0.5, 0 * 0.5, 255};
+		font->text_color = (SDL_Color){0 * 0.5, 215 * 0.5, 255 * 0.5, 255};
 	else if (e->nb_player > 3 && g_pc[i] == e->player_id[3])
-		font->text_color = (SDL_Color){255 * 0.5, 135 * 0.5, 0 * 0.5, 255};
+		font->text_color = (SDL_Color){255 * 0.5, 255 * 0.5, 0 * 0.5, 255};
 	else
 		set_color(e, font, i);
 	font->text = TTF_RenderText_Solid(font->font, str, font->text_color);

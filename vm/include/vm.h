@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/11 23:06:35 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/12 05:05:58 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # include <sys/types.h>
 # include <SDL2/SDL_ttf.h>
 # include "SDL2/SDL_image.h"
+# include "../libsdl/SDL2_mixer.framework/Versions/A/Headers/SDL_mixer.h"
+
 
 /*
 ********************************************************************************
@@ -97,15 +99,16 @@
 ********************************************************************************
 */
 
+typedef struct s_sound			t_sound;
 typedef struct s_instruction	t_instruction;
-typedef struct s_op	t_op;
-typedef struct s_process	t_process;
-typedef struct s_player	t_player;
-typedef struct s_env	t_env;
-typedef struct s_wallpaper	t_wallpaper;
-typedef struct s_win	t_win;
-typedef struct s_font	t_font;
-typedef struct s_sdl	t_sdl;
+typedef struct s_op				t_op;
+typedef struct s_process		t_process;
+typedef struct s_player			t_player;
+typedef struct s_env			t_env;
+typedef struct s_wallpaper		t_wallpaper;
+typedef struct s_win			t_win;
+typedef struct s_font			t_font;
+typedef struct s_sdl			t_sdl;
 typedef void(*t_func)(t_env*, t_process*);
 
 /*
@@ -113,6 +116,12 @@ typedef void(*t_func)(t_env*, t_process*);
 **                                 STRUCTURES                                 **
 ********************************************************************************
 */
+
+struct		s_sound
+{
+	Mix_Music	*music;
+	Mix_Chunk	*chunk;
+};
 
 struct		s_instruction
 {
@@ -186,6 +195,7 @@ struct		s_sdl
 	t_font		font[3];
 	SDL_Event	event;
 	t_wallpaper	wallpaper;
+	t_sound		sound;
 };
 
 struct		s_env
@@ -309,9 +319,9 @@ void		draw_text(t_font *font, t_win *win, char *str, int i);
 
 void		draw_memory(t_win *win, t_font *font);
 
-void		screenshot(t_win *win);
+void		screenshot(t_win *win, t_sdl *sdl);
 void		print_wallpaper(t_wallpaper *wallpaper, t_win *win, char *path);
-bool		button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win);
+bool		button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win, t_sdl *sdl);
 
 void		change_text_color(SDL_Color text_color, uint8_t r, uint8_t g, uint8_t b);
 void		general_info(t_font *font_general, t_win *win);
@@ -320,5 +330,7 @@ char		*write_lives(t_env *env);
 char		*cycle_to_die(t_env *env);
 char		*process_alives(t_env *env);
 char		*max_check(t_env *env);
+
+void		init_sound(t_sound *sound);
 
 #endif
