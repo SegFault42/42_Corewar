@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 16:45:54 by hboudra           #+#    #+#             */
-/*   Updated: 2017/01/30 17:32:18 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/13 22:25:42 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	push_back(t_info **lst, t_info *new)
 	}
 }
 
-int	skip_alpha(char *line)
+int		skip_alpha(char *line)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (ft_isalpha(line[i]))
@@ -41,10 +41,10 @@ int	skip_alpha(char *line)
 	return (i);
 }
 
-int	set_opcode(t_info *info, char *line)
+int		set_opcode(t_info *info, char *line)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	j = skip_blank(line);
 	i = 0;
@@ -59,11 +59,11 @@ int	set_opcode(t_info *info, char *line)
 	return (i + j);
 }
 
-int	parse_info(t_glob *glob, char *line)
+int		parse_info(t_glob *glob, char *line)
 {
 	t_info	*tmp;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*box;
 
 	tmp = NULL;

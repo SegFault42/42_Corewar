@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 17:07:44 by hboudra           #+#    #+#             */
-/*   Updated: 2017/02/11 21:53:26 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/13 22:05:36 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 ** valident et que le char ** ne fasse pas plus de 3
 */
 
-char	ocp_calc(char **tab)//, t_info *info)
+char	ocp_calc(char **tab)
 {
 	char	ocp;
-	int	i;
+	int		i;
 
 	ocp = 0;
 	i = 0;
@@ -33,7 +33,6 @@ char	ocp_calc(char **tab)//, t_info *info)
 	i = 0;
 	while (tab && tab[i])
 	{
-	//	info->arg_value[i] = 0;
 		if (is_reg(tab[i]))
 			ocp |= 0x01;
 		else if (is_direct(tab[i]))

@@ -6,29 +6,18 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:18:16 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/11 16:21:33 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/13 21:58:12 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-/*static void	aff_param(char **str)
-{
-	while (str && *str)
-	{
-		ft_putstr(*str++);
-		if (*str)
-			ft_putchar(' ');
-	}
-	ft_putchar('\n');
-}*/
-
 static int	help(int line, int label, t_glob glob)
 {
-	int	i;
+	int		i;
 	t_info	*info;
-	int	ret;
-	int	tmp;
+	int		ret;
+	int		tmp;
 
 	if (line == label)
 		return (0);
@@ -38,7 +27,6 @@ static int	help(int line, int label, t_glob glob)
 	while (info)
 	{
 		tmp = 0;
-		//(void)aff_param;
 		if (line < label && i >= line && i < label)
 			ret += count_byte_inst(info);
 		else if (line > label && i >= label && i < line)
@@ -54,7 +42,7 @@ static int	help(int line, int label, t_glob glob)
 
 static int	get_cur_inst(t_info *info, t_glob glob)
 {
-	int	cur;
+	int		cur;
 	t_info	*tmp;
 
 	cur = 0;
@@ -67,10 +55,10 @@ static int	get_cur_inst(t_info *info, t_glob glob)
 	return (cur);
 }
 
-int	get_label_val(t_info *info, t_glob glob, int i)
+int			get_label_val(t_info *info, t_glob glob, int i)
 {
-	int	label;
-	int	line;
+	int		label;
+	int		line;
 	t_list	*lst_lab;
 	char	*str;
 

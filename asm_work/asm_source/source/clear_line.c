@@ -6,13 +6,11 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 16:52:19 by jcazako           #+#    #+#             */
-/*   Updated: 2017/01/30 17:01:12 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/13 21:46:39 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
-
-// remplace les series de tab et de space par UN unique tab ou UN unique space renvoie la string correspondante
 
 static int	gt_wordlen(char *str)
 {
@@ -41,7 +39,7 @@ static int	get_len(char *str, int nb)
 	return (len + nb - 1);
 }
 
-char	*clear_line(char *str)
+char		*clear_line(char *str)
 {
 	int		len;
 	char	*new;

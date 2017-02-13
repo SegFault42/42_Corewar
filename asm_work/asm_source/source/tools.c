@@ -6,13 +6,13 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/30 17:35:47 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/13 23:08:26 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int	is_cmt(char *line)
+int		is_cmt(char *line)
 {
 	int	blank;
 
@@ -34,7 +34,9 @@ int		skip_blank(char *line)
 	return (i);
 }
 
-//retourne le nombre de mot dans une string
+/*
+** retourne le nombre de mot dans une string
+*/
 
 int		wordnb(char *str)
 {

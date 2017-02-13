@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:09:04 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/11 16:21:46 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/13 21:48:44 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	help(char **param, int *byte, char opcode)
 		else if (is_ind(*param))
 			(*byte) += 2;
 		param++;
-	}		
+	}
 }
 
-int	count_byte_inst(t_info *info)
+int			count_byte_inst(t_info *info)
 {
-	int	byte;
+	int		byte;
 	char	**param;
 	char	opcode;
 
