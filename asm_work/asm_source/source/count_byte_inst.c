@@ -29,7 +29,7 @@ static void	help(char **param, int *byte, char opcode)
 				(*byte) += 4;
 		}
 		else if (is_ind(*param))
-			(*byte) += 4;
+			(*byte) += 2;
 		param++;
 	}		
 }

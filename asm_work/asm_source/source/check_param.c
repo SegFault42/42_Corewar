@@ -89,6 +89,8 @@ int		is_ind(char *str)
 	}
 	else if (str)
 	{
+		if (*str == '-')
+			str++;
 		while (*str && ft_isdigit(*str))
 			str++;
 		if (!*str)

@@ -92,34 +92,6 @@ int	main(int argc, char **argv)
 	glob.label = NULL;
 	if (parse_s_file(argv[1], &header, &glob) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
-
-	//==========================test_jc===============================
-	/*lst = glob .list;
-	while (lst)
-	{
-		par = lst->param;
-		while (par && *par)
-		{
-			ft_putstr(*par);
-			ft_putchar('$');
-			ft_putchar('\n');
-			par++;
-		}
-		ft_putendl("=================");
-		lst = lst->next;
-	}*/
-	t_list	*lt;
-	lt = glob.label;
-	while (lt)
-	{
-		//ft_putendl(((t_label*)(lt->content))->str);
-		//ft_putnbr(((t_label*)(lt->content))->n_inst);
-		//ft_putchar('\n');
-		lt = lt->next;
-	}
-
-	//==========================test_jc===============================
-
 	//==========================Creation du .cor===============================
 	file = (char *)ft_memalloc(sizeof(char) * (ft_strlen(argv[1])) + 2); //Alloc len (name of the output.s + len .cor - ".c")
 	ft_strccat(file, argv[1], '.');
@@ -133,33 +105,12 @@ int	main(int argc, char **argv)
 	lseek(fd, 4, SEEK_SET); // prog_name here
 	ft_fprintf(fd, "%s", header.prog_name);
 	lseek(fd, 132, SEEK_SET); // nb octet instruction here
-	//nb instruction here
+	write_nb_inst(glob.list, fd);
 	lseek(fd, 140, SEEK_SET); // comment here
 	ft_fprintf(fd, "%s", header.comment);
 	lseek(fd, 0, SEEK_END); // comment here
 	write_param(fd, glob);
 	close(fd);
-	//=========================================================================
-	/*ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);*/
-	/*ft_fprintf(1, GREEN".comment = %s\n"END, header.comment);*/
-	// for (int i = 0; i < 17; ++i)
-	// {
-	// 	printf("%s, %d, %d, %d, %d, %s, %d, %d\n",
-	// 			glob.op_table[i].instruction_name,
-	// 			op_table[i].nb_arg,
-	// 			op_table[i].arg_value[0],
-	// 			op_table[i].opcode,
-	// 			op_table[i].n_cycle,
-	// 			op_table[i].desc_instr,
-	// 			op_table[i].carry,
-	// 			op_table[i].dir_indir);
-	// }
-	/*while (glob.list)
-	{
-		// ft_putnbr(glob.list->opcode);
-		ft_putendl(glob.list->param[0]);
-		glob.list = glob.list->next;
-	}*/
 	free_op_table(glob.op_table);
 	return (0);
 }

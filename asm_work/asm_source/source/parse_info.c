@@ -80,6 +80,6 @@ int			parse_info(t_glob *glob, char *line)
 		free(box);
 		j++;
 	}
-	tmp->ocp = ocp_calc(tmp->param, tmp);
+	tmp->ocp = ocp_calc(tmp->param);
 	return (TRUE);
 }

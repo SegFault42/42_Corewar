@@ -6,17 +6,20 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/17 15:56:18 by rabougue          #+#    #+#              #
-#    Updated: 2017/01/30 17:41:49 by jcazako          ###   ########.fr        #
+#    Updated: 2017/02/11 17:07:16 by jcazako          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.name "mine"
-.comment "yolo"
+.name "corewar"
+.comment ""
 
 l2:		sti r1, %:live, %1
 		and r1, %0, r1
 
 live:		live %1
 		zjmp %:live
+		add r1, r2, r3
 
-loup:		st r2, -400
+zoulou: lldi 45, %14, r3
+
+argc: st r2, 400

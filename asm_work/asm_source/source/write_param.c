@@ -84,7 +84,9 @@ void	write_ind(int fd, int i, t_info *info, t_glob glob)
 	int	tmp;
 
 	if (!ft_strchr(info->param[i], (int)':'))
+	{
 		tmp = ft_atoi(info->param[i]);
+	}
 	else
 		tmp = get_label_val(info, glob, i);
 	tmp = invert_2(tmp);

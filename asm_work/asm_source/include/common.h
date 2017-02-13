@@ -101,7 +101,6 @@ typedef struct		s_info
 	char			**param;
 	char			opcode;
 	unsigned char	ocp;
-	uint8_t			arg_value[4];
 	struct s_info	*next;
 }					t_info;
 
@@ -152,7 +151,7 @@ typedef struct		s_glob
 /*
  ** parse_s_file.c
  */
-char				ocp_calc(char **tab, t_info *info);
+char				ocp_calc(char **tab);
 int8_t				parse_s_file(char *file, t_header *header, t_glob *glob);
 /*
  ** main.c
@@ -204,5 +203,10 @@ int     get_label_val(t_info *info, t_glob glob, int i);
  */
 int		invert_2(int i);
 int		invert_4(int i);
+long		invert_8(long i);
 
+/*
+ ** write_nb_inst.c
+ */
+void		write_nb_inst(t_info *info, int fd);
 #endif

@@ -37,6 +37,7 @@ SRCS = $(SRC)/main.c \
 	   $(SRC)/count_byte_inst.c\
 	   $(SRC)/get_label_val.c\
 	   $(SRC)/invert.c\
+	   $(SRC)/write_nb_inst.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 
