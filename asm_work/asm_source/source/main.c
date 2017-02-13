@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		exit(EXIT_FAILURE);
 	ft_memset(&header, 0, sizeof(header));
-	init_op_table(glob.op_table);
+	//init_op_table(glob.op_table);
 	glob.list = NULL;
 	glob.label = NULL;
 	if (parse_s_file(argv[1], &header, &glob) == EXIT_FAILURE)
@@ -111,6 +111,7 @@ int	main(int argc, char **argv)
 	lseek(fd, 0, SEEK_END); // comment here
 	write_param(fd, glob);
 	close(fd);
-	free_op_table(glob.op_table);
+	//free_op_table(glob.op_table);
+	//while (42);
 	return (0);
 }

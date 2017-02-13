@@ -55,22 +55,23 @@ bool	check_if_instruction_exist(char *instruction)
 {
 	int		i;
 	int		j;
-	t_op	op[17];
+	//t_op	op[17];
 
 	i = 0;
 	j = skip_blank(&instruction[i]);
-	init_op_table(op);
-	while (i < 16)
+	//init_op_table(op);
+	while (g_op_tab[i].instruction_name)
 	{
-		if (ft_strncmp(&instruction[j], op[i].instruction_name,
-				ft_strlen(op[i].instruction_name)) == 0)
+		if (!ft_strncmp(&instruction[j],\
+			g_op_tab[i].instruction_name,\
+			ft_strlen(g_op_tab[i].instruction_name)))
 		{
-			free_op_table(op);
+			//free_op_table(op);
 			return (true);
 		}
-		++i;
+		i++;
 	}
-	free_op_table(op);
+	//free_op_table(op);
 	return (false);
 }
 
@@ -143,7 +144,7 @@ void	parse_instructions(int *fd, t_glob *glob)
 	char	*line;
 	char	*label;
 	bool	label_exist;
-	int	parse;
+	char	*tmp;
 	int	i;
 
 	label = NULL;
@@ -159,15 +160,16 @@ void	parse_instructions(int *fd, t_glob *glob)
 		else if (ft_strchr(line, '#') || ft_strchr(line, ';'))
 			replace_line(&line);
 		parse_label(glob, line, &label_exist, i);
-		line = get_instruction(line, label_exist);
-		if (line)
+		//line = get_instruction(line, label_exist);
+		if ((tmp = get_instruction(line, label_exist)))
 		{
-			if ((parse = parse_info(glob, line)) != TRUE)
+			if (parse_info(glob, tmp) != TRUE)
 			{
 				ft_strdel(&line);
-				error(parse);
+				error(MALLOC);
 			}
 			i++;
 		}
+		free(line);
 	}
 }

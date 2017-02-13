@@ -112,12 +112,12 @@ typedef struct	s_label
 
 typedef struct		s_glob
 {
-	t_op 			op_table[17];
+	//t_op 			op_table[17];
 	t_list			*label;
 	t_info			*list;
 }					t_glob;
 
-/*t_op	g_op_tab[] =
+static t_op	g_op_tab[] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -145,8 +145,9 @@ typedef struct		s_glob
 	{"cmp", 2, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR},\
 		18, 3, "cmp (val1 == val2)", 1, 0},
 	{"div", 3, {T_REG, T_REG, T_REG}, 19, 20, "division", 1, 0},
-	{"mul", 3, {T_REG, T_REG, T_REG}, 20, 20, "multiplication", 1, 0}
-};*/
+	{"mul", 3, {T_REG, T_REG, T_REG}, 20, 20, "multiplication", 1, 0},
+	{0, 0, {0}, 0, 0, 0, 0, 0}
+};
 
 /*
  ** parse_s_file.c

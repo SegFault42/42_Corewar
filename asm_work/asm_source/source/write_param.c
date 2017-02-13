@@ -30,9 +30,9 @@ void	write_dir(int fd, int i, t_info *info, t_glob glob)
 	char	opcode;
 	
 	opcode = info->opcode;
-	//if (g_op_tab[opcode - 1].dir_indir)
-	if (opcode == ZJUMP || opcode == LDI || opcode == STI \
-		|| opcode == FORK || opcode == LLDI || opcode == LFORK)
+	if (g_op_tab[opcode - 1].dir_indir)
+	/*if (opcode == ZJUMP || opcode == LDI || opcode == STI
+		|| opcode == FORK || opcode == LLDI || opcode == LFORK)*/
 	{
 		//ft_putendl("A");
 		//ft_putendl(info->param[i]);
@@ -110,11 +110,8 @@ static void	w_param(int fd, t_info *info, t_glob glob)
 			write_dir(fd, i, info, glob);
 		else if (is_ind(*param))
 			write_ind(fd, i, info, glob);
-		/*else
-		{
-			ft_putstr("PWOBLEM type arg: ");
-			ft_putendl(*param);
-		}*/
+		else
+			error(BAD_ARGUMENT);
 		i++;
 		param++;
 	}
@@ -122,18 +119,18 @@ static void	w_param(int fd, t_info *info, t_glob glob)
 
 static void	deal_param(int fd, t_info *info, t_glob glob)
 {
-	t_op	op[17];
+	//t_op	op[17];
 	char	*opcode;
 	char	*ocp;
 
 	opcode = &info->opcode;
 	ocp = (char*)&info->ocp;
-	init_op_table(op);
+	//init_op_table(op);
 	write(fd, opcode, 1);
 	if (*opcode != LIVE && *opcode != ZJUMP && *opcode != FORK)
 		write(fd, ocp, 1);
 	w_param(fd, info, glob);
-	free_op_table(op);
+	//free_op_table(op);
 }
 
 void		write_param(int fd, t_glob glob)
