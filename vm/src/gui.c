@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/14 16:32:20 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 21:25:03 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,8 @@ void	general_info(t_font *font_general, t_win *win)
 void	gui(t_env *env, t_sdl *sdl)
 {
 	SDL_RenderCopy((sdl->win).render, (sdl->wallpaper).texture, NULL, NULL);
-	draw_memory(&(sdl->win), &(sdl->font[0]));
+	/*draw_memory(&(sdl->win), &(sdl->font[0]));*/
+	fdf(env, sdl);
 	write_general_info(&(sdl->font[1]), env, &(sdl->win));
 	write_challengers(&(sdl->font[2]), &(sdl->win));
 	if (SDL_PollEvent(&(sdl->event)))

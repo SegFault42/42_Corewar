@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 15:40:36 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/14 20:54:39 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 21:25:01 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static t_pos	iso(t_env *e, int y, int x)
 	t_sdl	*sdl;
 
 	sdl = &(e->sdl);
-	p.x = (x - y) * 15 + (WIDTH / 2);
-	p.y = ((y + x) * 15 + 128 - ((char)(g_mem[y * 64 + x])) / 6) / 2;
+	p.x = (x - y) * 10 + (655);
+	p.y = ((y + x) * 10 + 300 - ((char)(g_mem[y * 64 + x])) / 6) / 2;
 	if (g_pc[y * 64 + x])
 		p.y -= 64;
 	if (e->nb_player > 0 && g_color[y * 64 + x] == e->player_id[0])
@@ -74,8 +74,8 @@ static void	draw_fdf_memory(t_env *e, t_sdl *sdl)
 
 void	fdf(t_env *env, t_sdl *sdl)
 {
-	SDL_SetRenderDrawColor(sdl->win.render, 0, 0, 0, 255);
-	SDL_RenderClear(sdl->win.render);
+	/*SDL_SetRenderDrawColor(sdl->win.render, 0, 0, 0, 255);*/
+	/*SDL_RenderClear(sdl->win.render);*/
 	draw_fdf_memory(env, sdl);
 	if (SDL_PollEvent(&(sdl->event)))
 	{
@@ -84,5 +84,5 @@ void	fdf(t_env *env, t_sdl *sdl)
 		if (button_press(&(sdl->event), &(sdl->wallpaper), &(sdl->win), sdl) == true)
 			env->run = 0;
 	}
-	SDL_RenderPresent((sdl->win).render);
+	/*SDL_RenderPresent((sdl->win).render);*/
 }
