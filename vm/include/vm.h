@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 16:10:14 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 19:40:41 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_wallpaper		t_wallpaper;
 typedef struct s_win			t_win;
 typedef struct s_font			t_font;
 typedef struct s_sdl			t_sdl;
+typedef struct s_fdf			t_fdf;
 typedef void(*t_func)(t_env*, t_process*);
 
 /*

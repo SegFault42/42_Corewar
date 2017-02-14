@@ -6,22 +6,46 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/14 15:32:02 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 20:44:17 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+static void	sdl_winner(t_env *e)
+{
+	char	*win;
+	char	*tmp;
+
+	if (!(tmp = ft_itoa(e->last_live)))
+		die(e, "Memory allocation failure ! ft_itoa(e->last_live)");
+	if (!(win = ft_strjoin("Player ", tmp)))
+		die(e, "Memory allocation failure ! ft_strjoin(\"Player \", tmp)");
+	ft_strdel(&tmp);
+	tmp = win;
+	if (!(win = ft_strjoin(win, " as won.")))
+		die(e, "Memory allocation failure ! ft_strjoin(win, \" (\")");
+	ft_strdel(&tmp);
+	tmp = win;
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+	"Corewar", win, e->sdl.win.win);
+	ft_strdel(&win);
+}
+
 static void	announce_winner(t_env *e)
 {
 	int		id;
+
 
 	if (!e->alives || e->cycle_die <= 0)
 	{
 		id = valid_player(e, e->last_live);
 		if (e->last_live)
+		{
 			ft_printf("Player %d(%s) as {:green}won{:eoc}.\n", e->last_live,\
 												e->player[id].header.prog_name);
+			sdl_winner(e);
+		}
 		else
 			ft_printf("No live, it's a {:yellow}draw{:eoc}.\n");
 	}

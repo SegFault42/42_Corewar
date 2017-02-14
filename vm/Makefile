@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/14 15:44:34 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/14 20:50:03 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ all: lib
 	@make $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(LIB_NAME) $(LSDL) $(LIB) $(SDL2_ttf) $(SDL2_mixer) $(SDL2_image) $(SDL2) $(INC) $^ -o $@ $(FRAMEWORK)
+	$(CC) $(LIB_NAME) $(LSDL) $(LIB) $(SDL2_ttf) $(SDL2_mixer) $(SDL2_image) $(SDL2) $(INC) $^ -o $@ $(FRAMEWORK)
 	@install_name_tool -change /usr/local/lib/libSDL2-2.0.0.dylib $(SDL2DYLIB) $(NAME)
 	@install_name_tool -change @rpath/SDL2_ttf.framework/Versions/A/SDL2_ttf $(SDL2_ttf) $(NAME)
 	@install_name_tool -change @rpath/SDL2_mixer.framework/Versions/A/SDL2_mixer $(SDL2_mixer) $(NAME)

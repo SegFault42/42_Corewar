@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 16:24:51 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/08 14:34:24 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/14 19:58:45 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_env(t_env *e)
 	}
 	if (e->process)
 		free(e->process);
-	if (e->gui)
+	if (e->gui || e->fdf)
 	{
 		TTF_Quit();
 		win = &(e->sdl.win);

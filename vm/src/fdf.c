@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 15:40:36 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/14 16:58:32 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 20:54:39 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,27 @@ static t_pos	iso(t_env *e, int y, int x)
 		p.y -= 64;
 	if (e->nb_player > 0 && g_color[y * 64 + x] == e->player_id[0])
 		SDL_SetRenderDrawColor(sdl->win.render, 0, 255, 0, 255);
-	else if (e->nb_player > 0 && g_color[y * 64 + x] == e->player_id[1])
+	else if (e->nb_player > 1 && g_color[y * 64 + x] == e->player_id[1])
 		SDL_SetRenderDrawColor(sdl->win.render, 255, 0, 255, 255);
-	else if (e->nb_player > 0 && g_color[y * 64 + x] == e->player_id[2])
+	else if (e->nb_player > 2 && g_color[y * 64 + x] == e->player_id[2])
 		SDL_SetRenderDrawColor(sdl->win.render, 0, 215, 255, 255);
-	else if (e->nb_player > 0 && g_color[y * 64 + x] == e->player_id[3])
+	else if (e->nb_player > 3 && g_color[y * 64 + x] == e->player_id[3])
 		SDL_SetRenderDrawColor(sdl->win.render, 255, 255, 0, 255);
 	else
-		SDL_SetRenderDrawColor(sdl->win.render, 255, 255, 255, 255);
+	{
+		if (e->sdl.win.color != 0)
+			SDL_SetRenderDrawColor(e->sdl.win.render, rand() % 255, rand() % 255, rand() % 255, 255);
+		else
+			SDL_SetRenderDrawColor(e->sdl.win.render, 255, 255, 255, 255);
+	}
 	if (e->nb_player > 0 && g_pc[y * 64 + x] == e->player_id[0])
-		SDL_SetRenderDrawColor(sdl->win.render, 0, 255, 0, 255);
+		SDL_SetRenderDrawColor(sdl->win.render, 0, 255 * 0.6, 0, 255);
 	else if (e->nb_player > 1 && g_pc[y * 64 + x] == e->player_id[1])
-		SDL_SetRenderDrawColor(sdl->win.render, 255, 0, 255, 255);
+		SDL_SetRenderDrawColor(sdl->win.render, 255 * 0.6, 0, 255 * 0.6, 255);
 	else if (e->nb_player > 2 && g_pc[y * 64 + x] == e->player_id[2])
-		SDL_SetRenderDrawColor(sdl->win.render, 0, 215, 255, 255);
+		SDL_SetRenderDrawColor(sdl->win.render, 0, 215 * 0.6, 255 * 0.6, 255);
 	else if (e->nb_player > 3 && g_pc[y * 64 + x] == e->player_id[3])
-		SDL_SetRenderDrawColor(sdl->win.render, 255, 255, 0, 255);
+		SDL_SetRenderDrawColor(sdl->win.render, 255 * 0.6, 255 * 0.6, 0, 255);
 	return (p);
 }
 
