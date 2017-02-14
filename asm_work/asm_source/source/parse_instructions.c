@@ -19,15 +19,16 @@ static char	*get_instruction(char *line, bool label_exist)
 	i = skip_blank(line);
 	if (label_exist == true)
 	{
-		while (line[i] != LABEL_END)
-			++i;
-		++i;
-		if (line[i] == '\0')
+		while (line[i] && line[i] != LABEL_END)
+			i++;
+		if (line[i] == LABEL_END)
+			i++;
+		if (!line[i])
 			return (NULL);
 		i += skip_blank(&line[i]);
 	}
-	if (check_if_instruction_exist(&line[i]) == false)
-		error(INSTR_INEXIST);
+	//if (check_if_instruction_exist(&line[i]) == false)
+	//	error(INSTR_INEXIST);
 	return (&line[i]);
 }
 
@@ -79,7 +80,7 @@ static void	help(char **line, int label_exist, t_glob *glob, int *i)
 {
 	char	*tmp;
 
-	if ((tmp = get_instruction(*line, label_exist)))
+	if ((tmp = get_instruction(*line, label_exist)) && *tmp)
 	{
 		if (parse_info(glob, tmp) != TRUE)
 		{

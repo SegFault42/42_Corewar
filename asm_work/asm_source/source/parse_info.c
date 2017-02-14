@@ -59,11 +59,22 @@ int		set_opcode(t_info *info, char *line)
 	return (i + j);
 }
 
+static int	count_comma(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line && *line)
+		if (*line++ == ',')
+			i++;
+	return (i);
+}
+
 int		parse_info(t_glob *glob, char *line)
 {
 	t_info	*tmp;
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 	char	*box;
 
 	tmp = NULL;
@@ -76,6 +87,8 @@ int		parse_info(t_glob *glob, char *line)
 	j = 0;
 	while (tmp->param[j])
 	{
+		if (j > 2 || count_comma(line) > 2)
+			error(BAD_NUMBER_PARAM);
 		box = tmp->param[j];
 		tmp->param[j] = clear_line(tmp->param[j]);
 		free(box);
