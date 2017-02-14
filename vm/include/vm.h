@@ -342,5 +342,8 @@ char		*max_check(t_env *env);
 
 void		init_sound(t_sound *sound);
 void		fdf(t_env *env, t_sdl *sdl);
+void		general_info(t_font *font_general, t_win *win);
+void		write_challengers(t_font *font_general, t_win *win);
+void	write_general_info(t_font *font_general, t_env *env, t_win *win);
 
 #endif

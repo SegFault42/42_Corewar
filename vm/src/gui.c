@@ -178,8 +178,7 @@ void	general_info(t_font *font_general, t_win *win)
 void	gui(t_env *env, t_sdl *sdl)
 {
 	SDL_RenderCopy((sdl->win).render, (sdl->wallpaper).texture, NULL, NULL);
-	/*draw_memory(&(sdl->win), &(sdl->font[0]));*/
-	fdf(env, sdl);
+	draw_memory(&(sdl->win), &(sdl->font[0]));
 	write_general_info(&(sdl->font[1]), env, &(sdl->win));
 	write_challengers(&(sdl->font[2]), &(sdl->win));
 	if (SDL_PollEvent(&(sdl->event)))

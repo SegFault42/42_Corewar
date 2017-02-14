@@ -74,9 +74,10 @@ static void	draw_fdf_memory(t_env *e, t_sdl *sdl)
 
 void	fdf(t_env *env, t_sdl *sdl)
 {
-	/*SDL_SetRenderDrawColor(sdl->win.render, 0, 0, 0, 255);*/
-	/*SDL_RenderClear(sdl->win.render);*/
+	SDL_RenderCopy((sdl->win).render, (sdl->wallpaper).texture, NULL, NULL);
 	draw_fdf_memory(env, sdl);
+	write_general_info(&(sdl->font[1]), env, &(sdl->win));
+	write_challengers(&(sdl->font[2]), &(sdl->win));
 	if (SDL_PollEvent(&(sdl->event)))
 	{
 		if ((sdl->event).type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
@@ -84,5 +85,5 @@ void	fdf(t_env *env, t_sdl *sdl)
 		if (button_press(&(sdl->event), &(sdl->wallpaper), &(sdl->win), sdl) == true)
 			env->run = 0;
 	}
-	/*SDL_RenderPresent((sdl->win).render);*/
+	SDL_RenderPresent((sdl->win).render);
 }

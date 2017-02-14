@@ -84,10 +84,10 @@ int			main(int argc, char **argv)
 	init_env(e);
 	init_memory();
 	init_vm(e, argc, argv);
-	if (e->gui)
+	if (e->gui || e->fdf)
 		init_sdl_gui(&(e->sdl));
-	if (e->fdf)
-		init_sdl_fdf(&(e->sdl));
+	/*if (e->fdf)*/
+		/*init_sdl_fdf(&(e->sdl));*/
 	run(e, &(e->sdl));
 	if (e->dump || e->sdump)
 		dump_memory(e);
