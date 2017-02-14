@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/12 05:03:57 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 16:32:20 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,6 @@ void	close_window(t_win *win, int8_t error)
 	SDL_Quit();
 	if (error == ERROR)
 		exit(EXIT_FAILURE);
-}
-
-void	sdl_draw_rectangle(t_win *win, int origin_x, int origin_y, int size_x, int size_y)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (y++ < size_y)
-	{
-		x = -1;
-		while (x++ < size_x)
-			SDL_RenderDrawPoint(win->render, origin_x + x, origin_y + y);
-		++y;
-	}
 }
 
 void	change_text_color(SDL_Color text_color, uint8_t r, uint8_t g, uint8_t b)
@@ -190,7 +175,7 @@ void	general_info(t_font *font_general, t_win *win)
 	font_general[2].text_color = (SDL_Color){174, 174, 174, 255};
 }
 
-int		gui(t_env *env, t_sdl *sdl)
+void	gui(t_env *env, t_sdl *sdl)
 {
 	SDL_RenderCopy((sdl->win).render, (sdl->wallpaper).texture, NULL, NULL);
 	draw_memory(&(sdl->win), &(sdl->font[0]));
@@ -199,10 +184,9 @@ int		gui(t_env *env, t_sdl *sdl)
 	if (SDL_PollEvent(&(sdl->event)))
 	{
 		if ((sdl->event).type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
-			return (0);
+			env->run = 0;
 		if (button_press(&(sdl->event), &(sdl->wallpaper), &(sdl->win), sdl) == true)
-			return (0);
+			env->run = 0;
 	}
 	SDL_RenderPresent((sdl->win).render);
-	return (1);
 }

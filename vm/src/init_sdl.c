@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 22:36:40 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/12 00:45:00 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 16:28:13 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	create_window(t_win *win)
 
 	IMG_Init(IMG_INIT_PNG);
 	win->win = SDL_CreateWindow("Corewar", SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE);
+			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
 	if (win->win == NULL)
 		error(CREATE_WINDOW_ERROR);
 
@@ -33,4 +33,29 @@ void		init_ttf(t_win *win)
 		ft_printf("{:red}%s{:eoc}\n", TTF_GetError());
 		close_window(win, ERROR);
 	}
+}
+
+void	init_sdl_gui(t_sdl *sdl)
+{
+	ft_memset(&(sdl->win), 0, sizeof(&(sdl->win)));
+	ft_memset(&(sdl->font), 0, sizeof(&(sdl->font)));
+	ft_memset(&(sdl->wallpaper), 0, sizeof(&(sdl->wallpaper)));
+	ft_memset(&(sdl->wallpaper), 0, sizeof(&(sdl->sound)));
+	(sdl->win).delay = 0;
+	(sdl->font)[0].font_size = 15;
+	create_window(&(sdl->win));
+	init_ttf(&(sdl->win));
+	init_sound(&(sdl->sound));
+	select_font(&(sdl->win), &(sdl->font)[0], "/Library/Fonts/Arial Bold.ttf");
+	change_text_color((sdl->font)[0].text_color, 255, 0, 0);
+	(sdl->font)[0].text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte de la memoire sera place
+	(sdl->font)[0].text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte de la memoire sera place
+	print_wallpaper(&(sdl->wallpaper), &(sdl->win), "./wallpaper/corewar.bmp");
+	general_info((sdl->font), &(sdl->win));
+}
+
+void	init_sdl_fdf(t_sdl *sdl)
+{
+	ft_memset(&(sdl->win), 0, sizeof(&(sdl->win)));
+	create_window(&(sdl->win));
 }

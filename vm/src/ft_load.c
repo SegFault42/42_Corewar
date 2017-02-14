@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 13:48:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/10 11:55:51 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/14 15:28:20 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int			parse_options(t_env *e, int argc, char **argv, int n)
 	if (!ft_strcmp(argv[i], "-n") && i + 2 < argc && ft_isdigitstr(argv[i + 1])
 	&& check_player_id(e, ft_atoi(argv[i + 1]), argv, &i))
 		e->player_id[n] = ft_atoi(argv[i]);
-	if (!ft_strcmp(argv[i], "-g"))
+	if (!ft_strcmp(argv[i], "-g") && !e->fdf)
 		e->gui = 1;
-	if (!ft_strcmp(argv[i], "-f"))
+	if (!ft_strcmp(argv[i], "-f") && !e->gui)
 		e->fdf = 1;
 	if (!ft_strcmp(argv[i], "-p"))
 		e->op_pause = 1;

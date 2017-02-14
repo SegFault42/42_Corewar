@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/12 05:05:58 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 16:10:14 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@
 ********************************************************************************
 */
 
+typedef struct s_pos			t_pos;
 typedef struct s_sound			t_sound;
 typedef struct s_instruction	t_instruction;
 typedef struct s_op				t_op;
@@ -116,6 +117,12 @@ typedef void(*t_func)(t_env*, t_process*);
 **                                 STRUCTURES                                 **
 ********************************************************************************
 */
+
+struct		s_pos
+{
+	int		x;
+	int		y;
+};
 
 struct		s_sound
 {
@@ -246,7 +253,8 @@ void		init_processes(t_env *e);
 void		init_env(t_env *e);
 void		init_players(t_env *e);
 void		init_vm(t_env *e, int argc, char **argv);
-void		init_sdl(t_sdl *sdl);
+void		init_sdl_gui(t_sdl *sdl);
+void		init_sdl_fdf(t_sdl *sdl);
 uint32_t	ft_straight_bytes(unsigned int bytes);
 void		ft_straight_header(t_header *header, t_env *env);
 void		ft_load(uint8_t fd[MAX_PLAYERS], t_env *env);
@@ -305,7 +313,7 @@ void		run(t_env *e, t_sdl *sdl);
 void		die(t_env *e, char *error);
 void		free_env(t_env *e);
 
-int			gui(t_env *e, t_sdl *sdl);
+void		gui(t_env *e, t_sdl *sdl);
 void		error(uint8_t error);
 void		create_window(t_win *win);
 void		close_window(t_win *win, int8_t error);
@@ -332,5 +340,6 @@ char		*process_alives(t_env *env);
 char		*max_check(t_env *env);
 
 void		init_sound(t_sound *sound);
+void		fdf(t_env *env, t_sdl *sdl);
 
 #endif

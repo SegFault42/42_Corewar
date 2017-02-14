@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/10 12:17:38 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/14 15:32:02 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int			main(int argc, char **argv)
 	init_memory();
 	init_vm(e, argc, argv);
 	if (e->gui)
-		init_sdl(&(e->sdl));
+		init_sdl_gui(&(e->sdl));
+	if (e->fdf)
+		init_sdl_fdf(&(e->sdl));
 	run(e, &(e->sdl));
 	if (e->dump || e->sdump)
 		dump_memory(e);

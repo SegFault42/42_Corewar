@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/10 12:07:49 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/14 15:46:44 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,17 @@ void		wait_enter(t_env *e)
 	fcntl(0, F_SETFL, flags | O_NONBLOCK);
 	while (c != '\n')
 	{
-		if (e->gui && !gui(e, &(e->sdl)))
+		if (e->gui)
 		{
-			e->run = 0;
-			break ;
+			gui(e, &(e->sdl));
+			if (!e->run)
+				break ;
+		}
+		else if (e->fdf)
+		{
+			fdf(e, &(e->sdl));
+			if (!e->run)
+				break ;
 		}
 		read(0, &c, 1);
 	}

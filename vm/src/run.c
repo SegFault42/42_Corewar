@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/11 23:49:15 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/14 15:46:52 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,10 @@ void		run(t_env *e, t_sdl *sdl)
 		check_players_inst(e);
 		if (e->cur_die == e->cycle_die)
 			time_to_die(e);
-		if (e->gui && !gui(e, sdl))
-			break ;
+		if (e->gui)
+			gui(e, sdl);
+		else if (e->fdf)
+			fdf(e, sdl);
 		if (e->dump && e->cycle == e->dump)
 			break ;
 		if (e->sdump && !(e->cycle % e->sdump))

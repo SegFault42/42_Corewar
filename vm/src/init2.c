@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/12 04:49:08 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 15:08:52 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,4 @@ void	init_vm(t_env *e, int argc, char **argv)
 		die(e, "malloc failure (e->process)");
 	init_processes(e);
 	init_players(e);
-}
-
-void	init_sdl(t_sdl *sdl)
-{
-	// ft_memset(&env, 0, sizeof(&env));
-	// env.cycle = 15000; // temporaire
-	ft_memset(&(sdl->win), 0, sizeof(&(sdl->win)));
-	ft_memset(&(sdl->font), 0, sizeof(&(sdl->font)));
-	ft_memset(&(sdl->wallpaper), 0, sizeof(&(sdl->wallpaper)));
-	ft_memset(&(sdl->wallpaper), 0, sizeof(&(sdl->sound)));
-	// ft_memset(g_mem, 0, MEM_SIZE);
-	(sdl->win).delay = 0;
-	(sdl->font)[0].font_size = 15;
-	create_window(&(sdl->win));
-	init_ttf(&(sdl->win));
-	init_sound(&(sdl->sound));
-	select_font(&(sdl->win), &(sdl->font)[0], "/Library/Fonts/Arial Bold.ttf");
-	change_text_color((sdl->font)[0].text_color, 255, 0, 0);
-	(sdl->font)[0].text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte de la memoire sera place
-	(sdl->font)[0].text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte de la memoire sera place
-	print_wallpaper(&(sdl->wallpaper), &(sdl->win), "./wallpaper/corewar.bmp");
-	general_info((sdl->font), &(sdl->win));
 }
