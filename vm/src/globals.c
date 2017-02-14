@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/11 23:49:39 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/14 21:09:05 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,10 @@ void		exec_instruction(t_env *e, t_process *proc)
 	int		opcode;
 
 	if (proc->inst.bad_ocp)
+	{
+		// proc->carry = 0;//A TESTER OCP faux = carry 0 ?
 		next_instruction(e, proc);
+	}
 	else
 	{
 		color_inst(e, proc);
