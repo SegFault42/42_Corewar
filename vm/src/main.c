@@ -6,13 +6,13 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/14 20:44:17 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/14 21:07:10 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	sdl_winner(t_env *e)
+static void	sdl_winner(t_env *e, char *winner)
 {
 	char	*win;
 	char	*tmp;
@@ -23,10 +23,17 @@ static void	sdl_winner(t_env *e)
 		die(e, "Memory allocation failure ! ft_strjoin(\"Player \", tmp)");
 	ft_strdel(&tmp);
 	tmp = win;
-	if (!(win = ft_strjoin(win, " as won.")))
+	if (!(win = ft_strjoin(win, " (")))
 		die(e, "Memory allocation failure ! ft_strjoin(win, \" (\")");
 	ft_strdel(&tmp);
 	tmp = win;
+	if (!(win = ft_strjoin(win, winner)))
+		die(e, "ft_strjoin(win, winner)");
+	ft_strdel(&tmp);
+	tmp = win;
+	if (!(win = ft_strjoin(win, ") as won.")))
+		die(e, "Memory allocation failure ! ft_strjoin(win, \") as won.\")");
+	ft_strdel(&tmp);
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
 	"Corewar", win, e->sdl.win.win);
 	ft_strdel(&win);
@@ -44,7 +51,7 @@ static void	announce_winner(t_env *e)
 		{
 			ft_printf("Player %d(%s) as {:green}won{:eoc}.\n", e->last_live,\
 												e->player[id].header.prog_name);
-			sdl_winner(e);
+			sdl_winner(e, e->player[id].header.prog_name);
 		}
 		else
 			ft_printf("No live, it's a {:yellow}draw{:eoc}.\n");
