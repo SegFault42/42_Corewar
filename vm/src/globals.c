@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 13:02:38 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 13:31:18 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_func	g_exec_op[OPS_NUMBER] =
 	exec_mul
 };
 
-t_env	*get_env(void)
+t_env		*get_env(void)
 {
 	static t_env env;
 
@@ -112,7 +112,7 @@ void		exec_instruction(t_env *e, t_process *proc)
 	int		opcode;
 
 	if (proc->inst.bad_ocp)
-		next_instruction(e, proc);//Test, bad ocp = carry 0 ?
+		next_instruction(e, proc);
 	else
 	{
 		color_inst(e, proc);

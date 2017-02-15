@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/15 12:18:14 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 13:30:40 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	sdl_winner(t_env *e, char *winner)
 static void	announce_winner(t_env *e)
 {
 	int		id;
-
 
 	if (!e->alives || e->cycle_die <= 0)
 	{

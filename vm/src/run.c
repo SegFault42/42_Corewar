@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 15:46:52 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 13:29:33 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static void	time_to_die(t_env *e)
 
 void		run(t_env *e, t_sdl *sdl)
 {
-
 	e->run = 1;
 	while (e->run)
 	{
