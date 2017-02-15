@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 13:08:08 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/11 23:49:39 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	exec_cmp(t_env *e, t_process *proc)
 	inst = &(proc->inst);
 	if (valid_params(proc))
 	{
+		if (src_param(proc, 1, 0, 1) == src_param(proc, 1, 1, 1))
+			proc->carry = 1;
+		else
+			proc->carry = 0;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | cmp: %d == %d -> %d\n", e->cur_process + 1,\
 			src_param(proc, 1, 0, 1), src_param(proc, 1, 1, 1), proc->carry);
@@ -52,6 +56,7 @@ void	exec_div(t_env *e, t_process *proc)
 	{
 		reg = src_param(proc, 0, 2, 0);
 		val = src_param(proc, 0, 0, 1) / src_param(proc, 0, 1, 1);
+		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | div: r%d / r%d = (%d) -> r%d\n",\
@@ -70,6 +75,7 @@ void	exec_mul(t_env *e, t_process *proc)
 	{
 		reg = src_param(proc, 0, 2, 0);
 		val = src_param(proc, 0, 0, 1) * src_param(proc, 0, 1, 1);
+		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | mul: r%d * r%d = (%d) -> r%d\n",\

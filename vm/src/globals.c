@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 13:31:18 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 17:35:36 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ void		exec_instruction(t_env *e, t_process *proc)
 		color_inst(e, proc);
 		get_values(proc, &(proc->inst));
 		opcode = proc->inst.opcode;
-		if ((get_op(opcode).carry))
-			proc->carry = valid_params(proc) ? 1 : 0;
 		g_exec_op[proc->inst.opcode - 1](e, proc);
 		ft_putstr("\033[0m");
 		if (opcode != FORK && opcode != LFORK)

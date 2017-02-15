@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 13:05:47 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/11 23:49:39 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	exec_lld(t_env *e, t_process *proc)
 	{
 		val = src_param(proc, 0, 0, 0);
 		reg = src_param(proc, 0, 1, 0);
+		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | lld: %d -> r%d\n",\
@@ -47,6 +48,7 @@ void	exec_lldi(t_env *e, t_process *proc)
 		address = src1 + src2;
 		val = get_mem_uint32(proc, address);
 		reg = src_param(proc, 0, 2, 0);
+		proc->carry = (!val ? 1 : 0);
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | lldi: %d -> r%d\n | load from %d(PC: %d)\n",\
@@ -83,6 +85,7 @@ void	exec_aff(t_env *e, t_process *proc)
 	if (valid_params(proc))
 	{
 		val = src_param(proc, 0, 0, 1);
+		proc->carry = (!val ? 1 : 0);
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | aff: %d -> %C\n", e->cur_process + 1, val, val);
 	}
