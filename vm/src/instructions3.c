@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 21:05:01 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 13:05:27 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,11 @@ void	exec_ldi(t_env *e, t_process *proc)
 		address = (src1 + src2) % IDX_MOD;
 		val = get_mem_uint32(proc, address);
 		reg = src_param(proc, 0, 2, 0);
-		// proc->carry = (!val ? 1 : 0);
-		proc->carry = 1;
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | ldi: %d -> r%d\n | load from %d(PC+IDX: %d)\n",\
 			e->cur_process + 1, val, reg + 1, src1 + src2, proc->pc + address);
 	}
-	else
-		proc->carry = 0;
 }
 
 void	exec_sti(t_env *e, t_process *proc)
@@ -77,8 +73,6 @@ void	exec_sti(t_env *e, t_process *proc)
 	if (valid_params(proc))
 	{
 		reg = src_param(proc, 0, 0, 1);
-		// proc->carry = (!reg ? 1 : 0);
-		proc->carry = 1;
 		src1 = src_param(proc, 1, 1, 1);
 		if (proc->inst.param[0] != T_IND)
 			src1 = get_address(src1);
@@ -90,8 +84,6 @@ void	exec_sti(t_env *e, t_process *proc)
 			, e->cur_process + 1, src_param(proc, 0, 0, 0) + 1, reg, address,\
 											src1 + src2, proc->pc + address);
 	}
-	else
-		proc->carry = 0;
 }
 
 void	exec_fork(t_env *e, t_process *proc)

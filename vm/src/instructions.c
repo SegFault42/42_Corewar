@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 21:00:51 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 13:03:54 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,11 @@ void	exec_ld(t_env *e, t_process *proc)
 	{
 		val = src_param(proc, 1, 0, 0);
 		reg = src_param(proc, 0, 1, 0);
-		// proc->carry = (!val ? 1 : 0);
-		proc->carry = 1;
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | ld: %d -> r%d\n",\
 											e->cur_process + 1, val, reg + 1);
 	}
-	else
-		proc->carry = 0;
 }
 
 void	exec_st(t_env *e, t_process *proc)
@@ -67,8 +63,6 @@ void	exec_st(t_env *e, t_process *proc)
 	{
 		val = src_param(proc, 0, 0, 1);
 		dest = src_param(proc, 1, 1, 0);
-		// proc->carry = (!val ? 1 : 0);
-		proc->carry = 1;
 		if (inst->param[1] == T_IND)
 		{
 			set_mem_uint32(proc, idx_address(inst->val[1]), val);
@@ -84,8 +78,6 @@ void	exec_st(t_env *e, t_process *proc)
 									inst->val[0], val, dest + 1);
 		}
 	}
-	else
-		proc->carry = 0;
 }
 
 void	exec_add(t_env *e, t_process *proc)
@@ -99,13 +91,9 @@ void	exec_add(t_env *e, t_process *proc)
 	{
 		reg = src_param(proc, 0, 2, 0);
 		val = src_param(proc, 0, 0, 1) + src_param(proc, 0, 1, 1);
-		// proc->carry = (!val ? 1 : 0);
-		proc->carry = 1;
 		proc->reg[reg] = val;
 		if (e->verbose & SHOW_OPERATIONS)
 			ft_printf("P%d | add: r%d + r%d = (%d) -> r%d\n",\
 				e->cur_process + 1, inst->val[0], inst->val[1], val, reg + 1);
 	}
-	else
-		proc->carry = 0;
 }

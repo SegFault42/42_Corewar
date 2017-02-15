@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 15:26:12 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 21:09:05 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 13:02:38 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,14 @@ void		exec_instruction(t_env *e, t_process *proc)
 	int		opcode;
 
 	if (proc->inst.bad_ocp)
-	{
-		// proc->carry = 0;//A TESTER OCP faux = carry 0 ?
-		next_instruction(e, proc);
-	}
+		next_instruction(e, proc);//Test, bad ocp = carry 0 ?
 	else
 	{
 		color_inst(e, proc);
 		get_values(proc, &(proc->inst));
 		opcode = proc->inst.opcode;
+		if ((get_op(opcode).carry))
+			proc->carry = valid_params(proc) ? 1 : 0;
 		g_exec_op[proc->inst.opcode - 1](e, proc);
 		ft_putstr("\033[0m");
 		if (opcode != FORK && opcode != LFORK)
