@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 15:40:36 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/15 13:47:58 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 20:04:46 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void			fdf(t_env *env, t_sdl *sdl)
 	{
 		if ((sdl->event).type == SDL_QUIT)
 			env->run = 0;
-		if (button_press(&(sdl->event), &(sdl->wallpaper), &(sdl->win), sdl))
+		if (button_press(&(sdl->event), &(sdl->win), sdl))
 			env->run = 0;
 	}
 	SDL_RenderPresent((sdl->win).render);

@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 19:08:05 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/14 19:53:28 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 18:49:14 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		select_font(t_win *win, t_font *font, char *str)
 	font->font = TTF_OpenFont(str, font->font_size);
 	if (font->font == NULL)
 	{
-		ft_printf("{:red}%s{:eoc}\n", TTF_GetError());
+		ft_fprintf(2, RED"%s\n"RED, TTF_GetError());
 		TTF_Quit();
 		close_window(win, ERROR);
 	}

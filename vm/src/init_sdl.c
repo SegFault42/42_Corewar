@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 22:36:40 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/14 16:28:13 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 18:50:46 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		init_ttf(t_win *win)
 {
 	if (TTF_Init() == ERROR)
 	{
-		ft_printf("{:red}%s{:eoc}\n", TTF_GetError());
+		ft_fprintf(2, RED"%s\n"END, TTF_GetError());
 		close_window(win, ERROR);
 	}
 }

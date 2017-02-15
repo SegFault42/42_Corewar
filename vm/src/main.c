@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/15 13:30:40 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 19:05:32 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,17 @@ static void	announce_winner(t_env *e)
 
 static void	usage(void)
 {
-	ft_printf("{:yellow}Usage: ./corewar [-dvsgfp] [-n id] champ1.cor [-n id] \
-champ2.cor\n");
-	ft_printf("-g   : SDL output mode\n");
-	ft_printf("-f   : FDF output mode\n");
-	ft_printf("-p   : Pauses after each instruction\n");
-	ft_printf("-d N : Dumps memory after N cycles then exits\n");
-	ft_printf("-s N : Runs N cycles, dumps memory, pauses, then repeats\n");
-	ft_printf("-v N : Verbosity levels, can be added together to enable several\
-\n\t- 0 : Show only essentials\n\t- 1 : Show lives\n\t- 2 : Show cycles\n\t- 4 \
-: Show operations (Params are NOT litteral ...)\n\t- 8 : Show deaths\n\t- 16 : \
-Show PC movements{:eoc}\n");
+	ft_fprintf(2, RYELLOW"Usage: ./corewar [-dvsgfp] [-n id] champ1.cor [-n id]\
+	champ2.cor\n");
+	ft_fprintf(2, "-g   : SDL output mode\n");
+	ft_fprintf(2, "-f   : FDF output mode\n");
+	ft_fprintf(2, "-p   : Pauses after each instruction\n");
+	ft_fprintf(2, "-d N : Dumps memory after N cycles then exits\n");
+	ft_fprintf(2, "-s N : Runs N cycles, dumps memory, pauses, then repeats\n");
+	ft_fprintf(2, "-v N : Verbosity levels, can be added together to enable\
+	several\n\t- 0 : Show only essentials\n\t- 1 : Show lives\n\t- 2 : Show\
+	cycles\n\t- 4 : Show operations (Params are NOT litteral ...)\n\t- 8 : Show\
+	deaths\n\t- 16 : Show PC movements\n"END);
 	exit(-1);
 }
 
@@ -77,7 +77,7 @@ int			main(int argc, char **argv)
 {
 	t_env	*e;
 
-	if (argc < 2)
+	if (argc < 2 || (argc == 2 && ft_strcmp(argv[1], "-help") == 0))
 		usage();
 	e = get_env();
 	init_env(e);

@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/14 21:25:03 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 20:05:25 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	error(uint8_t error)
 {
 	if (error == INIT_VIDEO_ERROR)
-		ft_printf("{:red}Failed to init SDL video.{:eoc}\n");
+		ft_fprintf(2, RED"Failed to init SDL video.\n"END);
 	else if (error == CREATE_WINDOW_ERROR)
-		ft_printf("{:red}Failed to create window.{:eoc}\n");
+		ft_fprintf(2, RED"Failed to create window.\n"END);
 	exit(EXIT_FAILURE);
 }
 
@@ -185,7 +185,7 @@ void	gui(t_env *env, t_sdl *sdl)
 	{
 		if ((sdl->event).type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
 			env->run = 0;
-		if (button_press(&(sdl->event), &(sdl->wallpaper), &(sdl->win), sdl) == true)
+		if (button_press(&(sdl->event), &(sdl->win), sdl) == true)
 			env->run = 0;
 	}
 	SDL_RenderPresent((sdl->win).render);

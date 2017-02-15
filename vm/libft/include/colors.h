@@ -6,24 +6,24 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 14:31:13 by rabougue          #+#    #+#             */
-/*   Updated: 2016/11/23 18:55:12 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 16:26:25 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLORS_H
 # define COLORS_H
 
-# define BLACK		"\033[30m"
-# define RED		"\033[31m"
-# define GREEN		"\033[32m"
-# define YELLOW		"\033[33m"
-# define BLUE		"\033[34m"
-# define PURPLE		"\033[35m"
-# define CYAN		"\033[36m"
-# define WHITE		"\033[37m"
-# define ORANGE		"\033[38;5;208m"
-# define PINK		"\033[38;5;13m"
-# define GREY		"\033[38;5;246m"
+# define RBLACK		"\033[30m"
+# define RRED		"\033[31m"
+# define RGREEN		"\033[32m"
+# define RYELLOW	"\033[33m"
+# define RBLUE		"\033[34m"
+# define RPURPLE	"\033[35m"
+# define RCYAN		"\033[36m"
+# define RWHITE		"\033[37m"
+# define RORANGE	"\033[38;5;208m"
+# define RPINK		"\033[38;5;13m"
+# define RGREY		"\033[38;5;246m"
 
 # define BBLACK		"\033[40m"
 # define BRED		"\033[41m"

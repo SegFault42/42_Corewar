@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 21:32:19 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/04 15:14:40 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 20:08:40 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	exec_st(t_env *e, t_process *proc)
 	{
 		val = src_param(proc, 0, 0, 1);
 		dest = src_param(proc, 1, 1, 0);
-		proc->carry = (!val ? 1 : 0);
 		if (inst->param[1] == T_IND)
 		{
 			set_mem_uint32(proc, idx_address(inst->val[1]), val);

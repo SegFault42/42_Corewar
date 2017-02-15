@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 16:24:51 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 19:58:45 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 18:34:29 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	free_env(t_env *e)
 void	die(t_env *e, char *error)
 {
 	free_env(e);
-	ft_printf("{:red}Error: %s{:eoc}\n", error);
+	ft_fprintf(2, RED"Error: %s\n"END, error);
 	exit(-1);
 }

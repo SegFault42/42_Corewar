@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 15:08:52 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 14:11:01 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	init_vm(t_env *e, int argc, char **argv)
 
 	if ((e->nb_player = ft_parse(e, argc, argv, fd)) < 1)
 		die(e, "Please give a file to load!");
+	if (e->nb_player > MAX_PLAYERS)
+	{
+		ft_putendl_fd("Max player : 4", 2);
+		exit(EXIT_FAILURE);
+	}
 	e->nb_process = e->nb_player;
 	e->alives = e->nb_player;
 	ft_load(fd, e);

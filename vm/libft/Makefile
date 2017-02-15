@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/24 10:30:43 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/09 06:55:34 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/15 18:24:48 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,11 @@ SRC_NAME = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 		   ft_itoa_base2.c ft_realloc.c\
 		   ft_printf.c print_str.c print_utf.c valid_type.c \
 		   print_int.c print_uint.c utils.c utils_utf.c \
-		   print_base.c parser.c print_arg.c color.c
+		   print_base.c parser.c print_arg.c color.c \
+		   ft_fprintf.c percent_c.c percent_s.c percent_d.c tools.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 NAME = libft.a
-DEP = include/libft.h
+DEP = include/libft.h ./include/ft_printf.h
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))

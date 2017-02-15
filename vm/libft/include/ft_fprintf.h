@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/06 09:05:53 by rabougue          #+#    #+#             */
-/*   Updated: 2016/08/14 15:24:31 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 18:23:44 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_FPRINTF_H
 
 # include <stdarg.h>
-# include "../../includes/libft.h"
+# include "./libft.h"
 
 typedef struct	s_printf
 {

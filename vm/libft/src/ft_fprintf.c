@@ -6,11 +6,11 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 15:44:19 by rabougue          #+#    #+#             */
-/*   Updated: 2016/09/03 02:08:30 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 18:31:41 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_fprintf.h"
+#include "../include/ft_fprintf.h"
 
 void	count_buff_size(t_printf *print, const char *format, va_list pa)
 {

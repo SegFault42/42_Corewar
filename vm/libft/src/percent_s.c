@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   percent_d.c                                        :+:      :+:    :+:   */
+/*   percent_s.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/14 15:05:17 by rabougue          #+#    #+#             */
-/*   Updated: 2016/09/03 02:08:02 by rabougue         ###   ########.fr       */
+/*   Created: 2016/08/14 15:06:29 by rabougue          #+#    #+#             */
+/*   Updated: 2017/02/15 18:32:56 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_fprintf.h"
+#include "../include/ft_fprintf.h"
 
-void	percent_d(t_printf *print, va_list pa)
+void	percent_s(t_printf *print, va_list pa)
 {
-	char	*string;
+	char	*s;
 
-	string = ft_ltoa(va_arg(pa, long));
-	if (print->is_percent_d == 1)
+	s = va_arg(pa, char *);
+	if (print->is_percent_s == 1)
 	{
-		ft_strcat(print->buff, string);
-		print->i += ft_strlen(string);
+		if (s == 0)
+		{
+			ft_strcat(print->buff, "(null)");
+			print->i += 6;
+		}
+		else
+		{
+			ft_strcat(print->buff, s);
+			print->i += ft_strlen(s);
+		}
+	}
+	if (s == 0)
+	{
+		print->buff_size += 6;
+		return ;
 	}
 	else
-		print->buff_size += ft_strlen(string);
-	free(string);
+		print->buff_size += ft_strlen(s);
 }

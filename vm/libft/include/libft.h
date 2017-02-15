@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 11:10:33 by qhonore           #+#    #+#             */
-/*   Updated: 2017/01/27 13:21:58 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 19:59:12 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include "ft_printf.h"
+# include "ft_fprintf.h"
+# include "colors.h"
 
 typedef struct	s_list
 {

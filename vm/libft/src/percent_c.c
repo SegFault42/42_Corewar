@@ -6,11 +6,11 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/14 15:06:00 by rabougue          #+#    #+#             */
-/*   Updated: 2016/08/14 15:50:16 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 18:32:38 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_fprintf.h"
+#include "../include/ft_fprintf.h"
 
 void	percent_c(t_printf *print, va_list pa)
 {

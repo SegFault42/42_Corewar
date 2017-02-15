@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 13:48:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 15:28:20 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 14:09:36 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,10 @@ int			ft_parse(t_env *e, int argc, char **argv, uint8_t fd[MAX_PLAYERS])
 	{
 		if (*argv[i] == '-')
 			i += parse_options(e, argc - i, (argv + i), n);
-		else if (i < argc && n < MAX_PLAYERS)
+		else if (i < argc)
 		{
+			if (n > MAX_PLAYERS)
+				return (n);
 			fd[n] = open(argv[i], O_RDONLY);
 			if (fd[n] < 0)
 				return (0);

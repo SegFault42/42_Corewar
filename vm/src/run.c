@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 13:29:33 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/15 18:52:34 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	check_process(t_env *e, t_process *p, int i)
 		if (!(p->live))
 		{
 			if (e->verbose & SHOW_DEATHS)
-				ft_printf("Process %d is {:red}dead{:eoc}\n", i);
+				ft_fprintf(2, RED"Process %d is \033[31mdead\033[0m\n", i);
 			p->alive = 0;
 		}
 		else

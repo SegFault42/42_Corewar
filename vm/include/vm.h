@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/14 21:25:02 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 20:04:09 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # include <SDL2/SDL_ttf.h>
 # include "SDL2/SDL_image.h"
 # include "../libsdl/SDL2_mixer.framework/Versions/A/Headers/SDL_mixer.h"
-
 
 /*
 ********************************************************************************
@@ -82,11 +81,10 @@
 # define WIDTH (1920)
 # define HEIGHT (1080)
 
-# define ORIGIN_TEXT_X (20) // coord ou le texte sera place en x
-# define ORIGIN_TEXT_Y (15) // coord ou le texte sera place en y
-# define INCR_TEXT_X (20) // espacement entre chaque octet en x
-# define INCR_TEXT_Y (15) // espacement entre chaque octet en y
-
+# define ORIGIN_TEXT_X (20)
+# define ORIGIN_TEXT_Y (15)
+# define INCR_TEXT_X (20)
+# define INCR_TEXT_Y (15)
 # define GREY_TEXT (-1)
 # define GREEN_TEXT (-2)
 # define PURPLE_TEXT (-3)
@@ -110,7 +108,6 @@ typedef struct s_wallpaper		t_wallpaper;
 typedef struct s_win			t_win;
 typedef struct s_font			t_font;
 typedef struct s_sdl			t_sdl;
-//typedef struct s_fdf			t_fdf;
 typedef void(*t_func)(t_env*, t_process*);
 
 /*
@@ -330,9 +327,11 @@ void		draw_memory(t_win *win, t_font *font);
 
 void		screenshot(t_win *win, t_sdl *sdl);
 void		print_wallpaper(t_wallpaper *wallpaper, t_win *win, char *path);
-bool		button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win, t_sdl *sdl);
+bool		button_press(SDL_Event *event, t_win *win,
+		t_sdl *sdl);
 
-void		change_text_color(SDL_Color text_color, uint8_t r, uint8_t g, uint8_t b);
+void		change_text_color(SDL_Color text_color, uint8_t r, uint8_t g,
+		uint8_t b);
 void		general_info(t_font *font_general, t_win *win);
 
 char		*write_lives(t_env *env);
@@ -344,6 +343,6 @@ void		init_sound(t_sound *sound);
 void		fdf(t_env *env, t_sdl *sdl);
 void		general_info(t_font *font_general, t_win *win);
 void		write_challengers(t_font *font_general, t_win *win);
-void	write_general_info(t_font *font_general, t_env *env, t_win *win);
+void		write_general_info(t_font *font_general, t_env *env, t_win *win);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 14:05:56 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/12 05:16:01 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 20:03:03 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-bool	button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win, t_sdl *sdl)
+bool	button_press(SDL_Event *event, t_win *win, t_sdl *sdl)
 {
 	if (event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
 	{
@@ -23,16 +23,12 @@ bool	button_press(SDL_Event *event, t_wallpaper *wallpaper, t_win *win, t_sdl *s
 			Mix_PlayChannel(-1, sdl->sound.chunk, 0);
 		}
 	}
-	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE) // ferme la fenetre quand on appuie sur echape
+	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE)
 		return (true);
 	if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE)
-	{
 		win->color = ~win->color;
-		/*Mix_PlayMusic(sdl->sound.music, -1);*/
-	}
 	SDL_Delay(win->delay);
 	return (false);
-	(void)wallpaper;
 }
 
 void	print_wallpaper(t_wallpaper *wallpaper, t_win *win, char *path)
