@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/14 20:50:03 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/15 12:25:36 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC_NAME = main.c dump_memory.c globals.c init.c init2.c ocp.c\
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = -lft
 NAME = corewar
-DEP = include/vm.h
+DEP = include/vm.h include/op.h
 
 ####################################FOR_SDL#####################################
 LSDL = -L ./libsdl/ -lSDL2

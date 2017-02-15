@@ -6,7 +6,7 @@
 /*   By: lfabbro <lfabbro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 17:30:39 by lfabbro           #+#    #+#             */
-/*   Updated: 2017/02/14 21:07:10 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 12:18:14 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	sdl_winner(t_env *e, char *winner)
 		die(e, "ft_strjoin(win, winner)");
 	ft_strdel(&tmp);
 	tmp = win;
-	if (!(win = ft_strjoin(win, ") as won.")))
-		die(e, "Memory allocation failure ! ft_strjoin(win, \") as won.\")");
+	if (!(win = ft_strjoin(win, ") win.")))
+		die(e, "Memory allocation failure ! ft_strjoin(win, \") win.\")");
 	ft_strdel(&tmp);
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
 	"Corewar", win, e->sdl.win.win);
@@ -49,7 +49,7 @@ static void	announce_winner(t_env *e)
 		id = valid_player(e, e->last_live);
 		if (e->last_live)
 		{
-			ft_printf("Player %d(%s) as {:green}won{:eoc}.\n", e->last_live,\
+			ft_printf("Player %d(%s) {:green}win{:eoc}.\n", e->last_live,\
 												e->player[id].header.prog_name);
 			sdl_winner(e, e->player[id].header.prog_name);
 		}
@@ -86,8 +86,6 @@ int			main(int argc, char **argv)
 	init_vm(e, argc, argv);
 	if (e->gui || e->fdf)
 		init_sdl_gui(&(e->sdl));
-	/*if (e->fdf)*/
-		/*init_sdl_fdf(&(e->sdl));*/
 	run(e, &(e->sdl));
 	if (e->dump || e->sdump)
 		dump_memory(e);
