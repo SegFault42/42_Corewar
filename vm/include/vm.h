@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 20:04:09 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/16 15:48:24 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@
 # define GREY_TEXT (-1)
 # define GREEN_TEXT (-2)
 # define PURPLE_TEXT (-3)
+# define P_TEXT (-3)
 # define CYAN_TEXT (-4)
 # define YELLOW_TEXT (-5)
+# define Y_TEXT (-5)
 
 /*
 ********************************************************************************
@@ -315,7 +317,6 @@ void		gui(t_env *e, t_sdl *sdl);
 void		error(uint8_t error);
 void		create_window(t_win *win);
 void		close_window(t_win *win, int8_t error);
-void		sdl_clear(t_win *win, uint8_t r, uint8_t g, uint8_t b);
 /*
 ** font.c
 */
@@ -344,5 +345,14 @@ void		fdf(t_env *env, t_sdl *sdl);
 void		general_info(t_font *font_general, t_win *win);
 void		write_challengers(t_font *font_general, t_win *win);
 void		write_general_info(t_font *font_general, t_env *env, t_win *win);
+/*
+** gui2.c
+*/
+void	error(uint8_t error);
+void	close_window(t_win *win, int8_t error);
+void	change_text_color(SDL_Color text_color,
+		uint8_t r, uint8_t g, uint8_t b);
+void	fill_octet(char *mem, uint8_t octet);
+
 
 #endif

@@ -6,52 +6,11 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 18:38:43 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/15 20:05:25 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/16 15:49:16 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-void	error(uint8_t error)
-{
-	if (error == INIT_VIDEO_ERROR)
-		ft_fprintf(2, RED"Failed to init SDL video.\n"END);
-	else if (error == CREATE_WINDOW_ERROR)
-		ft_fprintf(2, RED"Failed to create window.\n"END);
-	exit(EXIT_FAILURE);
-}
-
-void	sdl_clear(t_win *win, uint8_t r, uint8_t g, uint8_t b)
-{
-	SDL_SetRenderDrawColor(win->render, r, g, b, 255);
-	SDL_RenderClear(win->render);
-}
-
-void	close_window(t_win *win, int8_t error)
-{
-	SDL_DestroyRenderer(win->render);
-	SDL_DestroyWindow(win->win);
-	SDL_Quit();
-	if (error == ERROR)
-		exit(EXIT_FAILURE);
-}
-
-void	change_text_color(SDL_Color text_color, uint8_t r, uint8_t g, uint8_t b)
-{
-	text_color.r = r;
-	text_color.r = g;
-	text_color.r = b;
-	text_color.a = 255;
-}
-
-void	fill_octet(char *mem, uint8_t octet)
-{
-	char const *base = "0123456789ABCDEF";
-
-	mem[0] = base[octet >> 4];
-	mem[1] = base[octet % 16];
-	mem[2] = '\0';
-}
 
 void	draw_memory(t_win *win, t_font *font)
 {
@@ -74,59 +33,12 @@ void	draw_memory(t_win *win, t_font *font)
 			++i;
 		}
 		font->text_rect.y += INCR_TEXT_Y;
-		font->text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte sera place
+		font->text_rect.x = ORIGIN_TEXT_X;
 	}
-	font->text_rect.y = 1000; // coord y ou le texte sera place
-	font->text_rect.x = 1000; // coord y ou le texte sera place
-	font->text_rect.x = ORIGIN_TEXT_X; // coord x ou le texte sera place
-	font->text_rect.y = ORIGIN_TEXT_Y; // coord y ou le texte sera place
-}
-
-void	write_general_info(t_font *font_general, t_env *env, t_win *win)
-{
-	char	*str = NULL;
-
-	font_general->text_rect.x = 1510; // coord y ou le texte sera place
-	font_general->text_rect.y = 38; // coord y ou le texte sera place
-	str = ft_itoa(env->cycle);
-	draw_text(font_general, win, str, GREY_TEXT);
-	ft_strdel(&str);
-	SDL_DestroyTexture(font_general->texture);
-
-	font_general->text_rect.x = 1500; // coord y ou le texte sera place
-	font_general->text_rect.y = 83; // coord y ou le texte sera place
-	str = cycle_to_die(env);
-	draw_text(font_general, win, str, GREY_TEXT);
-	ft_strdel(&str);
-	SDL_DestroyTexture(font_general->texture);
-
-	font_general->text_rect.x = 1410; // coord y ou le texte sera place
-	font_general->text_rect.y = 129; // coord y ou le texte sera place
-	str = write_lives(env);
-	draw_text(font_general, win, str, GREY_TEXT);
-	ft_strdel(&str);
-	SDL_DestroyTexture(font_general->texture);
-
-	font_general->text_rect.x = 1520; // coord y ou le texte sera place
-	font_general->text_rect.y = 175; // coord y ou le texte sera place
-	str = process_alives(env);
-	draw_text(font_general, win, str, GREY_TEXT);
-	ft_strdel(&str);
-	SDL_DestroyTexture(font_general->texture);
-	
-	font_general->text_rect.x = 1487; // coord y ou le texte sera place
-	font_general->text_rect.y = 221; // coord y ou le texte sera place
-	str = max_check(env);
-	draw_text(font_general, win, str, GREY_TEXT);
-	ft_strdel(&str);
-	SDL_DestroyTexture(font_general->texture);
-	
-	font_general->text_rect.x = 1550; // coord y ou le texte sera place
-	font_general->text_rect.y = 267; // coord y ou le texte sera place
-	str = ft_itoa(env->last_live);
-	draw_text(font_general, win, str, GREY_TEXT);
-	ft_strdel(&str);
-	SDL_DestroyTexture(font_general->texture);
+	font->text_rect.y = 1000;
+	font->text_rect.x = 1000;
+	font->text_rect.x = ORIGIN_TEXT_X;
+	font->text_rect.y = ORIGIN_TEXT_Y;
 }
 
 void	write_challengers(t_font *font_general, t_win *win)
@@ -134,33 +46,26 @@ void	write_challengers(t_font *font_general, t_win *win)
 	t_env	*e;
 
 	e = get_env();
+	font_general->text_rect.x = 1423;
 	if (e->nb_player > 0)
 	{
-		font_general->text_rect.x = 1423; // coord y ou le texte sera place
-		font_general->text_rect.y = 683; // coord y ou le texte sera place
+		font_general->text_rect.y = 683;
 		draw_text(font_general, win, e->player[0].header.prog_name, GREEN_TEXT);
-		SDL_DestroyTexture(font_general->texture);
 	}
 	if (e->nb_player > 1)
 	{
-		font_general->text_rect.x = 1423; // coord y ou le texte sera place
-		font_general->text_rect.y = 757; // coord y ou le texte sera place
-		draw_text(font_general, win, e->player[1].header.prog_name, PURPLE_TEXT);
-		SDL_DestroyTexture(font_general->texture);
+		font_general->text_rect.y = 757;
+		draw_text(font_general, win, e->player[1].header.prog_name, P_TEXT);
 	}
 	if (e->nb_player > 2)
 	{
-		font_general->text_rect.x = 1423; // coord y ou le texte sera place
-		font_general->text_rect.y = 832; // coord y ou le texte sera place
+		font_general->text_rect.y = 832;
 		draw_text(font_general, win, e->player[2].header.prog_name, CYAN_TEXT);
-		SDL_DestroyTexture(font_general->texture);
 	}
 	if (e->nb_player > 3)
 	{
-		font_general->text_rect.x = 1423; // coord y ou le texte sera place
-		font_general->text_rect.y = 902; // coord y ou le texte sera place
-		draw_text(font_general, win, e->player[3].header.prog_name, YELLOW_TEXT);
-		SDL_DestroyTexture(font_general->texture);
+		font_general->text_rect.y = 902;
+		draw_text(font_general, win, e->player[3].header.prog_name, Y_TEXT);
 	}
 }
 
@@ -169,9 +74,9 @@ void	general_info(t_font *font_general, t_win *win)
 	font_general[1].font_size = 25;
 	select_font(win, &font_general[1], "/Library/Fonts/Arial Bold.ttf");
 	font_general[1].text_color = (SDL_Color){174, 174, 174, 255};
-
 	font_general[2].font_size = 50;
-	select_font(win, &font_general[2], "./font/ufonts.com_american-typewriter-bold.ttf");
+	select_font(win, &font_general[2],
+			"./font/ufonts.com_american-typewriter-bold.ttf");
 	font_general[2].text_color = (SDL_Color){174, 174, 174, 255};
 }
 
@@ -183,7 +88,7 @@ void	gui(t_env *env, t_sdl *sdl)
 	write_challengers(&(sdl->font[2]), &(sdl->win));
 	if (SDL_PollEvent(&(sdl->event)))
 	{
-		if ((sdl->event).type == SDL_QUIT) // ferme la fenetre si on clique sur la croix
+		if ((sdl->event).type == SDL_QUIT)
 			env->run = 0;
 		if (button_press(&(sdl->event), &(sdl->win), sdl) == true)
 			env->run = 0;

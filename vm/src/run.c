@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 18:52:34 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/16 14:03:37 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void		run(t_env *e, t_sdl *sdl)
 			dump_memory(e);
 			wait_enter(e);
 		}
+		SDL_Delay(e->sdl.win.delay);
 	}
 }
