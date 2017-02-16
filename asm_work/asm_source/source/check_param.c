@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 10:45:26 by hboudra           #+#    #+#             */
-/*   Updated: 2017/02/11 20:16:02 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/15 20:32:47 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ int		is_reg(char *str)
 
 int		is_direct(char *str)
 {
-	int	i;
-
-	i = 0;
 	while (str && *str && ft_strchr(" \t", *str))
 		str++;
 	if (str && *str == DIRECT_CHAR)
@@ -57,8 +54,19 @@ int		is_direct(char *str)
 		str++;
 		if (*str == LABEL_END)
 			str++;
-		while (*str && ft_strchr(LABEL_CHARS, *str))
+		if (*str == '-')
+		{
 			str++;
+			if (!*str)
+				return (FALSE);
+			while (*str && ft_isdigit(*str))
+				str++;
+		}
+		else
+		{
+			while (*str && ft_strchr(LABEL_CHARS, *str))
+				str++;
+		}
 		if (!*str)
 			return (TRUE);
 	}

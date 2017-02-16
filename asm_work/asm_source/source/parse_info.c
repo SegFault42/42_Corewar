@@ -6,14 +6,14 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 16:45:54 by hboudra           #+#    #+#             */
-/*   Updated: 2017/02/13 22:25:42 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/15 23:18:07 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "common.h"
 
-void	push_back(t_info **lst, t_info *new)
+void		push_back(t_info **lst, t_info *new)
 {
 	t_info	*tmp;
 
@@ -31,7 +31,7 @@ void	push_back(t_info **lst, t_info *new)
 	}
 }
 
-int		skip_alpha(char *line)
+int			skip_alpha(char *line)
 {
 	int		i;
 
@@ -41,7 +41,7 @@ int		skip_alpha(char *line)
 	return (i);
 }
 
-int		set_opcode(t_info *info, char *line)
+int			set_opcode(t_info *info, char *line)
 {
 	int		i;
 	int		j;
@@ -70,11 +70,11 @@ static int	count_comma(char *line)
 	return (i);
 }
 
-int		parse_info(t_glob *glob, char *line)
+int			parse_info(t_glob *glob, char *line)
 {
 	t_info	*tmp;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*box;
 
 	tmp = NULL;
@@ -94,6 +94,6 @@ int		parse_info(t_glob *glob, char *line)
 		free(box);
 		j++;
 	}
-	tmp->ocp = ocp_calc(tmp->param);
+	tmp->ocp = ocp_calc(tmp);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/13 23:08:26 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/15 22:41:50 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,32 @@ int		wordnb(char *str)
 		}
 	}
 	return (nb);
+}
+
+long	get_nbr(const char *str)
+{
+	long	nb;
+	long	signe;
+	int		len;
+
+	nb = 0;
+	signe = 1;
+	while (str && *str && ft_strchr(" \t\n\v\r\f", *str))
+		str++;
+	if (str && *str == '-')
+	{
+		signe = -1;
+		str++;
+	}
+	if ((len = ft_strlen(str)) > (int)ft_strlen(MAX_LONG) && signe == 1)
+		return (LONG_MAX);
+	else if (len > (int)ft_strlen(MAX_LONG) && signe == -1)
+		return (0);
+	while (str && ft_isdigit(*str))
+		nb = nb * 10 + *str++ - '0';
+	if (len == (int)ft_strlen(MAX_LONG) && nb < 0 && signe == 1)
+		return (LONG_MAX);
+	else if (len == (int)ft_strlen(MAX_LONG) && nb < 0 && signe == -1)
+		return (0);
+	return (nb * signe);
 }

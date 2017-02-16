@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 23:16:04 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/13 23:24:18 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/15 23:15:19 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	write_reg(int fd, int i, t_info *info)
 	reg = info->param[i];
 	reg++;
 	tmp = 0;
-	tmp = ft_atoi(reg);
+	if ((tmp = ft_atoi(reg)) > 99 || tmp < 0)
+		error(BAD_ARGUMENT);
 	write(fd, (char*)&tmp, T_REG);
 }
 
@@ -34,7 +35,7 @@ void	write_dir(int fd, int i, t_info *info, t_glob glob)
 	if (g_op_tab[opcode - 1].dir_indir)
 	{
 		if (!ft_strchr(info->param[i], (int)':'))
-			tmp = invert_2(ft_atoi(info->param[i] + 1));
+			tmp = invert_2(get_nbr(info->param[i] + 1));
 		else
 			tmp = invert_2(get_label_val(info, glob, i));
 		write(fd, (char*)&tmp, T_DIR);
@@ -42,7 +43,7 @@ void	write_dir(int fd, int i, t_info *info, t_glob glob)
 	else
 	{
 		if (!ft_strchr(info->param[i], (int)':'))
-			tmp = invert_4(ft_atoi(info->param[i] + 1));
+			tmp = invert_4(get_nbr(info->param[i] + 1));
 		else
 			tmp = invert_4(get_label_val(info, glob, i));
 		write(fd, (char*)&tmp, T_IND);
@@ -54,7 +55,7 @@ void	write_ind(int fd, int i, t_info *info, t_glob glob)
 	int		tmp;
 
 	if (!ft_strchr(info->param[i], (int)':'))
-		tmp = ft_atoi(info->param[i]);
+		tmp = get_nbr(info->param[i]);
 	else
 		tmp = get_label_val(info, glob, i);
 	tmp = invert_2(tmp);

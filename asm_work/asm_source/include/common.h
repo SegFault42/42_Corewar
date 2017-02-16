@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/13 23:19:46 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/15 23:20:30 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define LABEL_END				':'
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 # define DIRECT_CHAR			'%'
+
+# define MAX_LONG				"9223372036854775807"
 
 # define T_REG					1
 # define T_DIR					2
@@ -150,7 +152,7 @@ static t_op			g_op_tab[] =
 ** parse_s_file.c
 */
 
-char				ocp_calc(char **tab);
+char				ocp_calc(t_info *info);
 int8_t				parse_s_file(char *file, t_header *header, t_glob *glob);
 
 /*
@@ -184,6 +186,7 @@ int					parse_info(t_glob *glob, char *line);
 int					skip_blank(char *line);
 int					is_cmt(char *line);
 int					wordnb(char *str);
+long				get_nbr(const char *str);
 
 /*
 ** check_label.c
@@ -245,16 +248,16 @@ void				free_glob(t_glob *glob);
 ** parse_instruction_1.c
 */
 
-char    *check_if_label_exist(char *line);
-bool    check_if_label_good_formatted(char *label);
-bool    check_if_instruction_exist(char *instruction);
+char				*check_if_label_exist(char *line);
+bool				check_if_label_good_formatted(char *label);
+bool				check_if_instruction_exist(char *instruction);
 
 /*
 ** write_param_1.c
 */
 
-void    write_reg(int fd, int i, t_info *info);
-void    write_dir(int fd, int i, t_info *info, t_glob glob);
-void    write_ind(int fd, int i, t_info *info, t_glob glob);
+void				write_reg(int fd, int i, t_info *info);
+void				write_dir(int fd, int i, t_info *info, t_glob glob);
+void				write_ind(int fd, int i, t_info *info, t_glob glob);
 
 #endif

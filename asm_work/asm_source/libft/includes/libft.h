@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 18:34:24 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/17 17:21:11 by hboudra          ###   ########.fr       */
+/*   Updated: 2017/02/15 23:28:12 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char				*ft_strrev(char *str);
 char				*ft_crypt(char *str);
 char				*ft_decrypt(char *str);
 void				ft_debug();
-int					get_next_line_lseek(int const fd, char **line, int *nb_char);
+int					get_next_line_lseek(int const fd, char **line, int *c);
 int					get_next_line(int const fd, char **line);
 void				ft_2d_tab_free(char **tab, int size);
 int					ft_tab_len(char **tab);
