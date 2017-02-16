@@ -43,11 +43,14 @@ void		parse_name(int *fd, t_header *header)
 	char	*line;
 	char	*stock_name;
 	int		start_name;
+	int		line_ok;
 
 	line = NULL;
 	stock_name = NULL;
+	line_ok = 0;
 	while (get_next_line(*fd, &line) > 0)
 	{
+		line_ok = 1;
 		if (is_cmt(line) == true)
 		{
 			ft_strdel(&line);
@@ -61,6 +64,8 @@ void		parse_name(int *fd, t_header *header)
 		}
 		ft_strdel(&line);
 	}
+	if (line_ok == 0)
+		error(NAME_NOT_FOUND);
 	start_name = check_error_name(stock_name);
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
 	ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"');
