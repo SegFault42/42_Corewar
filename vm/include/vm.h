@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/16 15:48:24 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/16 16:50:48 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,12 @@ void		run(t_env *e, t_sdl *sdl);
 void		die(t_env *e, char *error);
 void		free_env(t_env *e);
 
+/*
+********************************************************************************
+**                                     GUI                                    **
+********************************************************************************
+*/
+
 void		gui(t_env *e, t_sdl *sdl);
 void		error(uint8_t error);
 void		create_window(t_win *win);
@@ -348,11 +354,10 @@ void		write_general_info(t_font *font_general, t_env *env, t_win *win);
 /*
 ** gui2.c
 */
-void	error(uint8_t error);
-void	close_window(t_win *win, int8_t error);
-void	change_text_color(SDL_Color text_color,
+void		error(uint8_t error);
+void		close_window(t_win *win, int8_t error);
+void		change_text_color(SDL_Color text_color,
 		uint8_t r, uint8_t g, uint8_t b);
-void	fill_octet(char *mem, uint8_t octet);
-
+void		fill_octet(char *mem, uint8_t octet);
 
 #endif
