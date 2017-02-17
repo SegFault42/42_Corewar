@@ -6,11 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/01/18 15:04:10 by rabougue         ###   ########.fr       */
-=======
 /*   Updated: 2017/02/15 23:20:30 by jcazako          ###   ########.fr       */
->>>>>>> jcazako
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +56,6 @@
 # define COMMENT_NOT_FOUND		11
 # define INSTR_INEXIST			12
 # define BAD_NUMBER_PARAM		13
-<<<<<<< HEAD
-=======
 # define BAD_ARGUMENT			14
 # define MALLOC					15
 
@@ -81,7 +75,6 @@
 # define LLDI					0x0e
 # define LFORK					0x0f
 # define AFF					0x10
->>>>>>> jcazako
 
 typedef struct		s_op
 {
