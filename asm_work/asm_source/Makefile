@@ -6,11 +6,8 @@
 #    By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-<<<<<<< HEAD
 #    Updated: 2017/02/17 14:36:18 by rabougue         ###   ########.fr        #
-=======
 #    Updated: 2017/02/17 14:32:22 by rabougue         ###   ########.fr        #
->>>>>>> 37a63087c4576658c410f48a442a2b8a640e89a4
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,11 +61,8 @@ $(NAME): $(OBJS)
 
 %.o : %.c $(RELINK_H) ./Makefile
 	@printf " ✅                                                              \r"
-<<<<<<< HEAD
 	@printf " ✅ $(notdir $<)\r"
-=======
 	@printf "✅  $(notdir $<)\r"
->>>>>>> 37a63087c4576658c410f48a442a2b8a640e89a4
 	@$(CC) -c $(FLAG) $< $(INCLUDE) -o $@
 
 clean:

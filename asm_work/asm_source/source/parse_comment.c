@@ -66,6 +66,9 @@ void		parse_comment(int *fd, t_header *header)
 	}
 	start_comment = check_error_comment(stock_comment);
 	ft_memset(header->comment, 0, COMMENT_LENGTH + 1);
-	ft_strccat(header->comment, &stock_comment[start_comment + 1], '\"');
+	if (&stock_comment[start_comment + 1] == '\0')
+		ft_strcat(header->comment, "Default comment");
+	else
+		ft_strccat(header->comment, &stock_comment[start_comment + 1], '\"');
 	ft_strdel(&stock_comment);
 }

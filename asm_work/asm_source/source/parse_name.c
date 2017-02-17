@@ -68,6 +68,9 @@ void		parse_name(int *fd, t_header *header)
 		error(NAME_NOT_FOUND);
 	start_name = check_error_name(stock_name);
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
-	ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"');
+	if (&stock_name[start_name + 1] == '\0')
+		ft_strcat(header->prog_name, "Default name");
+	else
+		ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"');
 	ft_strdel(&stock_name);
 }
