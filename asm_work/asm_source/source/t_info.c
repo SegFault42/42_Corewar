@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_s_file.c                                     :+:      :+:    :+:   */
+/*   t_info.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/12 15:27:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/23 15:42:19 by hboudra          ###   ########.fr       */
+/*   Created: 2017/01/23 15:14:52 by hboudra           #+#    #+#             */
+/*   Updated: 2017/02/13 23:07:20 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int8_t	parse_s_file(char *file, t_header *header, t_glob *glob)
+t_info	*new_info(void)
 {
-	int	fd;
+	t_info	*new;
 
-	if ((fd = open(file, O_RDWR)) < 0)
-		return (EXIT_FAILURE);
-	parse_name(&fd, header);
-	parse_comment(&fd, header);
-	parse_instructions(&fd, glob);
-	return (EXIT_SUCCESS);
+	if ((new = (t_info *)ft_memalloc(sizeof(t_info))) == NULL)
+		return (NULL);
+	new->next = NULL;
+	new->opcode = 0;
+	new->ocp = 0;
+	return (new);
 }

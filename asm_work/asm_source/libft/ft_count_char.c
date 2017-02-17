@@ -6,15 +6,17 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 09:51:48 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/13 12:32:55 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 23:23:36 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/libft.h"
+
 /*
 ** Parcoure str et compte le nombre de caractere 'c' dans la chaine.
 ** Valeur renvoyer : count (nombre de caractere 'c')
 */
+
 int	ft_count_char(char *str, char c)
 {
 	int	i;

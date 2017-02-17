@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_s_file.c                                     :+:      :+:    :+:   */
+/*   write_nb_inst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/12 15:27:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/01/23 15:42:19 by hboudra          ###   ########.fr       */
+/*   Created: 2017/02/13 23:09:02 by jcazako           #+#    #+#             */
+/*   Updated: 2017/02/13 23:09:04 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int8_t	parse_s_file(char *file, t_header *header, t_glob *glob)
+void	write_nb_inst(t_info *info, int fd)
 {
-	int	fd;
+	long	i;
 
-	if ((fd = open(file, O_RDWR)) < 0)
-		return (EXIT_FAILURE);
-	parse_name(&fd, header);
-	parse_comment(&fd, header);
-	parse_instructions(&fd, glob);
-	return (EXIT_SUCCESS);
+	i = 0;
+	while (info)
+	{
+		i += count_byte_inst(info);
+		info = info->next;
+	}
+	i = invert_8(i);
+	write(fd, (char*)&i, sizeof(long));
 }

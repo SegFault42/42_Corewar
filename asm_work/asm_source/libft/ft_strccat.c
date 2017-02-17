@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 17:14:08 by rabougue          #+#    #+#             */
-/*   Updated: 2016/12/11 17:18:02 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/15 23:29:20 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** s1 en ecrasant le caractere null de s1. Un caractere null est ecrit a la fin
 ** de s1.
 */
+
 char	*ft_strccat(char *s1, const char *s2, char c)
 {
 	int i;

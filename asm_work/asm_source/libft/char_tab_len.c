@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   char_tab_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/15 23:24:37 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/15 23:24:40 by jcazako          ###   ########.fr       */
+/*   Created: 2016/11/01 16:52:51 by hboudra           #+#    #+#             */
+/*   Updated: 2017/01/17 17:20:28 by hboudra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/libft.h"
+#include "includes/libft.h"
 
-int	ft_isspace(char c)
+size_t		char_tab_len(char **tab)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (true);
-	return (false);
+	int		i;
+
+	i = 0;
+	if (!tab)
+		return (0);
+	while (tab[i])
+		i++;
+	return (i);
 }

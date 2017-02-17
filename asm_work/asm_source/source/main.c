@@ -3,33 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2017/01/18 20:10:30 by rabougue         ###   ########.fr       */
+=======
+/*   Updated: 2017/02/13 22:04:24 by jcazako          ###   ########.fr       */
+>>>>>>> jcazako
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int8_t	create_file(int *fd, char **file)
+static void	write_file(int fd, t_header header, t_glob glob)
 {
-	int	i;
-
-	i = 0;
-	/*if (open(*file, O_RDONLY) > 0) // si un fichier .cor est deja cree on le supprime*/
-	/*{*/
-		/*ft_fprintf(1, "File exist\n");*/
-		/*[>remove(*file);<]*/
-	/*}*/
-	if((*fd = open(*file, O_RDONLY | O_CREAT, S_IRWXU)) < 0) // Creation du fichier .cor
-		error(CREATING_FILE_ERROR);
-	close(*fd);
-	return (EXIT_SUCCESS);
+	lseek(fd, 4, SEEK_SET);
+	ft_fprintf(fd, "%s", header.prog_name);
+	lseek(fd, 132, SEEK_SET);
+	write_nb_inst(glob.list, fd);
+	lseek(fd, 140, SEEK_SET);
+	ft_fprintf(fd, "%s", header.comment);
+	lseek(fd, 0, SEEK_END);
+	write_param(fd, glob);
+	close(fd);
 }
 
-void	error(int error)
+static int	create_file(char *arg, char **file)
 {
+<<<<<<< HEAD
 	if (error == LONG_NAME)
 		ft_fprintf(2, RED"Champion name too long (Max length 128)\n"END);
 	else if (error == LONG_COMMENT)
@@ -55,67 +57,65 @@ void	error(int error)
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 	exit(EXIT_FAILURE);
+=======
+	int		fd;
+
+	if (!(*file = ft_strnew(ft_strlen(arg) + 2)))
+		error(MALLOC);
+	ft_strccat(*file, arg, '.');
+	ft_strcat(*file, ".cor");
+	if ((fd = open(*file, O_RDWR | O_CREAT | O_EXCL, S_IRWXU)) < 0)
+	{
+		if (errno == EEXIST)
+		{
+			ft_fprintf(2, RED"%s already exist; erase it please.\n"END, *file);
+			free(*file);
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			free(*file);
+			error(CREATING_FILE_ERROR);
+		}
+	}
+	return (fd);
+>>>>>>> jcazako
 }
 
 static void	write_magic_number(int *fd)
 {
-	lseek(*fd, 0, SEEK_SET); // magic number here
+	lseek(*fd, 0, SEEK_SET);
 	ft_fprintf(*fd, "%c", 0);
-	lseek(*fd, 1, SEEK_SET); // magic number here
+	lseek(*fd, 1, SEEK_SET);
 	ft_fprintf(*fd, "%c", 234);
-	lseek(*fd, 2, SEEK_SET); // magic number here
+	lseek(*fd, 2, SEEK_SET);
 	ft_fprintf(*fd, "%c", 131);
-	lseek(*fd, 3, SEEK_SET); // magic number here
+	lseek(*fd, 3, SEEK_SET);
 	ft_fprintf(*fd, "%c", 243);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	char	*file;
-	int		fd;
-	/*char	magic[] = MAGIC;*/
+	int			fd;
 	t_header	header;
-	t_op		op_table[17];
-	char str[2192] = {0};
+	t_glob		glob;
+	char		str[2192];
+	char		*file;
 
 	if (argc != 2)
 		exit(EXIT_FAILURE);
+	ft_bzero(str, 2192);
 	ft_memset(&header, 0, sizeof(header));
-	init_op_table(op_table);
-	if (parse_s_file(argv[1], &header) == EXIT_FAILURE)
+	glob.list = NULL;
+	glob.label = NULL;
+	if (parse_s_file(argv[1], &header, &glob) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
-	//==========================Creation du .cor===============================
-	file = (char *)ft_memalloc(sizeof(char) * (ft_strlen(argv[1])) + 2); //Alloc len (name of the output.s + len .cor - ".c")
-	ft_strccat(file, argv[1], '.');
-	ft_strcat(file, ".cor");
-	create_file(&fd, &file);
-	fd = open(file, O_RDWR);
-	free(file);
-	//===========================Ecriture des infos dans le .cor================
+	fd = create_file(argv[1], &file);
 	write(fd, str, 2192);
-	write_magic_number(&fd); // write magic_number
-	lseek(fd, 4, SEEK_SET); // prog_name here
-	ft_fprintf(fd, "%s", header.prog_name);
-	lseek(fd, 132, SEEK_SET); // nb octet instruction here
-	//nb instruction here
-	lseek(fd, 140, SEEK_SET); // comment here
-	ft_fprintf(fd, "%s", header.comment);
-	close(fd);
-	//=========================================================================
-	/*ft_fprintf(1, GREEN".name = %s\n"END, header.prog_name);*/
-	/*ft_fprintf(1, GREEN".comment = %s\n"END, header.comment);*/
-	for (int i = 0; i < 17; ++i)
-	{
-		printf("%s, %d, %d, %d, %d, %s, %d, %d\n",
-				op_table[i].instruction_name,
-				op_table[i].nb_arg,
-				op_table[i].arg_value[0],
-				op_table[i].opcode,
-				op_table[i].n_cycle,
-				op_table[i].desc_instr,
-				op_table[i].carry,
-				op_table[i].dir_indir);
-	}
-	free_op_table(op_table);
+	write_magic_number(&fd);
+	write_file(fd, header, glob);
+	ft_fprintf(1, "Writing output program to %s\n", file);
+	free(file);
+	free_glob(&glob);
 	return (0);
 }

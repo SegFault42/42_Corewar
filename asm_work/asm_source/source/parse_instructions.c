@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parse_instructions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2017/01/18 20:09:40 by rabougue         ###   ########.fr       */
+=======
+/*   Updated: 2017/02/15 20:11:35 by jcazako          ###   ########.fr       */
+>>>>>>> jcazako
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-static char	*check_if_label_exist(char *line)
+static char	*get_instruction(char *line, bool label_exist)
 {
-	int		i; // variable qui stocke le nombre de caractere d'indentation.
-	int		count_car_label; // compte le nombre de caractere d'une label.
-	char	*label; // stock la premiere chaine de caractere j'usqu'au caractere blanc (' ' ou '\t')
+	int	i;
 
-	i = skip_blank(line); // skip les espaces
-	count_car_label = 0;
-	label = NULL;
-	ft_fprintf(1, CYAN"\nline = %s\n"END, line);
-	while (line[i] != '\0' && ft_isspace(line[i]) == false) // boucle jusqua la fin du label
+	i = skip_blank(line);
+	if (label_exist == true)
 	{
-		++count_car_label;
-		++i;
+		while (line[i] && line[i] != LABEL_END)
+			i++;
+		if (line[i] == LABEL_END)
+			i++;
+		if (!line[i])
+			return (NULL);
+		i += skip_blank(&line[i]);
 	}
+<<<<<<< HEAD
 	label = ft_strndup(&line[skip_blank(line)], count_car_label); // stock le label
 	ft_fprintf(1, RED"\nlabel = %s\n"END, label);
 	ft_fprintf(1, PURPLE"\nchar =  %c\n"END, label[count_car_label - 1]);
@@ -35,24 +40,22 @@ static char	*check_if_label_exist(char *line)
 		return (label);
 	free(label);
 	return (0);
+=======
+	return (&line[i]);
+>>>>>>> jcazako
 }
 
-bool	check_if_label_good_formatted(char *label)
+static void	replace_line(char **line)
 {
-	ft_fprintf(1, "label = %s\n", label);
-	int	i;
-	int	len_label; // longeur du label
+	char	*tmp;
 
-	i = 0;
-	len_label = ft_strlen(label);
-	if (label[len_label -1] != ':') // si le dernier caractere du label est != de ':' alors error
-		return (false);
-	while (i < len_label -1) // verification que le label contient que des caracteres autorise
+	tmp = *line;
+	if (ft_strchr(*line, ';') && !ft_strchr(*line, '#'))
 	{
-		if (ft_strchr(LABEL_CHARS, label[i]) == NULL)
-			return (false);
-		++i;
+		*line = ft_strsub(*line, 0, ft_strchr(*line, ';') - *line);
+		ft_strdel(&tmp);
 	}
+<<<<<<< HEAD
 	return (true);
 }
 
@@ -77,12 +80,30 @@ bool	check_if_instruction_exist(char *instruction)
 	}
 	free_op_table(op);
 	return (false);
+=======
+	else if (!ft_strchr(*line, ';') && ft_strchr(*line, '#'))
+	{
+		*line = ft_strsub(*line, 0, ft_strchr(*line, '#') - *line);
+		ft_strdel(&tmp);
+	}
+	else if (ft_strchr(*line, ';') && ft_strchr(*line, '#'))
+	{
+		if (ft_strchr(*line, ';') > ft_strchr(*line, '#'))
+			*line = ft_strsub(*line, 0, ft_strchr(*line, '#') - *line);
+		else
+			*line = ft_strsub(*line, 0, ft_strchr(*line, ';') - *line);
+		ft_strdel(&tmp);
+	}
+>>>>>>> jcazako
 }
 
-void	get_instruction(char *line, bool label_exist)
+static void	parse_label(t_glob *glob, char *line, bool *label_exist, int i)
 {
-	int	i;
+	char	*label;
+	t_label	content;
+	t_list	*tmp;
 
+<<<<<<< HEAD
 	ft_fprintf(1, "label_exist = %d\n", label_exist);
 	i = skip_blank(line); // ignore les espaces
 	ft_fprintf(1, ORANGE"line = %s\n"END, line);
@@ -99,6 +120,18 @@ void	get_instruction(char *line, bool label_exist)
 		/*ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);*/
 		/*if (check_if_instruction_exist(&line[i]) == false) // erreur argument.*/
 			/*error(INSTR_INEXIST);*/
+=======
+	if ((label = check_if_label_exist(line)))
+	{
+		*label_exist = true;
+		if (check_if_label_good_formatted(label) == false)
+			error(BAD_LABEL_FORMAT);
+		content.str = label;
+		content.n_inst = i;
+		if (!(tmp = ft_lstnew(&content, sizeof(content))))
+			error(MALLOC);
+		ft_lstadd(&glob->label, tmp);
+>>>>>>> jcazako
 	}
 	ft_fprintf(1, BLUE"line = %s\n"END, &line[i]);
 	if (check_if_instruction_exist(&line[i]) == false) // erreur argument.
@@ -106,21 +139,50 @@ void	get_instruction(char *line, bool label_exist)
 	(void)label_exist;
 }
 
+<<<<<<< HEAD
 void	parse_instructions(int *fd)
+=======
+static void	help(char **line, int label_exist, t_glob *glob, int *i)
+{
+	char	*tmp;
+
+	if ((tmp = get_instruction(*line, label_exist)) && *tmp)
+	{
+		if (parse_info(glob, tmp) != TRUE)
+		{
+			ft_strdel(line);
+			error(MALLOC);
+		}
+		(*i)++;
+	}
+}
+
+void		parse_instructions(int *fd, t_glob *glob)
+>>>>>>> jcazako
 {
 	char	*line;
 	char	*label;
 	bool	label_exist;
+	int		i;
 
 	label = NULL;
+<<<<<<< HEAD
 	while (get_next_line(*fd, &line) > 0)
 	{
 		label_exist = false;
 		if (is_cmt(line) == true) // Verifie si la ligne est un commentaire
+=======
+	i = 0;
+	while (get_next_line(*fd, &line) > 0)
+	{
+		label_exist = false;
+		if (is_cmt(line) == true)
+>>>>>>> jcazako
 		{
 			ft_strdel(&line);
 			continue ;
 		}
+<<<<<<< HEAD
 		if ((label = check_if_label_exist(line)) != NULL)
 		{
 			label_exist = true;
@@ -133,5 +195,12 @@ void	parse_instructions(int *fd)
 		ft_fprintf(1, YELLOW"line = %s\n"END, line);
 		ft_fprintf(1, YELLOW"=================================================\n"END, line);
 		ft_strdel(&line);
+=======
+		else if (ft_strchr(line, '#') || ft_strchr(line, ';'))
+			replace_line(&line);
+		parse_label(glob, line, &label_exist, i);
+		help(&line, label_exist, glob, &i);
+		free(line);
+>>>>>>> jcazako
 	}
 }

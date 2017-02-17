@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/15 23:24:37 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/15 23:24:40 by jcazako          ###   ########.fr       */
+/*   Created: 2017/01/19 14:10:28 by hboudra           #+#    #+#             */
+/*   Updated: 2017/02/15 23:22:28 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/libft.h"
+#ifndef FUNCTIONS_H
+# define FUNCTIONS_H
 
-int	ft_isspace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (true);
-	return (false);
-}
+int					is_reg(char *str);
+int					is_direct(char *str);
+int					is_ind(char *str);
+
+#endif
