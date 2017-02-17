@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/09 12:55:16 by rabougue          #+#    #+#             */
-/*   Updated: 2016/05/09 14:47:01 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/17 22:46:36 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,11 @@
 int	ft_strcmp_ext(char *str, char *ext)
 {
 	int	i;
-	int	j;
 
-	j = 0;
-	i = ft_strlen(str) - ft_strlen(ext);
-	while (str[i] == ext[j] && str[i] != '\0')
-	{
-		i++;
-		j++;
-	}
-	if (str[i] == '\0')
+	i = ft_strlen(str);
+	while (i > 0 && str[i] != '.')
+		--i;
+	if (ft_strcmp(&str[i], ext) == 0)
 		return (0);
-	else
-		return (1);
+	return (1);
 }

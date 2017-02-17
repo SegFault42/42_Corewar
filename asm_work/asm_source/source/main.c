@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/13 22:04:24 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/17 22:48:19 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ static void	write_magic_number(int *fd)
 	ft_fprintf(*fd, "%c", 243);
 }
 
+static void	print_usage()
+{
+	ft_fprintf(2, GREEN"Usage : ./asm file.s\n"END);
+}
+
 int			main(int argc, char **argv)
 {
 	int			fd;
@@ -71,7 +76,12 @@ int			main(int argc, char **argv)
 	char		*file;
 
 	if (argc != 2)
+	{
+		print_usage();
 		exit(EXIT_FAILURE);
+	}
+	if (ft_strcmp_ext(argv[1], ".s") != 0 || ft_strlen(argv[1]) < 3)
+		error(BAD_EXTENSION);
 	ft_bzero(str, 2192);
 	ft_memset(&header, 0, sizeof(header));
 	glob.list = NULL;
