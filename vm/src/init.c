@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/11 23:08:54 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/17 13:25:02 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,17 @@ static void	init_process(t_process *process, uint32_t id, uint16_t start)
 void		init_processes(t_env *e)
 {
 	t_process	*p;
-	uint32_t	i;
+	int			i;
 
-	i = -1;
-	while (++i < e->nb_process)
+	i = e->nb_process;
+	while (--i >= 0)
 	{
-		p = &(e->process[i]);
+		if (!(p = (t_process*)malloc(sizeof(t_process))))
+			die(e, "(t_process*)malloc(sizeof(t_process))");
+		if (!(ft_lstadd(&(e->process), ft_lstnew_n(p, 0))))
+			die(e, "ft_lstadd(&(e->process), ft_lstnew_n(p, NULL))");
 		init_process(p, e->player_id[i], i * MEM_SIZE / e->nb_process);
+		p->id = i + 1;
 	}
 }
 

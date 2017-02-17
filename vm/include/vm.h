@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/16 16:50:48 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/17 16:27:17 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ struct		s_process
 {
 	t_instruction	inst;
 	uint32_t		player_id;
+	uint32_t		id;
 	uint16_t		live;
 	bool			alive;
 	bool			carry;
@@ -220,7 +221,8 @@ struct		s_env
 	uint32_t	valid_lives;
 	uint32_t	last_live;
 	t_player	*player;
-	t_process	*process;
+	// t_process	*process;
+	t_list		*process;
 	uint8_t		verbose;
 	uint32_t	dump;
 	uint32_t	sdump;
@@ -271,6 +273,7 @@ void		dump_memory(t_env *e);
 uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg);
 void		dst_param(t_process *proc, uint8_t i, uint32_t dest, uint32_t val);
 void		fork_process(t_env *e, t_process *proc, uint16_t pc);
+void		del_process(t_list *process, int id);
 void		pc_moves(t_process *proc, int i);
 int			idx_address(int val);
 int			mem_address(int val);
