@@ -6,7 +6,7 @@
 #    By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/02/13 23:16:47 by jcazako          ###   ########.fr        #
+#    Updated: 2017/02/17 14:36:18 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,8 @@ $(NAME): $(OBJS)
 	@printf "\n✅  Compilation done.\n"
 
 %.o : %.c $(RELINK_H) ./Makefile
+	@printf " ✅                                                              \r"
+	@printf " ✅ $(notdir $<)\r"
 	@$(CC) -c $(FLAG) $< $(INCLUDE) -o $@
 
 clean:
