@@ -6,11 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/01/18 20:10:30 by rabougue         ###   ########.fr       */
-=======
 /*   Updated: 2017/02/13 22:04:24 by jcazako          ###   ########.fr       */
->>>>>>> jcazako
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +27,6 @@ static void	write_file(int fd, t_header header, t_glob glob)
 
 static int	create_file(char *arg, char **file)
 {
-<<<<<<< HEAD
-	if (error == LONG_NAME)
-		ft_fprintf(2, RED"Champion name too long (Max length 128)\n"END);
-	else if (error == LONG_COMMENT)
-		ft_fprintf(2, RED"Champion comment too long (Max length 2048)\n"END);
-	else if (error == CREATING_FILE_ERROR)
-		ft_fprintf(2, RED"Creating file error.\n"END);
-	else if (error == ERROR_QUOTE)
-		ft_fprintf(2, RED"Too many '\"' in .name (Only 2 needed).\n"END);
-	else if (error == BAD_FORMAT)
-		ft_fprintf(2, RED"Bad format\n"END);
-	else if (error == BAD_CHARACTERE)
-		ft_fprintf(2, RED"Bad caractere\n"END);
-	else if (error == BAD_LABEL_FORMAT)
-		ft_fprintf(1, RED"Error label bad formatted.\nAllowed caractere : digit (0-9) alpha, (a-z) and underscore ('_').\n"END);
-	else if (error == NAME_NOT_FOUND)
-		ft_fprintf(1, RED".name missing\n"END);
-	else if (error == COMMENT_NOT_FOUND)
-		ft_fprintf(1, RED".comment missing\n"END);
-	else if (error == INSTR_INEXIST)
-		ft_fprintf(1, RED"Instruction not valid\n"END);
-	else if (error == BAD_NUMBER_PARAM)
-		ft_fprintf(1, RED"Wrong number argument in instruction\n"END);
-	else
-		ft_fprintf(2, RED"Error %d\n"END, error);
-	exit(EXIT_FAILURE);
-=======
 	int		fd;
 
 	if (!(*file = ft_strnew(ft_strlen(arg) + 2)))
@@ -79,7 +48,6 @@ static int	create_file(char *arg, char **file)
 		}
 	}
 	return (fd);
->>>>>>> jcazako
 }
 
 static void	write_magic_number(int *fd)
