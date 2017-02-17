@@ -6,13 +6,14 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/13 23:06:23 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/17 21:59:10 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
 #define LEN_NAME 5
+#define LEN_NAME_EMPTY 8
 
 static int	check_error_name(char *stock_name)
 {
@@ -68,7 +69,7 @@ void		parse_name(int *fd, t_header *header)
 		error(NAME_NOT_FOUND);
 	start_name = check_error_name(stock_name);
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
-	if (&stock_name[start_name + 1] == '\0')
+	if (stock_name[start_name + 1] == '\"' && ft_strlen(stock_name) == LEN_NAME_EMPTY)
 		ft_strcat(header->prog_name, "Default name");
 	else
 		ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"');
