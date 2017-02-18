@@ -26,6 +26,8 @@ void	error_2(int error)
 		ft_fprintf(2, RED"./comment bad formatted\n"END);
 	else if (error == BAD_NAME)
 		ft_fprintf(2, RED"./name bad formatted\n"END);
+	else if (error == NO_INSTRUCTION)
+		ft_fprintf(2, RED"instruction not found\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 }

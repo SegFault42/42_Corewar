@@ -97,11 +97,14 @@ void		parse_instructions(int *fd, t_glob *glob)
 	char	*label;
 	bool	label_exist;
 	int		i;
+	int		j;
 
 	label = NULL;
 	i = 0;
+	j = 0;
 	while (get_next_line(*fd, &line) > 0)
 	{
+	printf("%s\n", line);
 		label_exist = false;
 		if (is_cmt(line) == true)
 		{
@@ -113,5 +116,8 @@ void		parse_instructions(int *fd, t_glob *glob)
 		parse_label(glob, line, &label_exist, i);
 		help(&line, label_exist, glob, &i);
 		free(line);
+		j = 1;
 	}
+	if (j == 0)
+		error(NO_INSTRUCTION);
 }

@@ -61,6 +61,7 @@
 # define BAD_FILE				16
 # define BAD_COMMENT			17
 # define BAD_NAME				18
+# define NO_INSTRUCTION			19
 
 # define LIVE					0x01
 # define LD						0x02
