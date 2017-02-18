@@ -1,0 +1,22 @@
+Binary file ./asm matches
+./include/libft.h:void				*ft_memset(void *b, int c, size_t len);
+Binary file ./libft/ft_fprintf/includes/ft_fprintf.h.gch matches
+./libft/ft_memalloc.c:	ft_memset(str, 0, size);
+Binary file ./libft/ft_memalloc.o matches
+./libft/ft_memset.c:/*   ft_memset.c                                        :+:      :+:    :+:   */
+./libft/ft_memset.c:void	*ft_memset(void *b, int c, size_t len)
+Binary file ./libft/ft_memset.o matches
+./libft/includes/libft.h:void				*ft_memset(void *b, int c, size_t len);
+Binary file ./libft/includes/libft.h.gch matches
+Binary file ./libft/libft.a matches
+./libft/Makefile:SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
+Binary file ./source/.parse_comment.c.swo matches
+Binary file ./source/.parse_comment.c.swp matches
+./source/main.c:	ft_memset(&header, 0, sizeof(header));
+Binary file ./source/main.o matches
+./source/parse_comment.c:	ft_memset(header->comment, 0, COMMENT_LENGTH + 1);
+Binary file ./source/parse_comment.o matches
+./source/parse_instructions_1.c:	ft_memset(tmp, 0, 6);
+Binary file ./source/parse_instructions_1.o matches
+./source/parse_name.c:	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
+Binary file ./source/parse_name.o matches

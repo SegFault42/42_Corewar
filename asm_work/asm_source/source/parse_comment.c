@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/18 18:07:43 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 19:13:38 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,27 @@
 
 #define LEN_COMMENT 8
 
+void		check_if_comment_valid(char *str)
+{
+	int i;
+	uint8_t	nb_double_quote;
+
+	i = 0;
+	nb_double_quote = 0;
+	while (str[i])
+	{
+		if (nb_double_quote >= 2)
+			break ;
+		if (str[i] == '\"')
+			++nb_double_quote;
+		++i;
+	}	
+	if (nb_double_quote != 2)
+		error(BAD_COMMENT);
+	i += skip_blank(&str[i]); 	
+	if (str[i] != ';' && str[i] != '#' && str[i] != '\0')
+		error(BAD_COMMENT);
+}
 
 static int	check_error_comment(char *stock_comment)
 {
@@ -47,7 +68,6 @@ void		parse_comment(int *fd, t_header *header)
 	char	*line;
 	char	*stock_comment;
 	int		start_comment;
-	//int		nb_quote = 0;
 
 	line = NULL;
 	stock_comment = NULL;
@@ -58,11 +78,6 @@ void		parse_comment(int *fd, t_header *header)
 			ft_strdel(&line);
 			continue ;
 		}
-		//nb_quote += ft_count_char(line, '\"');
-	/*	if (nb_quote > = 2)
-		{
-			
-		}*/
 		stock_comment = ft_strjoin(stock_comment, line);
 		if (ft_count_char(stock_comment, '\"') >= 2)
 		{
@@ -71,8 +86,8 @@ void		parse_comment(int *fd, t_header *header)
 		}
 		ft_strdel(&line);
 	}
-	printf("%s\n", stock_comment);
 	start_comment = check_error_comment(stock_comment);
+	check_if_comment_valid(stock_comment);
 	ft_memset(header->comment, 0, COMMENT_LENGTH + 1);
 	ft_strccat(header->comment, &stock_comment[start_comment + 1], '\"');
 	ft_strdel(&stock_comment);

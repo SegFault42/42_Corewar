@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 19:14:34 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/18 16:44:04 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 18:29:42 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	error_2(int error)
 		ft_fprintf(2, RED"malloc error\n"END);
 	else if (error == BAD_FILE)
 		ft_fprintf(2, RED"wrong file\n"END);
+	else if (error == BAD_COMMENT)
+		ft_fprintf(2, RED"./comment bad formatted\n"END);
+	else if (error == BAD_NAME)
+		ft_fprintf(2, RED"./name bad formatted\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 }

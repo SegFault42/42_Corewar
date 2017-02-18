@@ -5,16 +5,14 @@ qiuwdqp
 
 qdlj
 
-qisiq" ;ifhgjjhgfg"
+qisiq ifhgjjhgfg"
 
-
-;lkjhfgkl
-
-l2:
+ 
+l2: 
 
 
 
-		sti r9, %:live, %1
+        		sti r9, %:live, %1
 		and r1, %0, r1
 
 live:		live %1
