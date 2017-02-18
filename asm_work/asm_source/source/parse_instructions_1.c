@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 22:37:34 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/13 22:58:46 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 15:25:16 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ bool	check_if_instruction_exist(char *instruction)
 
 	i = 0;
 	j = skip_blank(&instruction[i]);
+
+	ft_fprintf(1, "instruction = %s\n", instruction);
 	while (g_op_tab[i].instruction_name)
 	{
-		if (!ft_strncmp(&instruction[j],\
-			g_op_tab[i].instruction_name,\
-			ft_strlen(g_op_tab[i].instruction_name)))
+		ft_fprintf(1, "op = %s\n", g_op_tab[i].instruction_name);
+		if (ft_strccmp(g_op_tab[i].instruction_name,\
+			instruction, ' '))
 			return (true);
 		i++;
 	}

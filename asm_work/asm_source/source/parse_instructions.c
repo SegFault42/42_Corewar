@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/15 20:11:35 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 15:26:16 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ static char	*get_instruction(char *line, bool label_exist)
 			return (NULL);
 		i += skip_blank(&line[i]);
 	}
+	if (check_if_instruction_exist(&line[i]) == false)
+		error(1);
+	//ft_fprintf(1, "%s\n", &line[i]);
 	return (&line[i]);
 }
 
