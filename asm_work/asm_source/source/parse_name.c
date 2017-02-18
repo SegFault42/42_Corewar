@@ -6,13 +6,14 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/13 23:06:23 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 20:18:31 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
 #define LEN_NAME 5
+#define LEN_NAME_EMPTY 8
 
 static int	check_error_name(char *stock_name)
 {
@@ -44,6 +45,7 @@ void		parse_name(int *fd, t_header *header)
 	char	*stock_name;
 	int		start_name;
 	int		line_ok;
+	char	*tmp;
 
 	line = NULL;
 	stock_name = NULL;
@@ -56,7 +58,10 @@ void		parse_name(int *fd, t_header *header)
 			ft_strdel(&line);
 			continue ;
 		}
-		stock_name = ft_strjoin(stock_name, line);
+		if ((tmp = ft_strjoin(stock_name, line)) == NULL)
+			error(MALLOC);
+		ft_strdel(&stock_name);
+		stock_name = tmp;
 		if (ft_count_char(stock_name, '\"') >= 2)
 		{
 			ft_strdel(&line);
@@ -67,7 +72,11 @@ void		parse_name(int *fd, t_header *header)
 	if (line_ok == 0)
 		error(NAME_NOT_FOUND);
 	start_name = check_error_name(stock_name);
+	check_if_comment_valid(stock_name);
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
-	ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"');
+	if (stock_name[start_name + 1] == '\"' && ft_strlen(stock_name) == LEN_NAME_EMPTY)
+		ft_strcat(header->prog_name, "Default name");
+	else
+		ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"');
 	ft_strdel(&stock_name);
 }

@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/18 18:28:55 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 19:54:06 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,5 +277,6 @@ int				check(t_glob glob);
 
 int				check_5(t_glob glob, t_info *info);
 int				check_6(t_info *info);
+void		check_if_comment_valid(char *str);
 
 #endif

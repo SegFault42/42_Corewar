@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 19:50:35 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/13 20:40:55 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 20:26:16 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		free_info(t_info **info)
 {
 	if (info && *info && (*info)->next)
 		free_info(&(*info)->next);
-	if (info && *info && (*info)->next)
+	if (info && *info)
 	{
 		free_tab((*info)->param);
 		free(*info);

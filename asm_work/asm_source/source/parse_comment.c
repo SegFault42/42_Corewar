@@ -6,13 +6,14 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/18 19:13:38 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 20:18:58 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
 #define LEN_COMMENT 8
+#define LEN_COMMENT_EMPTY 11
 
 void		check_if_comment_valid(char *str)
 {
@@ -31,7 +32,7 @@ void		check_if_comment_valid(char *str)
 	}	
 	if (nb_double_quote != 2)
 		error(BAD_COMMENT);
-	i += skip_blank(&str[i]); 	
+	i += skip_blank(&str[i]);
 	if (str[i] != ';' && str[i] != '#' && str[i] != '\0')
 		error(BAD_COMMENT);
 }
@@ -68,6 +69,7 @@ void		parse_comment(int *fd, t_header *header)
 	char	*line;
 	char	*stock_comment;
 	int		start_comment;
+	char	*tmp;
 
 	line = NULL;
 	stock_comment = NULL;
@@ -78,7 +80,10 @@ void		parse_comment(int *fd, t_header *header)
 			ft_strdel(&line);
 			continue ;
 		}
-		stock_comment = ft_strjoin(stock_comment, line);
+		if ((tmp = ft_strjoin(stock_comment, line)) == NULL)
+			error(MALLOC);
+		ft_strdel(&stock_comment);
+		stock_comment = tmp;
 		if (ft_count_char(stock_comment, '\"') >= 2)
 		{
 			ft_strdel(&line);
@@ -89,6 +94,10 @@ void		parse_comment(int *fd, t_header *header)
 	start_comment = check_error_comment(stock_comment);
 	check_if_comment_valid(stock_comment);
 	ft_memset(header->comment, 0, COMMENT_LENGTH + 1);
-	ft_strccat(header->comment, &stock_comment[start_comment + 1], '\"');
+	if (stock_comment[start_comment + 1] == '\"' && ft_strlen(stock_comment)
+			== LEN_COMMENT_EMPTY)
+		ft_strcat(header->comment, "Default comment");
+	else
+		ft_strccat(header->comment, &stock_comment[start_comment + 1], '\"');
 	ft_strdel(&stock_comment);
 }

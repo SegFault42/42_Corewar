@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 22:37:34 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/18 16:13:07 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/18 20:37:48 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ bool	check_if_instruction_exist(char *instruction)
 
 	i = 0;
 	ft_memset(tmp, 0, 6);
-	while (instruction[i] != ' ' && instruction[i] != '\0')
+	while (instruction[i] != ' ' && instruction[i] != '\t' &&
+			instruction[i] != '\0')
 	{
 		ft_fprintf(1, "%c\n", instruction[i]);
 		if (i >= 6)

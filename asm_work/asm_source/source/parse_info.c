@@ -6,7 +6,7 @@
 /*   By: hboudra <hboudra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 16:45:54 by hboudra           #+#    #+#             */
-/*   Updated: 2017/02/15 23:18:07 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 20:22:20 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int			parse_info(t_glob *glob, char *line)
 
 	tmp = NULL;
 	if (!(tmp = new_info()))
-		return (MALLOC);
+		error(MALLOC);
 	i = set_opcode(tmp, line);
 	push_back(&glob->list, tmp);
 	if (!(tmp->param = ft_strsplit(&line[i], ',')))
-		return (MALLOC);
+		error(MALLOC);
 	j = 0;
 	while (tmp->param[j])
 	{
