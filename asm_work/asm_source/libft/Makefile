@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/02/17 14:30:55 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/17 22:39:35 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
 	  $(PRE)percent_d.c $(PRE)percent_s.c \
 	  $(PRE)tools.c \
 	  ft_print_2d_tab.c ft_check_int_overflow.c ft_count_char.c ft_strccmp.c \
-	  ft_strcdup.c ft_strclen.c ft_strccat.c get_next_line_lseek.c ft_isspace.c \
+	  ft_strcdup.c ft_strclen.c ft_strccat.c get_next_line_lseek.c ft_isspace.c\
+	  ft_strcmp_ext.c\
 
 OBJS = $(SRC:.c=.o)
 

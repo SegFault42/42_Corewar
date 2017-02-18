@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 18:34:24 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/15 23:28:12 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/17 22:38:39 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ char				*ft_strccat(char *s1, const char *s2, char c);
 int					ft_isspace(char c);
 size_t				char_tab_len(char **tab);
 char				*ft_strndup(const char *s1, size_t nb);
+int					ft_strcmp_ext(char *str, char *ext);
 
 #endif
