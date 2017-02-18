@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 22:37:34 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/18 15:25:16 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 16:13:07 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,24 @@ bool	check_if_label_good_formatted(char *label)
 bool	check_if_instruction_exist(char *instruction)
 {
 	int		i;
-	int		j;
+	char	tmp[6];
 
 	i = 0;
-	j = skip_blank(&instruction[i]);
-
+	ft_memset(tmp, 0, 6);
+	while (instruction[i] != ' ' && instruction[i] != '\0')
+	{
+		ft_fprintf(1, "%c\n", instruction[i]);
+		if (i >= 6)
+			return (false);
+		tmp[i] = instruction[i];
+		++i;
+	}
+	i = 0;
 	ft_fprintf(1, "instruction = %s\n", instruction);
 	while (g_op_tab[i].instruction_name)
 	{
 		ft_fprintf(1, "op = %s\n", g_op_tab[i].instruction_name);
-		if (ft_strccmp(g_op_tab[i].instruction_name,\
-			instruction, ' '))
+		if (ft_strcmp(g_op_tab[i].instruction_name, tmp) == 0)
 			return (true);
 		i++;
 	}
