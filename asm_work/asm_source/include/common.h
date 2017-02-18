@@ -110,6 +110,8 @@ typedef struct		s_label
 	int				n_inst;
 }					t_label;
 
+# define l_str(x) ((t_label*)(x->content))->str
+
 typedef struct		s_glob
 {
 	t_list			*label;
@@ -259,5 +261,18 @@ bool				check_if_instruction_exist(char *instruction);
 void				write_reg(int fd, int i, t_info *info);
 void				write_dir(int fd, int i, t_info *info, t_glob glob);
 void				write_ind(int fd, int i, t_info *info, t_glob glob);
+
+/*
+** check.c
+*/
+
+int				check(t_glob glob);
+
+/*
+** check_1.c
+*/
+
+int				check_5(t_glob glob, t_info *info);
+int				check_6(t_info *info);
 
 #endif

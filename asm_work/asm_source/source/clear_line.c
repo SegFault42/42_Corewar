@@ -12,6 +12,15 @@
 
 #include "common.h"
 
+static int	check_blank(char *str)
+{
+	while (str && *str && ft_strchr(" \t", *str))
+		str++;
+	if (!*str)
+		return (1);
+	return (0);
+}
+
 static int	gt_wordlen(char *str)
 {
 	int	i;
@@ -48,6 +57,8 @@ char		*clear_line(char *str)
 
 	nb_word = wordnb(str);
 	len = get_len(str, nb_word);
+	if (check_blank(str))
+		return (ft_strdup(""));
 	if (!(new = ft_strnew(len)))
 		return (NULL);
 	i = 0;

@@ -37,9 +37,12 @@ static void		free_info(t_info **info)
 {
 	if (info && *info && (*info)->next)
 		free_info(&(*info)->next);
-	free_tab((*info)->param);
-	free(*info);
-	*info = NULL;
+	if (info && *info && (*info)->next)
+	{
+		free_tab((*info)->param);
+		free(*info);
+		*info = NULL;
+	}
 }
 
 void			free_glob(t_glob *glob)

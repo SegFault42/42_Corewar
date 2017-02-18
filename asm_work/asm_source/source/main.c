@@ -33,20 +33,8 @@ static int	create_file(char *arg, char **file)
 		error(MALLOC);
 	ft_strccat(*file, arg, '.');
 	ft_strcat(*file, ".cor");
-	if ((fd = open(*file, O_RDWR | O_CREAT | O_EXCL, S_IRWXU)) < 0)
-	{
-		if (errno == EEXIST)
-		{
-			ft_fprintf(2, RED"%s already exist; erase it please.\n"END, *file);
-			free(*file);
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			free(*file);
-			error(CREATING_FILE_ERROR);
-		}
-	}
+	if ((fd = open(*file, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU)) < 0)
+		error(CREATING_FILE_ERROR);
 	return (fd);
 }
 
@@ -78,12 +66,14 @@ int			main(int argc, char **argv)
 	glob.label = NULL;
 	if (parse_s_file(argv[1], &header, &glob) == EXIT_FAILURE)
 		error(PARSE_S_FILE);
+	if (check(glob))
+		error(BAD_ARGUMENT);
 	fd = create_file(argv[1], &file);
 	write(fd, str, 2192);
 	write_magic_number(&fd);
 	write_file(fd, header, glob);
+	free_glob(&glob);
 	ft_fprintf(1, "Writing output program to %s\n", file);
 	free(file);
-	free_glob(&glob);
 	return (0);
 }

@@ -41,6 +41,8 @@ SRCS = $(SRC)/main.c \
 	   $(SRC)/free_glob.c\
 	   $(SRC)/parse_instructions_1.c\
 	   $(SRC)/write_param_1.c\
+	   $(SRC)/check.c\
+	   $(SRC)/check_1.c\
 
 INCLUDE = -I ./include/ -I ./libft/includes/
 
