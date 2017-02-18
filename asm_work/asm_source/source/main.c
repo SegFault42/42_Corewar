@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/13 22:04:24 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 16:46:59 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,20 @@ static void	write_magic_number(int *fd)
 	ft_fprintf(*fd, "%c", 243);
 }
 
+static int	check_name(int argc, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (argc != 2)
+		return (1);
+	while (str && str[i])
+		i++;
+	if (str && --i >= 0 && str[i] == 's' && --i >= 0 && str[i] == '.')
+		return (0);
+	return (1);
+}
+
 int			main(int argc, char **argv)
 {
 	int			fd;
@@ -58,8 +72,8 @@ int			main(int argc, char **argv)
 	char		str[2192];
 	char		*file;
 
-	if (argc != 2)
-		exit(EXIT_FAILURE);
+	if (check_name(argc, argv[1]))
+		error(BAD_FILE);
 	ft_bzero(str, 2192);
 	ft_memset(&header, 0, sizeof(header));
 	glob.list = NULL;

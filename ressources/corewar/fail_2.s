@@ -1,5 +1,5 @@
 .name ""
-.comment ""
+.comment "qwerty
 
 l2:
 

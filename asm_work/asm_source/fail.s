@@ -1,12 +1,6 @@
-.name ""
-.comment ""
-
-l2:
+.name "caz"
+.comment "qwe"
 
 
 
-		
-		
 
-live:	
-	

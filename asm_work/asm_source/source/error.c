@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 19:14:34 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/13 21:56:19 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 16:44:04 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	error_2(int error)
 		ft_fprintf(2, RED"Wrong number argument in instruction\n"END);
 	else if (error == MALLOC)
 		ft_fprintf(2, RED"malloc error\n"END);
+	else if (error == BAD_FILE)
+		ft_fprintf(2, RED"wrong file\n"END);
 	else
 		ft_fprintf(2, RED"Error %d\n"END, error);
 }

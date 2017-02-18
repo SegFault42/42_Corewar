@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 13:36:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/15 23:20:30 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 16:44:56 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define BAD_NUMBER_PARAM		13
 # define BAD_ARGUMENT			14
 # define MALLOC					15
+# define BAD_FILE				16
 
 # define LIVE					0x01
 # define LD						0x02

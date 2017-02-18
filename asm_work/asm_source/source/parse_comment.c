@@ -6,13 +6,14 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/13 22:23:53 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/18 18:07:43 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
 #define LEN_COMMENT 8
+
 
 static int	check_error_comment(char *stock_comment)
 {
@@ -46,6 +47,7 @@ void		parse_comment(int *fd, t_header *header)
 	char	*line;
 	char	*stock_comment;
 	int		start_comment;
+	//int		nb_quote = 0;
 
 	line = NULL;
 	stock_comment = NULL;
@@ -56,14 +58,20 @@ void		parse_comment(int *fd, t_header *header)
 			ft_strdel(&line);
 			continue ;
 		}
+		//nb_quote += ft_count_char(line, '\"');
+	/*	if (nb_quote > = 2)
+		{
+			
+		}*/
 		stock_comment = ft_strjoin(stock_comment, line);
 		if (ft_count_char(stock_comment, '\"') >= 2)
 		{
 			ft_strdel(&line);
-			break ;
+			break; 
 		}
 		ft_strdel(&line);
 	}
+	printf("%s\n", stock_comment);
 	start_comment = check_error_comment(stock_comment);
 	ft_memset(header->comment, 0, COMMENT_LENGTH + 1);
 	ft_strccat(header->comment, &stock_comment[start_comment + 1], '\"');
