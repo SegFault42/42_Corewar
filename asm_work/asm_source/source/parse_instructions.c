@@ -104,7 +104,7 @@ void		parse_instructions(int *fd, t_glob *glob)
 	j = 0;
 	while (get_next_line(*fd, &line) > 0)
 	{
-	printf("%s\n", line);
+	//printf("%s\n", line);
 		label_exist = false;
 		if (is_cmt(line) == true)
 		{

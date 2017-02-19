@@ -61,17 +61,17 @@ bool	check_if_instruction_exist(char *instruction)
 	while (instruction[i] != ' ' && instruction[i] != '\t' &&
 			instruction[i] != '\0')
 	{
-		ft_fprintf(1, "%c\n", instruction[i]);
+		//ft_fprintf(1, "%c\n", instruction[i]);
 		if (i >= 6)
 			return (false);
 		tmp[i] = instruction[i];
 		++i;
 	}
 	i = 0;
-	ft_fprintf(1, "instruction = %s\n", instruction);
+	//ft_fprintf(1, "instruction = %s\n", instruction);
 	while (g_op_tab[i].instruction_name)
 	{
-		ft_fprintf(1, "op = %s\n", g_op_tab[i].instruction_name);
+		//ft_fprintf(1, "op = %s\n", g_op_tab[i].instruction_name);
 		if (ft_strcmp(g_op_tab[i].instruction_name, tmp) == 0)
 			return (true);
 		i++;

@@ -69,8 +69,7 @@ int			get_label_val(t_info *info, t_glob glob, int i)
 	while (str && *str && *str != ':')
 		str++;
 	str++;
-	while (lst_lab && ft_strncmp(str, ((t_label*)(lst_lab->content))->str,
-		ft_strlen(str)))
+	while (lst_lab && ft_strcmp(str, l_str(lst_lab)))
 		lst_lab = lst_lab->next;
 	if (!lst_lab)
 		error(BAD_LABEL_FORMAT);

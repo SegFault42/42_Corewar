@@ -12,6 +12,18 @@
 
 #include "common.h"
 
+static void	clear_label(t_glob *glob)
+{
+	t_list	*label;
+
+	label = glob->label;
+	while (label)
+	{
+		*ft_strchr(l_str(label), ':') = '\0';
+		label = label->next;
+	}
+}
+
 int8_t	parse_s_file(char *file, t_header *header, t_glob *glob)
 {
 	int	fd;
@@ -21,5 +33,6 @@ int8_t	parse_s_file(char *file, t_header *header, t_glob *glob)
 	parse_name(&fd, header);
 	parse_comment(&fd, header);
 	parse_instructions(&fd, glob);
+	clear_label(glob);
 	return (EXIT_SUCCESS);
 }
