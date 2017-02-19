@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 15:27:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 17:01:18 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:54:01 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ int8_t		parse_s_file(char *file, t_header *header, t_glob *glob)
 	parse_comment(&fd, header);
 	parse_instructions(&fd, glob);
 	clear_label(glob);
+	if (check(*glob))
+		error(BAD_ARGUMENT);
 	return (EXIT_SUCCESS);
 }

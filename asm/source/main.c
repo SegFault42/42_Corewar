@@ -6,14 +6,27 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 17:10:15 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:59:51 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
+static void	write_magic_number(int fd)
+{
+	lseek(fd, 0, SEEK_SET);
+	ft_fprintf(fd, "%c", 0);
+	lseek(fd, 1, SEEK_SET);
+	ft_fprintf(fd, "%c", 234);
+	lseek(fd, 2, SEEK_SET);
+	ft_fprintf(fd, "%c", 131);
+	lseek(fd, 3, SEEK_SET);
+	ft_fprintf(fd, "%c", 243);
+}
+
 static void	write_file(int fd, t_header header, t_glob glob)
 {
+	write_magic_number(fd);
 	lseek(fd, 4, SEEK_SET);
 	ft_fprintf(fd, "%s", header.prog_name);
 	lseek(fd, 132, SEEK_SET);
@@ -40,18 +53,6 @@ static int	create_file(char *arg, char **file)
 	if ((fd = open(*file, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU)) < 0)
 		error(CREATING_FILE_ERROR);
 	return (fd);
-}
-
-static void	write_magic_number(int *fd)
-{
-	lseek(*fd, 0, SEEK_SET);
-	ft_fprintf(*fd, "%c", 0);
-	lseek(*fd, 1, SEEK_SET);
-	ft_fprintf(*fd, "%c", 234);
-	lseek(*fd, 2, SEEK_SET);
-	ft_fprintf(*fd, "%c", 131);
-	lseek(*fd, 3, SEEK_SET);
-	ft_fprintf(*fd, "%c", 243);
 }
 
 static int	check_name(int argc, char *str)
@@ -86,11 +87,8 @@ int			main(int argc, char **argv)
 		glob.label = NULL;
 		if (parse_s_file(argv[fd[1]], &header, &glob) == EXIT_FAILURE)
 			error(PARSE_S_FILE);
-		if (check(glob))
-			error(BAD_ARGUMENT);
 		fd[0] = create_file(argv[fd[1]], &file);
 		write(fd[0], str, 2192);
-		write_magic_number(&fd[0]);
 		write_file(fd[0], header, glob);
 		free_glob(&glob);
 		free(file);

@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 16:50:33 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:48:42 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,13 @@ static int	check_error_comment(char *stock_comment)
 	return (space_before_comment + LEN_COMMENT + space_after_comment);
 }
 
-void		parse_comment(int *fd, t_header *header)
+static void	loop_parse_comment(int *fd, char **stock_comment)
 {
 	char	*line;
-	char	*stock_comment;
-	int		start_comment;
 	char	*tmp;
 
 	line = NULL;
-	stock_comment = NULL;
+	tmp = NULL;
 	while (get_next_line(*fd, &line) > 0)
 	{
 		if (is_cmt(line) == true)
@@ -80,17 +78,26 @@ void		parse_comment(int *fd, t_header *header)
 			ft_strdel(&line);
 			continue ;
 		}
-		if ((tmp = ft_strjoin(stock_comment, line)) == NULL)
+		if ((tmp = ft_strjoin(*stock_comment, line)) == NULL)
 			error(MALLOC);
-		ft_strdel(&stock_comment);
-		stock_comment = tmp;
-		if (ft_count_char(stock_comment, '\"') >= 2)
+		ft_strdel(stock_comment);
+		*stock_comment = tmp;
+		if (ft_count_char(*stock_comment, '\"') >= 2)
 		{
 			ft_strdel(&line);
 			break ;
 		}
 		ft_strdel(&line);
 	}
+}
+
+void		parse_comment(int *fd, t_header *header)
+{
+	char	*stock_comment;
+	int		start_comment;
+
+	stock_comment = NULL;
+	loop_parse_comment(fd, &stock_comment);
 	start_comment = check_error_comment(stock_comment);
 	check_if_comment_valid(stock_comment);
 	ft_memset(header->comment, 0, COMMENT_LENGTH + 1);

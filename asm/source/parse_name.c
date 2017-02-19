@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 17:22:45 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:43:32 by jcazako          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,42 @@ static int	check_error_name(char *stock_name)
 	return (space_before_name + LEN_NAME + space_after_name);
 }
 
-void		parse_name(int *fd, t_header *header)
+static void	help_norme(int *fd, int *line_ok, char **stock_name)
 {
 	char	*line;
-	char	*stock_name;
-	int		start_name;
-	int		line_ok;
 	char	*tmp;
 
 	line = NULL;
-	stock_name = NULL;
-	line_ok = 0;
 	while (get_next_line(*fd, &line) > 0)
 	{
-		line_ok = 1;
+		*line_ok = 1;
 		if (is_cmt(line) == true)
 		{
 			ft_strdel(&line);
 			continue ;
 		}
-		if ((tmp = ft_strjoin(stock_name, line)) == NULL)
+		if ((tmp = ft_strjoin(*stock_name, line)) == NULL)
 			error(MALLOC);
-		ft_strdel(&stock_name);
-		stock_name = tmp;
-		if (ft_count_char(stock_name, '\"') >= 2)
+		ft_strdel(stock_name);
+		*stock_name = tmp;
+		if (ft_count_char(*stock_name, '\"') >= 2)
 		{
 			ft_strdel(&line);
 			break ;
 		}
 		ft_strdel(&line);
 	}
+}
+
+void		parse_name(int *fd, t_header *header)
+{
+	char	*stock_name;
+	int		start_name;
+	int		line_ok;
+
+	stock_name = NULL;
+	line_ok = 0;
+	help_norme(fd, &line_ok, &stock_name);
 	if (line_ok == 0)
 		error(NAME_NOT_FOUND);
 	start_name = check_error_name(stock_name);
