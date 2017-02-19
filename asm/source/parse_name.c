@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 17:43:32 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/19 21:22:50 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ static void	help_norme(int *fd, int *line_ok, char **stock_name)
 		*stock_name = tmp;
 		if (ft_count_char(*stock_name, '\"') >= 2)
 		{
-			ft_strdel(&line);
+			free(line);
 			break ;
 		}
 		ft_strdel(&line);
 	}
+	if (line == NULL)
+		error(NAME_NOT_FOUND);
 }
 
 void		parse_name(int *fd, t_header *header)
