@@ -1,3 +1,0 @@
-J'ai cree une branche linux, pour que la partie asm compile sous linux.
-Je n'ai pas encore teste sous OsX, mais si jamais ca marche aussi (normalement il 
-devrait pas y avoir de soucis) ca serais bien de l'integrer dans la branche master.
