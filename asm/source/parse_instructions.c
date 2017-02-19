@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:51:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 16:17:22 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:20:35 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,10 @@ static void	help(char **line, int label_exist, t_glob *glob, int *i)
 void		parse_instructions(int *fd, t_glob *glob)
 {
 	char	*line;
-	char	*label;
 	bool	label_exist;
 	int		i;
 	int		j;
 
-	label = NULL;
 	i = 0;
 	j = 0;
 	while (get_next_line(*fd, &line) > 0)

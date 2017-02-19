@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:55:03 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/18 20:18:58 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 16:50:33 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void		check_if_comment_valid(char *str)
 {
-	int i;
+	int		i;
 	uint8_t	nb_double_quote;
 
 	i = 0;
@@ -29,7 +29,7 @@ void		check_if_comment_valid(char *str)
 		if (str[i] == '\"')
 			++nb_double_quote;
 		++i;
-	}	
+	}
 	if (nb_double_quote != 2)
 		error(BAD_COMMENT);
 	i += skip_blank(&str[i]);
@@ -87,7 +87,7 @@ void		parse_comment(int *fd, t_header *header)
 		if (ft_count_char(stock_comment, '\"') >= 2)
 		{
 			ft_strdel(&line);
-			break; 
+			break ;
 		}
 		ft_strdel(&line);
 	}

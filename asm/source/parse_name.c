@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:53:07 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/18 20:18:31 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:22:45 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void		parse_name(int *fd, t_header *header)
 	start_name = check_error_name(stock_name);
 	check_if_comment_valid(stock_name);
 	ft_memset(header->prog_name, 0, PROG_NAME_LENGTH + 1);
-	if (stock_name[start_name + 1] == '\"' && ft_strlen(stock_name) == LEN_NAME_EMPTY)
+	if (stock_name[start_name + 1] == '\"' &&
+			ft_strlen(stock_name) == LEN_NAME_EMPTY)
 		ft_strcat(header->prog_name, "Default name");
 	else
 		ft_strccat(header->prog_name, &stock_name[start_name + 1], '\"');

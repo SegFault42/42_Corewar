@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 16:43:51 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:10:15 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int			main(int argc, char **argv)
 		write_magic_number(&fd[0]);
 		write_file(fd[0], header, glob);
 		free_glob(&glob);
-		ft_fprintf(1, "Writing output program to %s\n", file);
 		free(file);
+		ft_fprintf(1, "Writing output program to %s\n", file);
 	}
 	return (0);
 }
