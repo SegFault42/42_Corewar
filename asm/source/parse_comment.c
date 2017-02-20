@@ -84,11 +84,13 @@ static void	loop_parse_comment(int *fd, char **stock_comment)
 		*stock_comment = tmp;
 		if (ft_count_char(*stock_comment, '\"') >= 2)
 		{
-			ft_strdel(&line);
+			free(line);
 			break ;
 		}
 		ft_strdel(&line);
 	}
+	if (line == NULL)
+		error(COMMENT_NOT_FOUND);
 }
 
 void		parse_comment(int *fd, t_header *header)
