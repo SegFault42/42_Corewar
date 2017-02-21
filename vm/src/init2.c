@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 17:44:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 14:11:01 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/17 13:26:22 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ void	init_players(t_env *e)
 {
 	uint32_t	i;
 	uint32_t	j;
+	t_list		*list;
+	t_process	*p;
 
 	i = -1;
-	while (++i < e->nb_player)
+	list = e->process;
+	while (++i < e->nb_player && list)
 	{
 		e->player[i].live = 0;
 		j = -1;
+		p = (t_process*)(list->content);
 		while (++j < e->player[i].header.prog_size)
 		{
-			g_mem[e->process[i].start + j] = e->player[i].op[j];
-			g_color[e->process[i].start + j] = e->player_id[i];
+			g_mem[p->start + j] = e->player[i].op[j];
+			g_color[p->start + j] = e->player_id[i];
 		}
+		list = list->next;
 	}
 }
 
@@ -44,8 +49,6 @@ void	init_vm(t_env *e, int argc, char **argv)
 	e->nb_process = e->nb_player;
 	e->alives = e->nb_player;
 	ft_load(fd, e);
-	if (!(e->process = (t_process*)malloc(sizeof(t_process) * e->nb_process)))
-		die(e, "malloc failure (e->process)");
 	init_processes(e);
 	init_players(e);
 }

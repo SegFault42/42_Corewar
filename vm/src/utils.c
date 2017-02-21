@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/11 23:49:01 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/21 15:04:09 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,47 +78,20 @@ uint32_t	src_param(t_process *proc, bool idx, uint8_t i, bool v_reg)
 	return (val);
 }
 
-void		copy_processes(t_env *e, t_process *cpy)
-{
-	uint32_t	i;
-	int			j;
-	t_process	*p;
-
-	i = -1;
-	while (++i < e->nb_process)
-	{
-		j = -1;
-		p = &(cpy[i]);
-		p->inst = e->process[i].inst;
-		p->player_id = e->process[i].player_id;
-		p->live = e->process[i].live;
-		p->alive = e->process[i].alive;
-		p->carry = e->process[i].carry;
-		p->start = e->process[i].start;
-		p->pc = e->process[i].pc;
-		while (++j < REG_NUMBER)
-			p->reg[j] = e->process[i].reg[j];
-	}
-	free(e->process);
-	e->process = cpy;
-}
-
 void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 {
 	t_process	*new;
-	t_process	*cpy;
 	int			i;
 
-	if (!(cpy = (t_process*)malloc(sizeof(t_process) * (e->nb_process + 1))))
-		die(e, "realloc failure (cpy)");
-	copy_processes(e, cpy);
-	new = &(e->process[e->nb_process]);
-	proc = &(e->process[e->cur_process]);
+	if (!(new = (t_process*)malloc(sizeof(t_process))))
+		die(e, "(t_process*)malloc(sizeof(t_process))");
+	if (!(ft_lstadd(&(e->process), ft_lstnew_n(new, 0))))
+		die(e, "ft_lstadd(&(e->process), ft_lstnew_n(p, NULL))");
 	e->nb_process += 1;
 	init_instruction(&(new->inst));
+	new->id = e->nb_process;
 	new->player_id = proc->player_id;
 	new->live = proc->live;
-	new->alive = 1;
 	new->carry = proc->carry;
 	new->start = proc->start;
 	new->pc = pc % MEM_SIZE;
@@ -127,4 +100,23 @@ void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 	while (++i < REG_NUMBER)
 		new->reg[i] = proc->reg[i];
 	e->alives++;
+}
+
+void		check_instruction(t_env *e, t_process *p)
+{
+	if (p->inst.n_cycle == -1)
+	{
+		if (!check_opcode(p, get_mem_uint8(p, p->inst.i)))
+		{
+			g_pc[(p->start + p->pc) % MEM_SIZE] = 0;
+			p->pc = (p->pc + 1) % MEM_SIZE;
+			g_pc[(p->start + p->pc) % MEM_SIZE] = p->player_id;
+		}
+		else if (!check_ocp(p, get_mem_uint8(p, p->inst.i)))
+			p->inst.bad_ocp = 1;
+	}
+	if (!(p->inst.n_cycle))
+		exec_instruction(e, p);
+	else if (p->inst.n_cycle > 0)
+		(p->inst.n_cycle)--;
 }

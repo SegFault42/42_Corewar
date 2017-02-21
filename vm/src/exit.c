@@ -6,13 +6,27 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 16:24:51 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/15 18:34:29 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/17 13:26:36 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	free_env(t_env *e)
+static void	free_processes(t_list *process)
+{
+	t_list	*tmp;
+
+	while (process)
+	{
+		if (process->content)
+			free(process->content);
+		tmp = process->next;
+		free(process);
+		process = tmp;
+	}
+}
+
+void		free_env(t_env *e)
 {
 	uint32_t	i;
 	t_win		*win;
@@ -25,8 +39,7 @@ void	free_env(t_env *e)
 				free(e->player[i].op);
 		free(e->player);
 	}
-	if (e->process)
-		free(e->process);
+	free_processes(e->process);
 	if (e->gui || e->fdf)
 	{
 		TTF_Quit();
@@ -35,7 +48,7 @@ void	free_env(t_env *e)
 	}
 }
 
-void	die(t_env *e, char *error)
+void		die(t_env *e, char *error)
 {
 	free_env(e);
 	ft_fprintf(2, RED"Error: %s\n"END, error);
