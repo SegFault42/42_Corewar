@@ -6,7 +6,7 @@
 /*   By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 12:48:20 by rabougue          #+#    #+#             */
-/*   Updated: 2017/02/19 17:59:51 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/21 14:45:23 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	create_file(char *arg, char **file)
 	int		fd;
 	int		i;
 
-	i = 0;
 	if (!(*file = ft_strnew(ft_strlen(arg) + 2)))
 		error(MALLOC);
 	ft_strcat(*file, arg);
@@ -91,8 +90,8 @@ int			main(int argc, char **argv)
 		write(fd[0], str, 2192);
 		write_file(fd[0], header, glob);
 		free_glob(&glob);
-		free(file);
 		ft_fprintf(1, "Writing output program to %s\n", file);
+		free(file);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:18:16 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/19 16:23:27 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/02/21 14:42:28 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	help(int line, int label, t_glob glob)
 	int		i;
 	t_info	*info;
 	int		ret;
-	int		tmp;
 
 	if (line == label)
 		return (0);
@@ -26,7 +25,6 @@ static int	help(int line, int label, t_glob glob)
 	ret = 0;
 	while (info)
 	{
-		tmp = 0;
 		if (line < label && i >= line && i < label)
 			ret += count_byte_inst(info);
 		else if (line > label && i >= label && i < line)
@@ -64,7 +62,6 @@ int			get_label_val(t_info *info, t_glob glob, int i)
 
 	lst_lab = glob.label;
 	line = get_cur_inst(info, glob);
-	label = 0;
 	str = info->param[i];
 	while (str && *str && *str != ':')
 		str++;

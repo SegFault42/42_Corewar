@@ -6,7 +6,7 @@
 #    By: rabougue <rabougue@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/02/19 15:03:21 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/21 14:52:57 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ END = \033[0m
 ##################################_COMPILATION_#################################
 NAME = asm
 CC = clang
-FLAG = -Wall -Wextra -Werror -g
+FLAG = -Wall -Wextra -Werror
 LFT = ./libft/libft.a
 SRC = ./source
 SRCS = $(SRC)/main.c \

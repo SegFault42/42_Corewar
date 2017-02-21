@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 23:09:20 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/13 23:23:16 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/21 14:42:57 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ static void	w_param(int fd, t_info *info, t_glob glob)
 {
 	char	**param;
 	int		i;
-	char	opcode;
 
 	param = info->param;
 	i = 0;
-	opcode = info->opcode;
 	while (param && *param)
 	{
 		if (is_reg(*param))

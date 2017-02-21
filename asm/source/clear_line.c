@@ -6,7 +6,7 @@
 /*   By: jcazako <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 16:52:19 by jcazako           #+#    #+#             */
-/*   Updated: 2017/02/13 21:46:39 by jcazako          ###   ########.fr       */
+/*   Updated: 2017/02/21 14:44:01 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char		*clear_line(char *str)
 	int		len;
 	char	*new;
 	int		nb_word;
-	int		i;
 
 	nb_word = wordnb(str);
 	len = get_len(str, nb_word);
@@ -61,7 +60,6 @@ char		*clear_line(char *str)
 		return (ft_strdup(""));
 	if (!(new = ft_strnew(len)))
 		return (NULL);
-	i = 0;
 	while (nb_word)
 	{
 		while (str && *str && ft_strchr(" \t", *str))

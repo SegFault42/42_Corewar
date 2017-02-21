@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2017/02/19 15:05:56 by rabougue         ###   ########.fr        #
+#    Updated: 2017/02/21 14:52:07 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ DEP = include/vm.h include/op.h
 ####################################FOR_SDL#####################################
 LSDL = -L ./libsdl/ -lSDL2
 FRAMEWORK = -framework OpenGL
-SDL2DYLIB = ./libsdl/libSDL2-2.0.0.dylib
+SDL2DYLIB = ~/Documents/SDL2_PreCompiled/libsdl/libSDL2-2.0.0.dylib
 #SDL2_image = ./libsdl/SDL2_image # ok sur elcapitan
 SDL2_image = ./libsdl/SDL2_image.framework/Versions/A/SDL2_image
 SDL2_ttf = ./libsdl/SDL2_ttf.framework/Versions/A/SDL2_ttf
