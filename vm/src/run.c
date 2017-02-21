@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 15:18:52 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/17 16:52:22 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/21 15:04:02 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,23 @@ static void	check_players_inst(t_env *e)
 	{
 		p = (t_process*)(tmp->content);
 		e->cur_process = p->id;
-		if (p->alive)
-		{
-			if (p->inst.n_cycle == -1)
-			{
-				if (!check_opcode(p, get_mem_uint8(p, p->inst.i)))
-				{
-					g_pc[(p->start + p->pc) % MEM_SIZE] = 0;
-					p->pc = (p->pc + 1) % MEM_SIZE;
-					g_pc[(p->start + p->pc) % MEM_SIZE] = p->player_id;
-				}
-				else if (!check_ocp(p, get_mem_uint8(p, p->inst.i)))
-					p->inst.bad_ocp = 1;
-			}
-			if (!(p->inst.n_cycle))
-				exec_instruction(e, p);
-			else if (p->inst.n_cycle > 0)
-				(p->inst.n_cycle)--;
-		}
+		check_instruction(e, p);
 		tmp = tmp->next;
 	}
 }
 
 static int	check_process(t_env *e, t_process *p)
 {
-	if (p->alive)
+	if (!(p->live))
 	{
-		if (!(p->live))
-		{
-			if (e->verbose & SHOW_DEATHS)
-				ft_fprintf(2, RED"Process %d is \033[31mdead\033[0m\n", p->id);
-			p->alive = 0;
-			g_pc[(p->start + p->pc) % MEM_SIZE] = 0;
-			return (0);
-		}
-		else
-			e->alives++;
-		p->live = 0;
+		if (e->verbose & SHOW_DEATHS)
+			ft_fprintf(2, RED"Process %d is \033[31mdead\033[0m\n", p->id);
+		g_pc[(p->start + p->pc) % MEM_SIZE] = 0;
+		return (0);
 	}
+	else
+		e->alives++;
+	p->live = 0;
 	return (1);
 }
 

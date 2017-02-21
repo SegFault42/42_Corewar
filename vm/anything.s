@@ -25,12 +25,13 @@ prepare:
 	sti		r1, %:alive_fork, %1
 	sti		r1, %:invade, %1
 	fork	%:alive_fork
-	ld		%0, r2
-	zjmp	%:prepinvade
+	live	%1845735231
+	fork	%:prepinvade
 
 prepwall:
 	live	%1845735231
-	fork	%:wall_fork
+	ld		%0, r2
+	zjmp	%:wall_fork
 
 wall:
 	live	%1845735231

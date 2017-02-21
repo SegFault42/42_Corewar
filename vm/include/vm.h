@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:00:48 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/17 16:27:17 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/21 15:04:26 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ struct		s_process
 	uint32_t		player_id;
 	uint32_t		id;
 	uint16_t		live;
-	bool			alive;
 	bool			carry;
 	uint16_t		start;
 	uint16_t		pc;
@@ -221,7 +220,6 @@ struct		s_env
 	uint32_t	valid_lives;
 	uint32_t	last_live;
 	t_player	*player;
-	// t_process	*process;
 	t_list		*process;
 	uint8_t		verbose;
 	uint32_t	dump;
@@ -284,6 +282,7 @@ bool		valid_params(t_process *proc);
 int			valid_player(t_env *e, uint32_t id);
 void		get_values(t_process *proc, t_instruction *inst);
 void		wait_enter(t_env *e);
+void		check_instruction(t_env *e, t_process *p);
 
 void		exec_instruction(t_env *e, t_process *proc);
 void		exec_live(t_env *e, t_process *proc);

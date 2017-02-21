@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 18:43:35 by qhonore           #+#    #+#             */
-/*   Updated: 2017/02/17 16:51:46 by qhonore          ###   ########.fr       */
+/*   Updated: 2017/02/21 15:04:09 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 	new->id = e->nb_process;
 	new->player_id = proc->player_id;
 	new->live = proc->live;
-	new->alive = 1;
 	new->carry = proc->carry;
 	new->start = proc->start;
 	new->pc = pc % MEM_SIZE;
@@ -101,4 +100,23 @@ void		fork_process(t_env *e, t_process *proc, uint16_t pc)
 	while (++i < REG_NUMBER)
 		new->reg[i] = proc->reg[i];
 	e->alives++;
+}
+
+void		check_instruction(t_env *e, t_process *p)
+{
+	if (p->inst.n_cycle == -1)
+	{
+		if (!check_opcode(p, get_mem_uint8(p, p->inst.i)))
+		{
+			g_pc[(p->start + p->pc) % MEM_SIZE] = 0;
+			p->pc = (p->pc + 1) % MEM_SIZE;
+			g_pc[(p->start + p->pc) % MEM_SIZE] = p->player_id;
+		}
+		else if (!check_ocp(p, get_mem_uint8(p, p->inst.i)))
+			p->inst.bad_ocp = 1;
+	}
+	if (!(p->inst.n_cycle))
+		exec_instruction(e, p);
+	else if (p->inst.n_cycle > 0)
+		(p->inst.n_cycle)--;
 }
